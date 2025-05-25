@@ -2,189 +2,217 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Products - Oorja Threads</title>
-
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600&family=Lora&display=swap" rel="stylesheet" />
-
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Products | Oorja Threads</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
   <style>
-    body {
+    * {
       margin: 0;
-      font-family: 'Lora', serif;
-      background: #fff8f6;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: #fff8f2;
       color: #333;
+      padding-top: 80px;
     }
 
     header {
-      background-color: #ff6f61;
-      text-align: center;
-      padding: 30px 20px;
-      color: white;
+      background-color: #000;
+      color: #fff;
+      padding: 12px 24px;
+      position: fixed;
+      width: 100%;
+      top: 0;
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.2);
     }
 
-    header img {
-      width: 120px;
-      margin-bottom: 15px;
+    .logo-area {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex: 1;
     }
 
-    header h1 {
-      font-family: 'Montserrat', sans-serif;
-      font-size: 42px;
-      margin: 0 0 8px;
-      font-weight: 700;
+    .logo-area img {
+      height: 44px;
+      margin-right: 12px;
     }
 
-    header p {
-      font-style: italic;
-      font-size: 20px;
-      margin: 0;
+    .logo-area span {
+      font-size: 22px;
+      font-weight: 600;
+      letter-spacing: 0.5px;
     }
 
     nav {
-      background-color: #ffa497;
-      display: flex;
-      justify-content: center;
-      padding: 14px 0;
-      gap: 40px;
-      box-shadow: 0 3px 8px rgba(0,0,0,0.1);
+      position: absolute;
+      right: 24px;
     }
 
     nav a {
+      color: #fff;
       text-decoration: none;
-      color: white;
-      font-family: 'Montserrat', sans-serif;
-      font-weight: 600;
-      font-size: 18px;
-      padding: 8px 18px;
-      border-radius: 7px;
-      transition: background-color 0.3s ease, color 0.3s ease;
+      margin-left: 18px;
+      font-size: 16px;
+      transition: opacity 0.3s;
     }
 
-    nav a:hover, nav a.active {
-      background-color: white;
-      color: #ff6f61;
+    nav a:hover {
+      opacity: 0.75;
     }
 
-    .product-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 25px;
-      padding: 50px 30px;
-      max-width: 900px;
+    .container {
+      max-width: 960px;
       margin: auto;
+      padding: 24px;
     }
 
     .product {
-      background: white;
-      padding: 25px;
-      border-radius: 10px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      background: #fff;
+      padding: 24px;
+      border-radius: 16px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+      margin-bottom: 24px;
       text-align: center;
-      font-family: 'Montserrat', sans-serif;
-      font-weight: 600;
-      font-size: 18px;
+    }
+
+    .product h3 {
+      font-size: 24px;
+      margin-bottom: 10px;
+    }
+
+    .product img {
+      width: 100%;
+      max-width: 300px;
+      border-radius: 12px;
+      margin: 10px 0;
+    }
+
+    .product button {
+      background-color: #c2873f;
+      color: #fff;
+      border: none;
+      padding: 10px 16px;
+      border-radius: 8px;
       cursor: pointer;
-      transition: transform 0.2s ease;
+      font-size: 15px;
     }
 
-    .product:hover {
-      transform: translateY(-5px);
+    .product button:hover {
+      background-color: #a96e35;
     }
 
-    .popup {
+    .modal {
       display: none;
       position: fixed;
-      top: 0; left: 0; right: 0; bottom: 0;
-      background: rgba(0, 0, 0, 0.5);
+      z-index: 9999;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.6);
       justify-content: center;
       align-items: center;
-      z-index: 1000;
     }
 
-    .popup-content {
-      background: white;
+    .modal-content {
+      background-color: #fff;
       padding: 30px;
-      border-radius: 10px;
+      border-radius: 12px;
+      max-width: 90%;
       text-align: center;
-      font-family: 'Lora', serif;
-      max-width: 320px;
     }
 
-    .popup-content h2 {
+    .modal-content h4 {
       margin-bottom: 20px;
-      font-size: 22px;
-      color: #ff6f61;
+      font-size: 20px;
     }
 
-    .popup-content button {
-      background-color: #ff6f61;
+    .modal-content a {
+      display: inline-block;
+      margin: 8px;
+      padding: 10px 16px;
+      background-color: #c2873f;
       color: white;
-      font-family: 'Montserrat', sans-serif;
-      padding: 10px 18px;
-      margin: 10px;
-      border: none;
-      border-radius: 6px;
-      cursor: pointer;
-      transition: background 0.2s;
-    }
-
-    .popup-content button:hover {
-      background-color: #e3554b;
-    }
-
-    .popup-content a {
+      border-radius: 8px;
       text-decoration: none;
+      font-size: 15px;
+    }
+
+    .modal-content a:hover {
+      background-color: #a96e35;
     }
   </style>
 </head>
 <body>
 
   <header>
-    <img src="logo.png" alt="Oorja Threads Logo" />
-    <h1>Oorja Threads</h1>
-    <p>Wear your vibe, spark your oorja</p>
+    <div class="logo-area">
+      <img src="logo.png" alt="Oorja Threads Logo" />
+      <span>Oorja Threads</span>
+    </div>
+    <nav>
+      <a href="index.html">About</a>
+      <a href="products.html">Products</a>
+      <a href="terms.html">Terms</a>
+      <a href="contact.html">Contact</a>
+    </nav>
   </header>
 
-  <nav>
-    <a href="index.html">About</a>
-    <a href="products.html" class="active">Products</a>
-    <a href="contact.html">Contact Us</a>
-    <a href="terms.html">Terms & Conditions</a>
-  </nav>
+  <div class="container">
+    <!-- Generate 10 placeholder products -->
+    <!-- You can replace the image src later -->
+    <!-- You can update the titles and descriptions too -->
+    <script>
+      const products = [
+        "Mystic Black Band",
+        "Sunrise Charm",
+        "Ocean Glow",
+        "Twilight Vibe",
+        "Berry Spark",
+        "Lava Thread",
+        "Olive Night",
+        "Golden Pulse",
+        "Minimal Zen",
+        "Crimson Spirit"
+      ];
 
-  <section class="product-grid">
-    <div class="product" onclick="openPopup()">Midnight Frost</div>
-    <div class="product" onclick="openPopup()">Lunar Eclipse</div>
-    <div class="product" onclick="openPopup()">Ghost Pearl</div>
-    <div class="product" onclick="openPopup()">Shadow Light</div>
-  </section>
+      document.write(products.map(name => `
+        <div class="product">
+          <h3>${name}</h3>
+          <img src="https://via.placeholder.com/300x200?text=Coming+Soon" alt="${name}" />
+          <p>Coming soon...</p>
+          <button onclick="openModal()">Buy</button>
+        </div>
+      `).join(''));
+    </script>
+  </div>
 
-  <div class="popup" id="popup">
-    <div class="popup-content">
-      <h2>How would you like to order?</h2>
-      <a href="https://instagram.com/oorja_threads" target="_blank" rel="noopener noreferrer">
-        <button type="button">Instagram DM</button>
-      </a>
-      <button type="button" onclick="openEmail()">Email</button>
-      <button type="button" onclick="closePopup()">Cancel</button>
+  <div class="modal" id="buyModal">
+    <div class="modal-content">
+      <h4>How would you like to place your order?</h4>
+      <a href="https://instagram.com/oorja_threads" target="_blank">DM on Instagram</a>
+      <a href="mailto:oorja.threads@gmail.com">Email</a>
     </div>
   </div>
 
   <script>
-    function openPopup() {
-      document.getElementById('popup').style.display = 'flex';
+    function openModal() {
+      document.getElementById('buyModal').style.display = 'flex';
     }
 
-    function closePopup() {
-      document.getElementById('popup').style.display = 'none';
-    }
-
-    function openEmail() {
-      window.location.href = "mailto:oorja.threads@gmail.com?subject=Bracelet%20Order%20Query";
-
-      setTimeout(() => {
-        alert("If your email app didn't open, please email us manually at oorja.threads@gmail.com");
-      }, 1500);
+    window.onclick = function(event) {
+      const modal = document.getElementById('buyModal');
+      if (event.target === modal) {
+        modal.style.display = "none";
+      }
     }
   </script>
 
