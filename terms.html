@@ -2,147 +2,199 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Terms & Conditions - Oorja Threads</title>
-
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600&family=Lora&display=swap" rel="stylesheet" />
-
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Terms & Conditions | Oorja Threads</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
   <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
     body {
-      margin: 0;
-      font-family: 'Lora', serif;
-      background: #fff8f6;
+      font-family: 'Poppins', sans-serif;
+      background-color: #fff8f2;
       color: #333;
-      display: flex;
-      flex-direction: column;
-      min-height: 100vh;
+      padding-top: 80px;
     }
 
-    /* Header bar with logo, brand name, and tagline */
     header {
-      background-color: #ff6f61;
-      text-align: center;
-      padding: 20px 20px 30px;
-      color: white;
-    }
-
-    header img {
-      width: 100px;
-      margin-bottom: 12px;
-    }
-
-    header h1 {
-      font-family: 'Montserrat', sans-serif;
-      font-size: 40px;
-      font-weight: 700;
-      margin: 0;
-    }
-
-    header p {
-      font-style: italic;
-      font-size: 18px;
-      margin: 6px 0 0 0;
-    }
-
-    /* Navigation bar */
-    nav {
-      background-color: #ffa497;
+      background-color: #000;
+      color: #fff;
+      padding: 12px 24px;
+      position: fixed;
+      width: 100%;
+      top: 0;
+      z-index: 1000;
       display: flex;
+      align-items: center;
+      justify-content: center; /* center logo & name */
+      gap: 16px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+    }
+
+    .logo-area {
+      display: flex;
+      align-items: center;
       justify-content: center;
-      padding: 14px 0;
-      gap: 40px;
-      box-shadow: 0 3px 8px rgba(0,0,0,0.1);
+    }
+
+    .logo-area img {
+      height: 48px;
+      margin-right: 14px;
+    }
+
+    .logo-area span {
+      font-size: 26px;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+    }
+
+    nav {
+      position: absolute;
+      right: 24px;
+      display: flex;
+      gap: 20px;
     }
 
     nav a {
+      color: #fff;
       text-decoration: none;
-      color: white;
-      font-family: 'Montserrat', sans-serif;
-      font-weight: 600;
-      font-size: 18px;
-      padding: 8px 18px;
-      border-radius: 7px;
-      transition: background-color 0.3s ease, color 0.3s ease;
+      font-size: 16px;
+      transition: opacity 0.3s;
     }
 
-    nav a:hover, nav a.active {
-      background-color: white;
-      color: #ff6f61;
+    nav a:hover {
+      opacity: 0.75;
     }
 
-    /* Container for content */
-    main {
-      flex-grow: 1;
-      display: flex;
-      justify-content: center;
-      padding: 40px 20px;
+    .container {
+      max-width: 960px;
+      margin: auto;
+      padding: 24px;
     }
 
-    /* Content box */
-    .content-box {
-      background: white;
-      padding: 30px 40px;
-      border-radius: 12px;
-      box-shadow: 0 4px 16px rgba(0,0,0,0.1);
-      max-width: 850px;
-      width: 100%;
-      color: #222;
-      line-height: 1.6;
+    .terms-section {
+      background: #fff;
+      padding: 36px 24px;
+      border-radius: 16px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+      animation: fadeIn 1.2s ease;
+      line-height: 1.7;
     }
 
-    /* Brand name and title separated */
-    .brand-name {
-      color: #ff6f61;
-      font-family: 'Montserrat', sans-serif;
-      font-size: 38px;
-      font-weight: 700;
-      margin: 0 0 10px 0;
+    .terms-section h2 {
+      font-size: 30px;
+      color: #c2873f;
+      margin-bottom: 24px;
       text-align: center;
     }
 
-    .terms-title {
+    .terms-section h3 {
+      font-size: 20px;
+      margin-top: 20px;
+      margin-bottom: 12px;
       color: #333;
-      font-family: 'Lora', serif;
-      font-size: 28px;
-      font-weight: 600;
-      margin: 0 0 25px 0;
-      text-align: center;
     }
 
-    ul {
-      padding-left: 20px;
+    .terms-section p, .terms-section ul {
+      font-size: 16px;
+      margin-bottom: 14px;
+    }
+
+    .terms-section ul {
+      list-style-type: disc;
+      margin-left: 20px;
+    }
+
+    footer {
+      background-color: #000;
+      color: #fff;
+      padding: 20px;
+      text-align: center;
+      margin-top: 40px;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (max-width: 768px) {
+      header {
+        justify-content: center;
+        position: relative;
+      }
+
+      nav {
+        position: static;
+        margin-top: 10px;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 12px;
+      }
+
+      nav a {
+        font-size: 14px;
+      }
     }
   </style>
 </head>
 <body>
 
   <header>
-    <img src="logo.png" alt="Oorja Threads Logo" />
-    <h1>Oorja Threads</h1>
-    <p>Wear your vibe, spark your oorja</p>
+    <div class="logo-area">
+      <img src="logo.png" alt="Oorja Threads Logo" />
+      <span>Oorja Threads</span>
+    </div>
+    <nav>
+      <a href="index.html">About</a>
+      <a href="products.html">Products</a>
+      <a href="terms.html">Terms</a>
+      <a href="contact.html">Contact</a>
+    </nav>
   </header>
 
-  <nav>
-    <a href="index.html">About</a>
-    <a href="products.html">Products</a>
-    <a href="contact.html">Contact Us</a>
-    <a href="terms.html" class="active">Terms & Conditions</a>
-  </nav>
+  <div class="container">
+    <section class="terms-section">
+      <h2>Terms & Conditions</h2>
 
-  <main>
-    <section class="content-box">
-      <h1 class="brand-name">Terms & Conditions</h1>
-      <p>Welcome to Oorja Threads! By using our website and purchasing our products, you agree to the following terms and conditions:</p>
+      <p>Welcome to Oorja Threads. By accessing or using our website and services, you agree to be bound by the following terms and conditions. Please read them carefully.</p>
+
+      <h3>1. Products & Orders</h3>
+      <p>All products are handmade and crafted with care. While we strive for perfection, slight variations may occur as each item is unique. We currently deliver only within Bhopal.</p>
+
+      <h3>2. Payment</h3>
+      <p>We accept online payments only. Please ensure payment is complete before delivery. No Cash on Delivery is available at this time.</p>
+
+      <h3>3. Shipping & Delivery</h3>
       <ul>
-        <li>All bracelets are handmade with care and passion.</li>
-        <li>We currently only ship orders within Bhopal.</li>
-        <li>Payments must be made online; we do not accept Cash on Delivery (COD).</li>
-        <li>Due to the handmade nature of our products, refunds or returns are not available.</li>
-        <li>If you have any questions or concerns, please contact us via Instagram DM or email.</li>
+        <li>Deliveries are limited to the city of Bhopal.</li>
+        <li>Estimated delivery times will be communicated at the time of order.</li>
+        <li>We are not responsible for delays caused by external factors.</li>
       </ul>
-      <p>Thank you for supporting small businesses and handmade crafts!</p>
+
+      <h3>4. Returns & Refunds</h3>
+      <p>Due to the handmade nature of our products, we do not accept returns or exchanges. If your product arrives damaged, please contact us within 48 hours with photos for resolution.</p>
+
+      <h3>5. Intellectual Property</h3>
+      <p>All content, designs, and materials on this website are the property of Oorja Threads. Unauthorized use is prohibited.</p>
+
+      <h3>6. Limitation of Liability</h3>
+      <p>Oorja Threads is not liable for any damages arising from the use of our products or website.</p>
+
+      <h3>7. Changes to Terms</h3>
+      <p>We reserve the right to modify these terms at any time. Continued use of the website indicates acceptance of any changes.</p>
+
+      <h3>8. Contact Us</h3>
+      <p>If you have questions about these terms, please reach out via email at <a href="mailto:oorja.threads@gmail.com">oorja.threads@gmail.com</a> or Instagram <a href="https://instagram.com/oorja_threads" target="_blank" rel="noopener noreferrer">@oorja_threads</a>.</p>
     </section>
-  </main>
+  </div>
+
+  <footer>
+    &copy; 2025 Oorja Threads. All rights reserved.
+  </footer>
 
 </body>
 </html>
