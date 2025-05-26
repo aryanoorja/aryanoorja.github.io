@@ -117,7 +117,13 @@
     }
     .product h3 {
       font-size: 20px;
+      margin-bottom: 4px;
+    }
+    .product .price {
+      font-weight: 600;
       margin-bottom: 12px;
+      color: #a96e35;
+      font-size: 18px;
     }
     .product button {
       padding: 10px 20px;
@@ -165,19 +171,25 @@
       margin-bottom: 20px;
       font-size: 16px;
     }
-    .modal-content a {
-      display: inline-block;
-      margin: 8px 12px;
-      padding: 10px 16px;
+    .modal-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+    .modal-buttons a, .modal-buttons button {
+      padding: 10px 20px;
       background-color: #c2873f;
       color: white;
       border-radius: 8px;
       text-decoration: none;
       font-size: 14px;
       cursor: pointer;
+      border: none;
       transition: background-color 0.3s ease;
+      min-width: 120px;
     }
-    .modal-content a:hover {
+    .modal-buttons a:hover, .modal-buttons button:hover {
       background-color: #a96e35;
     }
     .close-btn {
@@ -220,63 +232,75 @@
       <div class="product" data-price="300">
         <img src="https://via.placeholder.com/300x200?text=Coming+Soon" alt="Crimson" />
         <h3>Crimson</h3>
+        <div class="price">₹300</div>
         <button onclick="openModal('Crimson')">Buy</button>
       </div>
       <div class="product" data-price="200">
         <img src="https://via.placeholder.com/300x200?text=Coming+Soon" alt="Frost" />
         <h3>Frost</h3>
+        <div class="price">₹200</div>
         <button onclick="openModal('Frost')">Buy</button>
       </div>
       <div class="product" data-price="400">
         <img src="https://via.placeholder.com/300x200?text=Coming+Soon" alt="Shadow" />
         <h3>Shadow</h3>
+        <div class="price">₹400</div>
         <button onclick="openModal('Shadow')">Buy</button>
       </div>
       <div class="product" data-price="150">
         <img src="https://via.placeholder.com/300x200?text=Coming+Soon" alt="Ghost" />
         <h3>Ghost</h3>
+        <div class="price">₹150</div>
         <button onclick="openModal('Ghost')">Buy</button>
       </div>
       <div class="product" data-price="350">
         <img src="https://via.placeholder.com/300x200?text=Coming+Soon" alt="Flare" />
         <h3>Flare</h3>
+        <div class="price">₹350</div>
         <button onclick="openModal('Flare')">Buy</button>
       </div>
       <div class="product" data-price="220">
         <img src="https://via.placeholder.com/300x200?text=Coming+Soon" alt="Ash" />
         <h3>Ash</h3>
+        <div class="price">₹220</div>
         <button onclick="openModal('Ash')">Buy</button>
       </div>
       <div class="product" data-price="280">
         <img src="https://via.placeholder.com/300x200?text=Coming+Soon" alt="Ivory" />
         <h3>Ivory</h3>
+        <div class="price">₹280</div>
         <button onclick="openModal('Ivory')">Buy</button>
       </div>
       <div class="product" data-price="500">
         <img src="https://via.placeholder.com/300x200?text=Coming+Soon" alt="Sunset" />
         <h3>Sunset</h3>
+        <div class="price">₹500</div>
         <button onclick="openModal('Sunset')">Buy</button>
       </div>
       <div class="product" data-price="270">
         <img src="https://via.placeholder.com/300x200?text=Coming+Soon" alt="Dusk" />
         <h3>Dusk</h3>
+        <div class="price">₹270</div>
         <button onclick="openModal('Dusk')">Buy</button>
       </div>
     </div>
   </div>
 
-  <div id="buyModal" class="modal">
+  <div id="buyModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle" aria-describedby="modalDesc">
     <div class="modal-content">
-      <button class="close-btn" onclick="closeModal()">×</button>
-      <h2>Buy <span id="modalProductName">Product</span></h2>
-      <p>Message us on Instagram to place your order:</p>
-      <a href="https://instagram.com/oorjathreads" target="_blank">Message Now</a>
+      <button class="close-btn" onclick="closeModal()" aria-label="Close modal">×</button>
+      <h2 id="modalTitle">How would you like to place your order?</h2>
+      <p id="modalDesc">Choose one of the options below:</p>
+      <div class="modal-buttons">
+        <a href="https://instagram.com/oorjathreads" target="_blank" rel="noopener noreferrer" aria-label="Direct message on Instagram">Dm on Instagram</a>
+        <a href="mailto:your-email@example.com" aria-label="Send order inquiry by email">Email</a>
+      </div>
     </div>
   </div>
 
   <script>
     function openModal(productName) {
-      document.getElementById('modalProductName').textContent = productName;
+      // If you want to show productName somewhere in modal, you can add that here
       document.getElementById('buyModal').style.display = 'flex';
     }
     function closeModal() {
