@@ -74,7 +74,9 @@
       width: 100%;
       max-width: 300px;
       margin-bottom: 12px;
-      border-radius: 8px;
+      border-radius: 12px;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
     }
     .product h3 {
       font-size: 20px;
@@ -93,7 +95,10 @@
     .product button:hover {
       background-color: #a96e35;
     }
-
+    .product:hover img {
+     box-shadow: 0 0 25px rgba(255, 100, 150, 0.6), 0 0 35px rgba(255, 150, 200, 0.4);
+     transform: scale(1.03);
+    }
     /* Modal styles */
     .modal {
       display: none; /* Hidden by default */
