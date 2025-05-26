@@ -4,7 +4,6 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Contact Us | Oorja Threads</title>
-  <link rel="icon" href="logo.png" type="image/png" sizes="32x32">
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
   <style>
     * {
@@ -17,26 +16,26 @@
       font-family: 'Poppins', sans-serif;
       background-color: #fff8f2;
       color: #333;
-      padding-top: 80px;
+      display: flex;
+      min-height: 100vh;
     }
 
-    header {
+    .sidebar {
+      width: 220px;
       background-color: #000;
       color: #fff;
-      padding: 12px 24px;
+      padding: 20px;
       position: fixed;
-      width: 100%;
-      top: 0;
-      z-index: 1000;
+      height: 100%;
       display: flex;
-      align-items: center;
+      flex-direction: column;
       justify-content: space-between;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.2);
     }
 
     .logo-area {
       display: flex;
       align-items: center;
+      margin-bottom: 40px;
     }
 
     .logo-area img {
@@ -50,22 +49,27 @@
       letter-spacing: 0.5px;
     }
 
-    nav a {
+    .sidebar nav {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .sidebar nav a {
       color: #fff;
       text-decoration: none;
-      margin-left: 18px;
+      margin-bottom: 18px;
       font-size: 16px;
       transition: opacity 0.3s;
     }
 
-    nav a:hover {
+    .sidebar nav a:hover {
       opacity: 0.75;
     }
 
-    .container {
-      max-width: 960px;
-      margin: auto;
-      padding: 24px;
+    .main-content {
+      margin-left: 220px;
+      padding: 40px 24px;
+      flex-grow: 1;
     }
 
     .contact-section {
@@ -74,6 +78,8 @@
       border-radius: 16px;
       box-shadow: 0 4px 20px rgba(0,0,0,0.08);
       animation: fadeIn 1.2s ease;
+      max-width: 700px;
+      margin: auto;
     }
 
     .contact-section h2 {
@@ -140,40 +146,51 @@
     }
 
     @media (max-width: 768px) {
-      header {
+      body {
         flex-direction: column;
-        align-items: flex-start;
       }
 
-      .logo-area {
-        margin-bottom: 10px;
+      .sidebar {
+        position: relative;
+        width: 100%;
+        height: auto;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        padding: 12px 16px;
       }
 
-      nav a {
-        display: inline-block;
-        margin: 5px 10px 0 0;
-        font-size: 14px;
+      .sidebar nav {
+        flex-direction: row;
+        gap: 10px;
+      }
+
+      .main-content {
+        margin-left: 0;
+        padding: 24px;
       }
     }
   </style>
 </head>
 <body>
 
-  <header>
-    <div class="logo-area">
-      <img src="logo.png" alt="Oorja Threads Logo" />
-      <span>Oorja Threads</span>
+  <aside class="sidebar">
+    <div>
+      <div class="logo-area">
+        <img src="logo.png" alt="Oorja Threads Logo" />
+        <span>Oorja Threads</span>
+      </div>
+      <nav>
+        <a href="home.html">Home</a>
+        <a href="index.html">About</a>
+        <a href="products.html">Products</a>
+        <a href="terms.html">Terms</a>
+        <a href="contact.html">Contact</a>
+      </nav>
     </div>
-    <nav>
-      <a href="home.html">Home</a>
-      <a href="index.html">About</a>
-      <a href="products.html">Products</a>
-      <a href="terms.html">Terms</a>
-      <a href="contact.html">Contact</a>
-    </nav>
-  </header>
+  </aside>
 
-  <div class="container">
+  <div class="main-content">
     <section class="contact-section">
       <h2>Contact Us</h2>
       <form action="https://formspree.io/f/mldbybak" method="POST">
@@ -189,11 +206,11 @@
         <button type="submit">Send</button>
       </form>
     </section>
-  </div>
 
-  <footer>
-    &copy; 2025 Oorja Threads. All rights reserved.
-  </footer>
+    <footer>
+      &copy; 2025 Oorja Threads. All rights reserved.
+    </footer>
+  </div>
 
 </body>
 </html>
