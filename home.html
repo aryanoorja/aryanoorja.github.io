@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Oorja Threads – Handmade Bracelets</title>
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #fdfcfb;
+      color: #333;
+    }
+
+    header {
+      background-image: url('banner.png');
+      background-size: cover;
+      background-position: center;
+      height: 260px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      position: relative;
+    }
+
+    header::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 100%;
+      width: 100%;
+      background-color: rgba(0, 0, 0, 0.3);
+    }
+
+    .header-content {
+      position: relative;
+      z-index: 2;
+    }
+
+    .header-content h1 {
+      color: #fff;
+      font-size: 3rem;
+      margin: 0;
+    }
+
+    nav {
+      background-color: #333;
+      padding: 0.5rem 1rem;
+      text-align: center;
+    }
+
+    nav a {
+      color: #fff;
+      margin: 0 15px;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    nav a:hover {
+      text-decoration: underline;
+    }
+
+    section {
+      padding: 2rem;
+      max-width: 1000px;
+      margin: auto;
+    }
+
+    .intro {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+
+    .intro p {
+      max-width: 700px;
+      margin: auto;
+      font-size: 1.1rem;
+    }
+
+    .features {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-around;
+      gap: 2rem;
+      margin-top: 2rem;
+    }
+
+    .feature-box {
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      padding: 1.5rem;
+      text-align: center;
+      flex: 1 1 260px;
+    }
+
+    .feature-box h3 {
+      margin-top: 0.5rem;
+    }
+
+    .cta {
+      text-align: center;
+      margin-top: 3rem;
+    }
+
+    .cta a {
+      background-color: #333;
+      color: #fff;
+      padding: 0.75rem 1.5rem;
+      text-decoration: none;
+      border-radius: 6px;
+      font-weight: bold;
+    }
+
+    footer {
+      text-align: center;
+      padding: 1rem;
+      background-color: #333;
+      color: #fff;
+      margin-top: 2rem;
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <div class="header-content">
+    </div>
+  </header>
+
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="products.html">Products</a>
+    <a href="about.html">About</a>
+    <a href="terms.html">Terms</a>
+    <a href="contact.html">Contact</a>
+  </nav>
+
+  <section class="intro">
+    <h2>Welcome to Oorja Threads</h2>
+    <p>We create handcrafted bracelets that reflect your inner energy and outer style. Our mission is to celebrate individuality with aesthetics and artistry.</p>
+  </section>
+
+  <section class="features">
+    <div class="feature-box">
+      <h3>Handmade With Love</h3>
+      <p>Each bracelet is carefully crafted using premium quality materials and artistic patterns.</p>
+    </div>
+    <div class="feature-box">
+      <h3>Custom Designs</h3>
+      <p>Want something unique? We accept custom orders to match your vibe.</p>
+    </div>
+    <div class="feature-box">
+      <h3>Fast Delivery</h3>
+      <p>Crafted with care, our bracelets are designed to add a touch of elegance and style to your everyday look..</p>
+    </div>
+  </section>
+
+  <section class="cta">
+    <a href="products.html">Explore Our Collection</a>
+  </section>
+
+  <footer>
+    &copy; 2025 Oorja Threads. All rights reserved.
+  </footer>
+</body>
+</html>
