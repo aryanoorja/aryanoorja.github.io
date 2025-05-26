@@ -62,6 +62,24 @@
       margin: auto;
       padding: 24px;
     }
+
+    /* Sorting dropdown container */
+    .sort-container {
+      margin-bottom: 20px;
+      text-align: right;
+    }
+    .sort-container label {
+      font-weight: 600;
+      margin-right: 8px;
+    }
+    .sort-container select {
+      padding: 6px 12px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      font-size: 14px;
+      cursor: pointer;
+    }
+
     .product {
       background: #fff;
       padding: 16px;
@@ -80,7 +98,13 @@
     }
     .product h3 {
       font-size: 20px;
+      margin-bottom: 6px;
+    }
+    .product .price {
+      font-weight: 600;
+      color: #c2873f;
       margin-bottom: 12px;
+      font-size: 18px;
     }
     .product button {
       padding: 10px 20px;
@@ -179,56 +203,80 @@
   </header>
 
   <div class="container">
+    <!-- Sorting Dropdown -->
+    <div class="sort-container">
+      <label for="sortSelect">Sort by:</label>
+      <select id="sortSelect" aria-label="Sort products">
+        <option value="default">Default</option>
+        <option value="name-asc">Name: A to Z</option>
+        <option value="name-desc">Name: Z to A</option>
+        <option value="price-asc">Price: Low to High</option>
+        <option value="price-desc">Price: High to Low</option>
+      </select>
+    </div>
+
     <!-- Products -->
-    <div class="product">
-      <img src="https://via.placeholder.com/300x200?text=Coming+Soon" alt="Crimson" />
-      <h3>Crimson</h3>
-      <button onclick="openModal('Crimson')">Buy</button>
-    </div>
-    <div class="product">
-      <img src="https://via.placeholder.com/300x200?text=Coming+Soon" alt="Frost" />
-      <h3>Frost</h3>
-      <button onclick="openModal('Frost')">Buy</button>
-    </div>
-    <div class="product">
-      <img src="https://via.placeholder.com/300x200?text=Coming+Soon" alt="Shadow" />
-      <h3>Shadow</h3>
-      <button onclick="openModal('Shadow')">Buy</button>
-    </div>
-    <div class="product">
-      <img src="https://via.placeholder.com/300x200?text=Coming+Soon" alt="Ghost" />
-      <h3>Ghost</h3>
-      <button onclick="openModal('Ghost')">Buy</button>
-    </div>
-    <div class="product">
-      <img src="https://via.placeholder.com/300x200?text=Coming+Soon" alt="Flare" />
-      <h3>Flare</h3>
-      <button onclick="openModal('Flare')">Buy</button>
-    </div>
-    <div class="product">
-      <img src="https://via.placeholder.com/300x200?text=Coming+Soon" alt="Ash" />
-      <h3>Ash</h3>
-      <button onclick="openModal('Ash')">Buy</button>
-    </div>
-    <div class="product">
-      <img src="https://via.placeholder.com/300x200?text=Coming+Soon" alt="Ivory" />
-      <h3>Ivory</h3>
-      <button onclick="openModal('Ivory')">Buy</button>
-    </div>
-    <div class="product">
-      <img src="https://via.placeholder.com/300x200?text=Coming+Soon" alt="Sunset" />
-      <h3>Sunset</h3>
-      <button onclick="openModal('Sunset')">Buy</button>
-    </div>
-    <div class="product">
-      <img src="https://via.placeholder.com/300x200?text=Coming+Soon" alt="Dusk" />
-      <h3>Dusk</h3>
-      <button onclick="openModal('Dusk')">Buy</button>
-    </div>
-    <div class="product">
-      <img src="https://via.placeholder.com/300x200?text=Coming+Soon" alt="Glint" />
-      <h3>Glint</h3>
-      <button onclick="openModal('Glint')">Buy</button>
+    <div id="productsList">
+      <div class="product">
+        <img src="https://via.placeholder.com/300x200?text=Coming+Soon" alt="Crimson" />
+        <h3>Crimson</h3>
+        <div class="price">₹350</div>
+        <button onclick="openModal('Crimson')">Buy</button>
+      </div>
+      <div class="product">
+        <img src="https://via.placeholder.com/300x200?text=Coming+Soon" alt="Frost" />
+        <h3>Frost</h3>
+        <div class="price">₹400</div>
+        <button onclick="openModal('Frost')">Buy</button>
+      </div>
+      <div class="product">
+        <img src="https://via.placeholder.com/300x200?text=Coming+Soon" alt="Shadow" />
+        <h3>Shadow</h3>
+        <div class="price">₹300</div>
+        <button onclick="openModal('Shadow')">Buy</button>
+      </div>
+      <div class="product">
+        <img src="https://via.placeholder.com/300x200?text=Coming+Soon" alt="Ghost" />
+        <h3>Ghost</h3>
+        <div class="price">₹250</div>
+        <button onclick="openModal('Ghost')">Buy</button>
+      </div>
+      <div class="product">
+        <img src="https://via.placeholder.com/300x200?text=Coming+Soon" alt="Flare" />
+        <h3>Flare</h3>
+        <div class="price">₹380</div>
+        <button onclick="openModal('Flare')">Buy</button>
+      </div>
+      <div class="product">
+        <img src="https://via.placeholder.com/300x200?text=Coming+Soon" alt="Ash" />
+        <h3>Ash</h3>
+        <div class="price">₹275</div>
+        <button onclick="openModal('Ash')">Buy</button>
+      </div>
+      <div class="product">
+        <img src="https://via.placeholder.com/300x200?text=Coming+Soon" alt="Ivory" />
+        <h3>Ivory</h3>
+        <div class="price">₹320</div>
+        <button onclick="openModal('Ivory')">Buy</button>
+      </div>
+      <div class="product">
+        <img src="https://via.placeholder.com/300x200?text=Coming+Soon" alt="Sunset" />
+        <h3>Sunset</h3>
+        <div class="price">₹410</div>
+        <button onclick="openModal('Sunset')">Buy</button>
+      </div>
+      <div class="product">
+        <img src="https://via.placeholder.com/300x200?text=Coming+Soon" alt="Dusk" />
+        <h3>Dusk</h3>
+        <div class="price">₹360</div>
+        <button onclick="openModal('Dusk')">Buy</button>
+      </div>
+      <div class="product">
+        <img src="https://via.placeholder.com/300x200?text=Coming+Soon" alt="Glint" />
+        <h3>Glint</h3>
+        <div class="price">₹290</div>
+        <button onclick="openModal('Glint')">Buy</button>
+      </div>
     </div>
   </div>
 
@@ -262,7 +310,61 @@
       if (event.target === modal) {
         closeModal();
       }
-    }
+    };
+
+    // Sorting function
+    const sortSelect = document.getElementById('sortSelect');
+    const productsList = document.getElementById('productsList');
+
+    sortSelect.addEventListener('change', function () {
+      const products = Array.from(productsList.querySelectorAll('.product'));
+
+      let sortedProducts = products.slice(); // clone
+
+      switch (this.value) {
+        case 'name-asc':
+          sortedProducts.sort((a, b) => {
+            const nameA = a.querySelector('h3').textContent.toLowerCase();
+            const nameB = b.querySelector('h3').textContent.toLowerCase();
+            return nameA.localeCompare(nameB);
+          });
+          break;
+
+        case 'name-desc':
+          sortedProducts.sort((a, b) => {
+            const nameA = a.querySelector('h3').textContent.toLowerCase();
+            const nameB = b.querySelector('h3').textContent.toLowerCase();
+            return nameB.localeCompare(nameA);
+          });
+          break;
+
+        case 'price-asc':
+          sortedProducts.sort((a, b) => {
+            const priceA = parseInt(a.querySelector('.price').textContent.replace(/[^\d]/g, ''));
+            const priceB = parseInt(b.querySelector('.price').textContent.replace(/[^\d]/g, ''));
+            return priceA - priceB;
+          });
+          break;
+
+        case 'price-desc':
+          sortedProducts.sort((a, b) => {
+            const priceA = parseInt(a.querySelector('.price').textContent.replace(/[^\d]/g, ''));
+            const priceB = parseInt(b.querySelector('.price').textContent.replace(/[^\d]/g, ''));
+            return priceB - priceA;
+          });
+          break;
+
+        default:
+          // Default - keep original order, which is the DOM order
+          sortedProducts = products;
+          break;
+      }
+
+      // Remove existing products and append in sorted order
+      productsList.innerHTML = '';
+      sortedProducts.forEach(p => productsList.appendChild(p));
+    });
   </script>
+
 </body>
 </html>
