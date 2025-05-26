@@ -15,81 +15,84 @@
       background-color: #fff8f2;
       color: #333;
     }
-header {
-  background-color: #000;
-  color: #fff;
-  padding: 12px 24px;
-  position: fixed;
-  width: 100%;
-  top: 0;
-  z-index: 1000;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  flex-wrap: nowrap;
-  text-align: left;
-}
-
-.logo-area {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  flex: 0 0 auto;
-}
-
-nav {
-  flex: 1 1 auto;
-  text-align: center;
-}
-
-nav a {
-  color: #fff;
-  text-decoration: none;
-  margin: 0 12px;
-  font-size: 16px;
-}
-
-nav a:hover {
-  opacity: 0.75;
-}
-
-.sort-container {
-  flex: 0 0 auto;
-  margin-left: 24px;
-  text-align: right;
-  color: white;
-  font-weight: 600;
-  display: flex;
-  align-items: center;
-}
-
-.sort-container label {
-  margin-right: 8px;
-}
-
-@media (max-width: 599px) {
-  header {
-    flex-wrap: wrap;
-    justify-content: center;
-    text-align: center;
-  }
-  nav {
-    flex: 1 1 100%;
-    margin-top: 10px;
-    order: 1;
-  }
-  .sort-container {
-    flex: 1 1 100%;
-    margin: 16px 0 0;
-    order: 2;
-    justify-content: center;
-  }
-  .logo-area {
-    flex: 1 1 100%;
-    order: 0;
-    justify-content: center;
-  }
-}
+    header {
+      background-color: #000;
+      color: #fff;
+      padding: 12px 24px;
+      position: fixed;
+      width: 100%;
+      top: 0;
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: nowrap;
+      height: 64px;
+      box-sizing: border-box;
+    }
+    .logo-area {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex: 0 0 auto;
+    }
+    .logo-area img {
+      height: 40px; /* fixed logo height */
+      width: auto;
+    }
+    .logo-area span {
+      font-size: 22px;
+      font-weight: 600;
+      white-space: nowrap;
+    }
+    nav {
+      flex: 1 1 auto;
+      text-align: center;
+    }
+    nav a {
+      color: #fff;
+      text-decoration: none;
+      margin: 0 12px;
+      font-size: 16px;
+      white-space: nowrap;
+    }
+    nav a:hover {
+      opacity: 0.75;
+    }
+    .sort-container {
+      flex: 0 0 auto;
+      margin-left: 24px;
+      text-align: right;
+      color: white;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      white-space: nowrap;
+    }
+    .sort-container label {
+      margin-right: 8px;
+    }
+    @media (max-width: 599px) {
+      header {
+        flex-wrap: wrap;
+        height: auto;
+        justify-content: center;
+        padding: 12px 16px;
+        text-align: center;
+      }
+      .logo-area, nav, .sort-container {
+        flex: 1 1 100%;
+        margin: 8px 0;
+        justify-content: center;
+        text-align: center;
+      }
+      nav a {
+        margin: 0 8px;
+      }
+      .sort-container {
+        margin: 8px 0 0 0;
+        justify-content: center;
+      }
     }
     .container {
       max-width: 960px;
@@ -203,7 +206,7 @@ nav a:hover {
       <a href="contact.html">Contact</a>
     </nav>
     <div class="sort-container">
-      <label for="sortSelect" style="color: white; font-weight: 600; margin-right: 8px;">Sort by Price:</label>
+      <label for="sortSelect">Sort by Price:</label>
       <select id="sortSelect" aria-label="Sort products by price">
         <option value="">Select</option>
         <option value="lowToHigh">Low to High</option>
@@ -286,18 +289,24 @@ nav a:hover {
       products.sort((a, b) => {
         const priceA = parseInt(a.getAttribute('data-price'));
         const priceB = parseInt(b.getAttribute('data-price'));
-        return sortType === 'lowToHigh' ? priceA - priceB : priceB - priceA;
+        if (sortType === 'lowToHigh') return priceA - priceB;
+        if (sortType === 'highToLow') return priceB - priceA;
+        return 0;
       });
-      products.forEach(product => container.appendChild(product));
+      products.forEach(prod => container.appendChild(prod));
     });
+
     function adjustContainerPadding() {
       const header = document.querySelector('header');
       const container = document.querySelector('.container');
-      const headerHeight = header.offsetHeight;
-      container.style.paddingTop = headerHeight + 20 + 'px';
+      if (header && container) {
+        const headerHeight = header.offsetHeight;
+        container.style.paddingTop = (headerHeight + 20) + 'px';
+      }
     }
     window.addEventListener('load', adjustContainerPadding);
     window.addEventListener('resize', adjustContainerPadding);
   </script>
+
 </body>
 </html>
