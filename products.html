@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Products | Oorja Threads</title>
-  <link rel="icon" href="logo.png" type="image/png" sizes="32x32">
+  <link rel="icon" href="logo.png" type="image/png" sizes="32x32" />
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
   <style>
     * {
@@ -29,6 +29,7 @@
       align-items: center;
       justify-content: center;
       text-align: center;
+      height: 80px; /* added explicit height */
     }
     .logo-area {
       display: flex;
@@ -60,10 +61,8 @@
     .container {
       max-width: 960px;
       margin: auto;
-      padding: 24px;
+      padding: 100px 24px 24px 24px; /* increased padding-top to clear fixed header */
     }
-
-    /* Sorting dropdown container */
     .sort-container {
       margin-bottom: 20px;
       text-align: right;
@@ -73,13 +72,12 @@
       margin-right: 8px;
     }
     .sort-container select {
-      padding: 6px 12px;
+      padding: 6px 10px;
       border-radius: 6px;
       border: 1px solid #ccc;
       font-size: 14px;
       cursor: pointer;
     }
-
     .product {
       background: #fff;
       padding: 16px;
@@ -98,13 +96,12 @@
     }
     .product h3 {
       font-size: 20px;
-      margin-bottom: 6px;
+      margin-bottom: 8px;
     }
-    .product .price {
+    .price {
       font-weight: 600;
       color: #c2873f;
       margin-bottom: 12px;
-      font-size: 18px;
     }
     .product button {
       padding: 10px 20px;
@@ -120,8 +117,8 @@
       background-color: #a96e35;
     }
     .product:hover img {
-     box-shadow: 0 0 25px rgba(255, 100, 150, 0.6), 0 0 35px rgba(255, 150, 200, 0.4);
-     transform: scale(1.03);
+      box-shadow: 0 0 25px rgba(255, 100, 150, 0.6), 0 0 35px rgba(255, 150, 200, 0.4);
+      transform: scale(1.03);
     }
     /* Modal styles */
     .modal {
@@ -178,11 +175,14 @@
       background: none;
       color: #333;
     }
-
     /* Responsive */
     @media (max-width: 480px) {
       .modal-content {
         max-width: 90%;
+      }
+      .sort-container {
+        text-align: left;
+        margin-bottom: 15px;
       }
     }
   </style>
@@ -203,166 +203,142 @@
   </header>
 
   <div class="container">
-    <!-- Sorting Dropdown -->
     <div class="sort-container">
       <label for="sortSelect">Sort by:</label>
       <select id="sortSelect" aria-label="Sort products">
-        <option value="default">Default</option>
-        <option value="name-asc">Name: A to Z</option>
-        <option value="name-desc">Name: Z to A</option>
+        <option value="">Default</option>
         <option value="price-asc">Price: Low to High</option>
         <option value="price-desc">Price: High to Low</option>
+        <option value="name-asc">Name: A to Z</option>
+        <option value="name-desc">Name: Z to A</option>
       </select>
     </div>
 
-    <!-- Products -->
     <div id="productsList">
+      <!-- Products -->
       <div class="product">
         <img src="https://via.placeholder.com/300x200?text=Coming+Soon" alt="Crimson" />
         <h3>Crimson</h3>
-        <div class="price">₹350</div>
+        <div class="price">₹299</div>
         <button onclick="openModal('Crimson')">Buy</button>
       </div>
       <div class="product">
         <img src="https://via.placeholder.com/300x200?text=Coming+Soon" alt="Frost" />
         <h3>Frost</h3>
-        <div class="price">₹400</div>
+        <div class="price">₹199</div>
         <button onclick="openModal('Frost')">Buy</button>
       </div>
       <div class="product">
         <img src="https://via.placeholder.com/300x200?text=Coming+Soon" alt="Shadow" />
         <h3>Shadow</h3>
-        <div class="price">₹300</div>
+        <div class="price">₹399</div>
         <button onclick="openModal('Shadow')">Buy</button>
       </div>
       <div class="product">
         <img src="https://via.placeholder.com/300x200?text=Coming+Soon" alt="Ghost" />
         <h3>Ghost</h3>
-        <div class="price">₹250</div>
+        <div class="price">₹249</div>
         <button onclick="openModal('Ghost')">Buy</button>
       </div>
       <div class="product">
         <img src="https://via.placeholder.com/300x200?text=Coming+Soon" alt="Flare" />
         <h3>Flare</h3>
-        <div class="price">₹380</div>
+        <div class="price">₹349</div>
         <button onclick="openModal('Flare')">Buy</button>
       </div>
       <div class="product">
         <img src="https://via.placeholder.com/300x200?text=Coming+Soon" alt="Ash" />
         <h3>Ash</h3>
-        <div class="price">₹275</div>
+        <div class="price">₹279</div>
         <button onclick="openModal('Ash')">Buy</button>
       </div>
       <div class="product">
         <img src="https://via.placeholder.com/300x200?text=Coming+Soon" alt="Ivory" />
         <h3>Ivory</h3>
-        <div class="price">₹320</div>
+        <div class="price">₹229</div>
         <button onclick="openModal('Ivory')">Buy</button>
       </div>
       <div class="product">
         <img src="https://via.placeholder.com/300x200?text=Coming+Soon" alt="Sunset" />
         <h3>Sunset</h3>
-        <div class="price">₹410</div>
+        <div class="price">₹319</div>
         <button onclick="openModal('Sunset')">Buy</button>
       </div>
       <div class="product">
         <img src="https://via.placeholder.com/300x200?text=Coming+Soon" alt="Dusk" />
         <h3>Dusk</h3>
-        <div class="price">₹360</div>
+        <div class="price">₹279</div>
         <button onclick="openModal('Dusk')">Buy</button>
       </div>
       <div class="product">
         <img src="https://via.placeholder.com/300x200?text=Coming+Soon" alt="Glint" />
         <h3>Glint</h3>
-        <div class="price">₹290</div>
+        <div class="price">₹199</div>
         <button onclick="openModal('Glint')">Buy</button>
       </div>
     </div>
   </div>
 
   <!-- Modal -->
-  <div id="orderModal" class="modal" aria-hidden="true" role="dialog" aria-labelledby="modalTitle" aria-modal="true">
+  <div id="purchaseModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle" aria-describedby="modalDesc">
     <div class="modal-content">
-      <button class="close-btn" aria-label="Close modal" onclick="closeModal()">&times;</button>
-      <h2 id="modalTitle">How would you like to order?</h2>
-      <p id="productName" style="font-weight:600; margin-bottom: 20px;"></p>
-      <a href="https://instagram.com/oorjathreads.store" target="_blank" rel="noopener noreferrer" id="instaBtn">DM on Instagram</a>
-      <a href="mailto:oorja.threads@gmail.com" id="emailBtn">Email</a>
-      <p style="font-size: 12px; margin-top: 14px; color: #666;">
-        If clicking doesn’t work, copy and paste:<br/>
-        Instagram: <code>oorjathreads.store</code><br/>
-        Email: <code>oorja.threads@gmail.com</code>
-      </p>
+      <button class="close-btn" aria-label="Close modal" onclick="closeModal()">×</button>
+      <h2 id="modalTitle">Purchase Confirmation</h2>
+      <p id="modalDesc">Click the button below to buy your bracelet on WhatsApp.</p>
+      <a href="https://wa.me/919940736133" target="_blank" rel="noopener noreferrer" id="whatsappLink">Buy on WhatsApp</a>
+      <a href="index.html">Go to Home</a>
     </div>
   </div>
 
   <script>
+    // Open modal and set product name in WhatsApp link text if needed
     function openModal(productName) {
-      document.getElementById('orderModal').style.display = 'flex';
-      document.getElementById('productName').textContent = productName;
+      const modal = document.getElementById('purchaseModal');
+      modal.style.display = 'flex';
+
+      // Optionally update modal text or WhatsApp link to include product name
+      const modalDesc = document.getElementById('modalDesc');
+      modalDesc.textContent = `You are about to buy the "${productName}" bracelet. Click the button below to contact us on WhatsApp.`;
     }
     function closeModal() {
-      document.getElementById('orderModal').style.display = 'none';
+      document.getElementById('purchaseModal').style.display = 'none';
     }
-    // Close modal if user clicks outside modal content
     window.onclick = function(event) {
-      const modal = document.getElementById('orderModal');
+      const modal = document.getElementById('purchaseModal');
       if (event.target === modal) {
         closeModal();
       }
     };
 
-    // Sorting function
-    const sortSelect = document.getElementById('sortSelect');
-    const productsList = document.getElementById('productsList');
+    // Sorting logic
+    document.getElementById('sortSelect').addEventListener('change', function() {
+      const sortValue = this.value;
+      const container = document.getElementById('productsList');
+      const products = Array.from(container.getElementsByClassName('product'));
 
-    sortSelect.addEventListener('change', function () {
-      const products = Array.from(productsList.querySelectorAll('.product'));
+      products.sort((a, b) => {
+        const nameA = a.querySelector('h3').textContent.toLowerCase();
+        const nameB = b.querySelector('h3').textContent.toLowerCase();
 
-      let sortedProducts = products.slice(); // clone
+        const priceA = parseInt(a.querySelector('.price').textContent.replace(/[^0-9]/g, ''));
+        const priceB = parseInt(b.querySelector('.price').textContent.replace(/[^0-9]/g, ''));
 
-      switch (this.value) {
-        case 'name-asc':
-          sortedProducts.sort((a, b) => {
-            const nameA = a.querySelector('h3').textContent.toLowerCase();
-            const nameB = b.querySelector('h3').textContent.toLowerCase();
-            return nameA.localeCompare(nameB);
-          });
-          break;
-
-        case 'name-desc':
-          sortedProducts.sort((a, b) => {
-            const nameA = a.querySelector('h3').textContent.toLowerCase();
-            const nameB = b.querySelector('h3').textContent.toLowerCase();
-            return nameB.localeCompare(nameA);
-          });
-          break;
-
-        case 'price-asc':
-          sortedProducts.sort((a, b) => {
-            const priceA = parseInt(a.querySelector('.price').textContent.replace(/[^\d]/g, ''));
-            const priceB = parseInt(b.querySelector('.price').textContent.replace(/[^\d]/g, ''));
+        switch(sortValue) {
+          case 'price-asc':
             return priceA - priceB;
-          });
-          break;
-
-        case 'price-desc':
-          sortedProducts.sort((a, b) => {
-            const priceA = parseInt(a.querySelector('.price').textContent.replace(/[^\d]/g, ''));
-            const priceB = parseInt(b.querySelector('.price').textContent.replace(/[^\d]/g, ''));
+          case 'price-desc':
             return priceB - priceA;
-          });
-          break;
+          case 'name-asc':
+            return nameA.localeCompare(nameB);
+          case 'name-desc':
+            return nameB.localeCompare(nameA);
+          default:
+            return 0;
+        }
+      });
 
-        default:
-          // Default - keep original order, which is the DOM order
-          sortedProducts = products;
-          break;
-      }
-
-      // Remove existing products and append in sorted order
-      productsList.innerHTML = '';
-      sortedProducts.forEach(p => productsList.appendChild(p));
+      // Remove old nodes and append sorted
+      products.forEach(product => container.appendChild(product));
     });
   </script>
 
