@@ -17,21 +17,58 @@
       background-color: #fff8f2;
       color: #333;
       padding-top: 80px;
+      /* Add left padding to avoid content under sidebar */
+      padding-left: 220px;
+      transition: padding-left 0.3s ease;
     }
 
+    /* Sidebar styles */
+    #sidebar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 200px;
+      height: 100vh;
+      background-color: #c2873f;
+      box-shadow: 2px 0 8px rgba(0, 0, 0, 0.1);
+      padding-top: 80px; /* same as header height */
+      display: flex;
+      flex-direction: column;
+      z-index: 1100;
+    }
+
+    #sidebar a {
+      padding: 14px 24px;
+      color: white;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 16px;
+      border-left: 4px solid transparent;
+      transition: background-color 0.3s, border-color 0.3s;
+    }
+
+    #sidebar a:hover {
+      background-color: #a66f22;
+      border-left: 4px solid #fff;
+      color: #fff;
+    }
+
+    /* Header styles */
     header {
       background-color: #000;
       color: #fff;
       padding: 12px 24px;
       position: fixed;
-      width: 100%;
+      width: calc(100% - 200px); /* full width minus sidebar */
       top: 0;
-      z-index: 1000;
+      left: 200px;
+      z-index: 1200;
       display: flex;
       align-items: center;
       justify-content: center; /* center logo & name */
       gap: 16px;
       box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+      transition: left 0.3s ease, width 0.3s ease;
     }
 
     .logo-area {
@@ -69,6 +106,7 @@
       opacity: 0.75;
     }
 
+    /* Container and content */
     .container {
       max-width: 960px;
       margin: auto;
@@ -114,6 +152,11 @@
       padding: 20px;
       text-align: center;
       margin-top: 40px;
+      /* same width as container */
+      max-width: 960px;
+      margin-left: auto;
+      margin-right: auto;
+      border-radius: 0 0 16px 16px;
     }
 
     @keyframes fadeIn {
@@ -121,12 +164,18 @@
       to { opacity: 1; transform: translateY(0); }
     }
 
+    /* Responsive adjustments */
     @media (max-width: 768px) {
-      header {
-        justify-content: center;
-        position: relative;
+      body {
+        padding-left: 0;
       }
-
+      #sidebar {
+        display: none;
+      }
+      header {
+        width: 100%;
+        left: 0;
+      }
       nav {
         position: static;
         margin-top: 10px;
@@ -134,7 +183,6 @@
         flex-wrap: wrap;
         gap: 12px;
       }
-
       nav a {
         font-size: 14px;
       }
@@ -142,6 +190,15 @@
   </style>
 </head>
 <body>
+
+  <!-- Sidebar -->
+  <div id="sidebar">
+    <a href="home.html">Home</a>
+    <a href="index.html">About</a>
+    <a href="products.html">Products</a>
+    <a href="terms.html" style="background-color:#a66f22; border-left:4px solid #fff;">Terms</a>
+    <a href="contact.html">Contact</a>
+  </div>
 
   <header>
     <div class="logo-area">
