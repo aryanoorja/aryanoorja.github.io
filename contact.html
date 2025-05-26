@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Contact Us | Oorja Threads</title>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <title>Terms & Conditions | Oorja Threads</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
   <style>
     * {
       margin: 0;
@@ -16,120 +16,134 @@
       font-family: 'Poppins', sans-serif;
       background-color: #fff8f2;
       color: #333;
-      display: flex;
-      min-height: 100vh;
+      padding-top: 80px;
+      /* Add left padding to avoid content under sidebar */
+      padding-left: 220px;
+      transition: padding-left 0.3s ease;
     }
 
-    .sidebar {
-      width: 220px;
-      background-color: #000;
-      color: #fff;
-      padding: 20px;
+    /* Sidebar styles */
+    #sidebar {
       position: fixed;
-      height: 100%;
+      top: 0;
+      left: 0;
+      width: 200px;
+      height: 100vh;
+      background-color: #c2873f;
+      box-shadow: 2px 0 8px rgba(0, 0, 0, 0.1);
+      padding-top: 80px; /* same as header height */
       display: flex;
       flex-direction: column;
-      justify-content: space-between;
+      z-index: 1100;
+    }
+
+    #sidebar a {
+      padding: 14px 24px;
+      color: white;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 16px;
+      border-left: 4px solid transparent;
+      transition: background-color 0.3s, border-color 0.3s;
+    }
+
+    #sidebar a:hover {
+      background-color: #a66f22;
+      border-left: 4px solid #fff;
+      color: #fff;
+    }
+
+    /* Header styles */
+    header {
+      background-color: #000;
+      color: #fff;
+      padding: 12px 24px;
+      position: fixed;
+      width: calc(100% - 200px); /* full width minus sidebar */
+      top: 0;
+      left: 200px;
+      z-index: 1200;
+      display: flex;
+      align-items: center;
+      justify-content: center; /* center logo & name */
+      gap: 16px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+      transition: left 0.3s ease, width 0.3s ease;
     }
 
     .logo-area {
       display: flex;
       align-items: center;
-      margin-bottom: 40px;
+      justify-content: center;
     }
 
     .logo-area img {
-      height: 44px;
-      margin-right: 12px;
+      height: 48px;
+      margin-right: 14px;
     }
 
     .logo-area span {
-      font-size: 22px;
+      font-size: 26px;
       font-weight: 600;
       letter-spacing: 0.5px;
     }
 
-    .sidebar nav {
+    nav {
+      position: absolute;
+      right: 24px;
       display: flex;
-      flex-direction: column;
+      gap: 20px;
     }
 
-    .sidebar nav a {
+    nav a {
       color: #fff;
       text-decoration: none;
-      margin-bottom: 18px;
       font-size: 16px;
       transition: opacity 0.3s;
     }
 
-    .sidebar nav a:hover {
+    nav a:hover {
       opacity: 0.75;
     }
 
-    .main-content {
-      margin-left: 220px;
-      padding: 40px 24px;
-      flex-grow: 1;
+    /* Container and content */
+    .container {
+      max-width: 960px;
+      margin: auto;
+      padding: 24px;
     }
 
-    .contact-section {
+    .terms-section {
       background: #fff;
       padding: 36px 24px;
       border-radius: 16px;
       box-shadow: 0 4px 20px rgba(0,0,0,0.08);
       animation: fadeIn 1.2s ease;
-      max-width: 700px;
-      margin: auto;
+      line-height: 1.7;
     }
 
-    .contact-section h2 {
+    .terms-section h2 {
       font-size: 30px;
       color: #c2873f;
       margin-bottom: 24px;
       text-align: center;
     }
 
-    form {
-      display: flex;
-      flex-direction: column;
-      gap: 18px;
+    .terms-section h3 {
+      font-size: 20px;
+      margin-top: 20px;
+      margin-bottom: 12px;
+      color: #333;
     }
 
-    label {
-      font-weight: 600;
+    .terms-section p, .terms-section ul {
       font-size: 16px;
-      color: #555;
+      margin-bottom: 14px;
     }
 
-    input, textarea {
-      padding: 12px 14px;
-      font-size: 15px;
-      border: 2px solid #c2873f;
-      border-radius: 8px;
-      resize: vertical;
-      transition: border-color 0.3s;
-      font-family: 'Poppins', sans-serif;
-    }
-
-    input:focus, textarea:focus {
-      outline: none;
-      border-color: #7a5226;
-    }
-
-    button {
-      background-color: #c2873f;
-      color: white;
-      font-weight: 600;
-      font-size: 17px;
-      padding: 14px;
-      border: none;
-      border-radius: 10px;
-      cursor: pointer;
-      transition: background-color 0.3s;
-    }
-
-    button:hover {
-      background-color: #7a5226;
+    .terms-section ul {
+      list-style-type: disc;
+      margin-left: 20px;
     }
 
     footer {
@@ -138,6 +152,11 @@
       padding: 20px;
       text-align: center;
       margin-top: 40px;
+      /* same width as container */
+      max-width: 960px;
+      margin-left: auto;
+      margin-right: auto;
+      border-radius: 0 0 16px 16px;
     }
 
     @keyframes fadeIn {
@@ -145,72 +164,95 @@
       to { opacity: 1; transform: translateY(0); }
     }
 
+    /* Responsive adjustments */
     @media (max-width: 768px) {
       body {
-        flex-direction: column;
+        padding-left: 0;
       }
-
-      .sidebar {
-        position: relative;
+      #sidebar {
+        display: none;
+      }
+      header {
         width: 100%;
-        height: auto;
-        flex-direction: row;
-        align-items: center;
-        justify-content: space-between;
-        padding: 12px 16px;
+        left: 0;
       }
-
-      .sidebar nav {
-        flex-direction: row;
-        gap: 10px;
+      nav {
+        position: static;
+        margin-top: 10px;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 12px;
       }
-
-      .main-content {
-        margin-left: 0;
-        padding: 24px;
+      nav a {
+        font-size: 14px;
       }
     }
   </style>
 </head>
 <body>
 
-  <aside class="sidebar">
-    <div>
-      <div class="logo-area">
-        <img src="logo.png" alt="Oorja Threads Logo" />
-        <span>Oorja Threads</span>
-      </div>
-      <nav>
-        <a href="home.html">Home</a>
-        <a href="index.html">About</a>
-        <a href="products.html">Products</a>
-        <a href="terms.html">Terms</a>
-        <a href="contact.html">Contact</a>
-      </nav>
-    </div>
-  </aside>
-
-  <div class="main-content">
-    <section class="contact-section">
-      <h2>Contact Us</h2>
-      <form action="https://formspree.io/f/mldbybak" method="POST">
-        <label for="name">Name</label>
-        <input type="text" id="name" name="name" placeholder="Your full name" required />
-
-        <label for="email">Email</label>
-        <input type="email" id="email" name="_replyto" placeholder="Your email address" required />
-
-        <label for="message">Message</label>
-        <textarea id="message" name="message" rows="5" placeholder="Write your message here..." required></textarea>
-
-        <button type="submit">Send</button>
-      </form>
-    </section>
-
-    <footer>
-      &copy; 2025 Oorja Threads. All rights reserved.
-    </footer>
+  <!-- Sidebar -->
+  <div id="sidebar">
+    <a href="home.html">Home</a>
+    <a href="index.html">About</a>
+    <a href="products.html">Products</a>
+    <a href="terms.html" style="background-color:#a66f22; border-left:4px solid #fff;">Terms</a>
+    <a href="contact.html">Contact</a>
   </div>
+
+  <header>
+    <div class="logo-area">
+      <img src="logo.png" alt="Oorja Threads Logo" />
+      <span>Oorja Threads</span>
+    </div>
+    <nav>
+      <a href="home.html">Home</a>
+      <a href="index.html">About</a>
+      <a href="products.html">Products</a>
+      <a href="terms.html">Terms</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+  </header>
+
+  <div class="container">
+    <section class="terms-section">
+      <h2>Terms & Conditions</h2>
+
+      <p>Welcome to Oorja Threads. By accessing or using our website and services, you agree to be bound by the following terms and conditions. Please read them carefully.</p>
+
+      <h3>1. Products & Orders</h3>
+      <p>All products are handmade and crafted with care. While we strive for perfection, slight variations may occur as each item is unique. We currently deliver only within Bhopal.</p>
+
+      <h3>2. Payment</h3>
+      <p>We accept online payments only. Please ensure payment is complete before delivery. No Cash on Delivery is available at this time.</p>
+
+      <h3>3. Shipping & Delivery</h3>
+      <ul>
+        <li>Deliveries are limited to the city of Bhopal.</li>
+        <li>Estimated delivery times will be communicated at the time of order.</li>
+        <li>We are not responsible for delays caused by external factors.</li>
+      </ul>
+
+      <h3>4. Returns & Refunds</h3>
+      <p>Due to the handmade nature of our products, we do not accept returns or exchanges. If your product arrives damaged, please contact us within 48 hours with photos for resolution.</p>
+
+      <h3>5. Intellectual Property</h3>
+      <p>All content, designs, and materials on this website are the property of Oorja Threads. Unauthorized use is prohibited.</p>
+
+      <h3>6. Limitation of Liability</h3>
+      <p>Oorja Threads is not liable for any damages arising from the use of our products or website.</p>
+
+      <h3>7. Changes to Terms</h3>
+      <p>We reserve the right to modify these terms at any time. Continued use of the website indicates acceptance of any changes.</p>
+
+      <h3>8. Contact Us</h3>
+      <p>If you have questions about these terms, please reach out via email at <a href="mailto:oorja.threads@gmail.com">oorja.threads@gmail.com</a> or Instagram <a href="https://instagram.com/oorja_threads" target="_blank" rel="noopener noreferrer">@oorja_threads</a>.</p>
+    </section>
+  </div>
+
+  <footer>
+    &copy; 2025 Oorja Threads. All rights reserved.
+  </footer>
 
 </body>
 </html>
