@@ -5,7 +5,6 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Oorja Threads – Handmade Bracelets</title>
-  <link rel="icon" href="logo.png" type="image/png" sizes="32x32">
   <link rel="stylesheet" href="styles.css" />
   <style>
     body {
@@ -14,6 +13,36 @@
       padding: 0;
       background-color: #fdfcfb;
       color: #333;
+      display: flex;
+      flex-direction: row;
+    }
+
+    .sidebar {
+      width: 200px;
+      background-color: #333;
+      min-height: 100vh;
+      padding-top: 20px;
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 100;
+    }
+
+    .sidebar a {
+      display: block;
+      color: white;
+      padding: 12px 20px;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    .sidebar a:hover {
+      background-color: #575757;
+    }
+
+    .main-content {
+      margin-left: 200px;
+      width: calc(100% - 200px);
     }
 
     header {
@@ -47,23 +76,6 @@
       color: #fff;
       font-size: 3rem;
       margin: 0;
-    }
-
-    nav {
-      background-color: #333;
-      padding: 0.5rem 1rem;
-      text-align: center;
-    }
-
-    nav a {
-      color: #fff;
-      margin: 0 15px;
-      text-decoration: none;
-      font-weight: bold;
-    }
-
-    nav a:hover {
-      text-decoration: underline;
     }
 
     section {
@@ -125,49 +137,70 @@
       color: #fff;
       margin-top: 2rem;
     }
+
+    @media (max-width: 768px) {
+      body {
+        flex-direction: column;
+      }
+
+      .sidebar {
+        width: 100%;
+        height: auto;
+        position: static;
+      }
+
+      .main-content {
+        margin-left: 0;
+        width: 100%;
+      }
+    }
   </style>
 </head>
 
 <body>
-  <header>
-    <div class="header-content">
-    </div>
-  </header>
-
-  <nav>
+  <div class="sidebar">
     <a href="index.html">Home</a>
     <a href="products.html">Products</a>
     <a href="about.html">About</a>
     <a href="terms.html">Terms</a>
     <a href="contact.html">Contact</a>
-  </nav>
+  </div>
 
-  <section class="intro">
-    <h2>Welcome to Oorja Threads</h2>
-    <p>We create handcrafted bracelets that reflect your inner energy and outer style. Our mission is to celebrate individuality with aesthetics and artistry.</p>
-  </section>
+  <div class="main-content">
+    <header>
+      <div class="header-content">
+        <!-- Optional heading -->
+      </div>
+    </header>
 
-  <section class="features">
-    <div class="feature-box">
-      <h3>Handmade With Love</h3>
-      <p>Each bracelet is carefully crafted using premium quality materials and artistic patterns.</p>
-    </div>
-    <div class="feature-box">
-      <h3>Custom Designs</h3>
-      <p>Want something unique? We accept custom orders to match your vibe.</p>
-    </div>
-    <div class="feature-box">
-      <h3>Fast Delivery</h3>
-      <p>Crafted with care, our bracelets are designed to add a touch of elegance and style to your everyday look..</p>
-    </div>
-  </section>
+    <section class="intro">
+      <h2>Welcome to Oorja Threads</h2>
+      <p>We create handcrafted bracelets that reflect your inner energy and outer style. Our mission is to celebrate individuality with aesthetics and artistry.</p>
+    </section>
 
-  <section class="cta">
-    <a href="products.html">Explore Our Collection</a>
-  </section>
+    <section class="features">
+      <div class="feature-box">
+        <h3>Handmade With Love</h3>
+        <p>Each bracelet is carefully crafted using premium quality materials and artistic patterns.</p>
+      </div>
+      <div class="feature-box">
+        <h3>Custom Designs</h3>
+        <p>Want something unique? We accept custom orders to match your vibe.</p>
+      </div>
+      <div class="feature-box">
+        <h3>Fast Delivery</h3>
+        <p>Crafted with care, our bracelets are designed to add a touch of elegance and style to your everyday look.</p>
+      </div>
+    </section>
 
-  <footer>
-    &copy; 2025 Oorja Threads. All rights reserved.
-  </footer>
+    <section class="cta">
+      <a href="products.html">Explore Our Collection</a>
+    </section>
+
+    <footer>
+      &copy; 2025 Oorja Threads. All rights reserved.
+    </footer>
+  </div>
 </body>
+
 </html>
