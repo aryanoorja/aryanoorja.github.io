@@ -37,7 +37,7 @@
       flex: 0 0 auto;
     }
     .logo-area img {
-      height: 40px; /* fixed logo height */
+      height: 40px;
       width: auto;
     }
     .logo-area span {
@@ -107,19 +107,41 @@
       margin-bottom: 24px;
       text-align: center;
     }
-    .product img {
+    .product-images {
+      text-align: center;
+      margin-bottom: 12px;
+    }
+    .product-images .main-image {
       width: 100%;
       max-width: 300px;
-      margin-bottom: 12px;
       border-radius: 12px;
-      transition: all 0.3s ease;
       box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      transition: transform 0.3s ease;
+      margin-bottom: 8px;
+    }
+    .thumbnails {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+    }
+    .thumbnails img {
+      width: 60px;
+      height: 40px;
+      object-fit: cover;
+      cursor: pointer;
+      border-radius: 6px;
+      border: 2px solid transparent;
+      transition: border-color 0.3s ease;
+    }
+    .thumbnails img:hover,
+    .thumbnails img.active {
+      border-color: #c2873f;
     }
     .product h3 {
       font-size: 20px;
       margin-bottom: 4px;
     }
-    .product .price {
+    .price {
       font-weight: 600;
       margin-bottom: 12px;
       color: #a96e35;
@@ -138,7 +160,7 @@
     .product button:hover {
       background-color: #a96e35;
     }
-    .product:hover img {
+    .product:hover .main-image {
       box-shadow: 0 0 25px rgba(255, 100, 150, 0.6), 0 0 35px rgba(255, 150, 200, 0.4);
       transform: scale(1.03);
     }
@@ -229,107 +251,146 @@
 
   <div class="container">
     <div id="productsList">
+
+      <!-- Example product with multiple images -->
       <div class="product" data-price="300">
-        <img src="https://via.placeholder.com/300x200?text=Coming+Soon" alt="Crimson" />
+        <div class="product-images">
+          <img class="main-image" src="https://via.placeholder.com/300x200?text=Crimson+1" alt="Crimson main" />
+          <div class="thumbnails">
+            <img src="https://via.placeholder.com/60x40?text=Crimson+1" alt="Crimson 1" />
+            <img src="https://via.placeholder.com/60x40?text=Crimson+2" alt="Crimson 2" />
+            <img src="https://via.placeholder.com/60x40?text=Crimson+3" alt="Crimson 3" />
+          </div>
+        </div>
         <h3>Crimson</h3>
         <div class="price">₹300</div>
         <button onclick="openModal('Crimson')">Buy</button>
       </div>
+
+      <!-- Repeat for other products, with your images -->
       <div class="product" data-price="200">
-        <img src="https://via.placeholder.com/300x200?text=Coming+Soon" alt="Frost" />
+        <div class="product-images">
+          <img class="main-image" src="https://via.placeholder.com/300x200?text=Frost+1" alt="Frost main" />
+          <div class="thumbnails">
+            <img src="https://via.placeholder.com/60x40?text=Frost+1" alt="Frost 1" />
+            <img src="https://via.placeholder.com/60x40?text=Frost+2" alt="Frost 2" />
+            <img src="https://via.placeholder.com/60x40?text=Frost+3" alt="Frost 3" />
+          </div>
+        </div>
         <h3>Frost</h3>
         <div class="price">₹200</div>
         <button onclick="openModal('Frost')">Buy</button>
       </div>
-      <div class="product" data-price="400">
-        <img src="https://via.placeholder.com/300x200?text=Coming+Soon" alt="Shadow" />
-        <h3>Shadow</h3>
-        <div class="price">₹400</div>
-        <button onclick="openModal('Shadow')">Buy</button>
-      </div>
-      <div class="product" data-price="150">
-        <img src="https://via.placeholder.com/300x200?text=Coming+Soon" alt="Ghost" />
-        <h3>Ghost</h3>
-        <div class="price">₹150</div>
-        <button onclick="openModal('Ghost')">Buy</button>
-      </div>
+
       <div class="product" data-price="350">
-        <img src="https://via.placeholder.com/300x200?text=Coming+Soon" alt="Flare" />
-        <h3>Flare</h3>
+        <div class="product-images">
+          <img class="main-image" src="https://via.placeholder.com/300x200?text=Royal+1" alt="Royal main" />
+          <div class="thumbnails">
+            <img src="https://via.placeholder.com/60x40?text=Royal+1" alt="Royal 1" />
+            <img src="https://via.placeholder.com/60x40?text=Royal+2" alt="Royal 2" />
+            <img src="https://via.placeholder.com/60x40?text=Royal+3" alt="Royal 3" />
+          </div>
+        </div>
+        <h3>Royal</h3>
         <div class="price">₹350</div>
-        <button onclick="openModal('Flare')">Buy</button>
+        <button onclick="openModal('Royal')">Buy</button>
       </div>
-      <div class="product" data-price="220">
-        <img src="https://via.placeholder.com/300x200?text=Coming+Soon" alt="Ash" />
-        <h3>Ash</h3>
-        <div class="price">₹220</div>
-        <button onclick="openModal('Ash')">Buy</button>
-      </div>
+
       <div class="product" data-price="280">
-        <img src="https://via.placeholder.com/300x200?text=Coming+Soon" alt="Ivory" />
-        <h3>Ivory</h3>
+        <div class="product-images">
+          <img class="main-image" src="https://via.placeholder.com/300x200?text=Sunshine+1" alt="Sunshine main" />
+          <div class="thumbnails">
+            <img src="https://via.placeholder.com/60x40?text=Sunshine+1" alt="Sunshine 1" />
+            <img src="https://via.placeholder.com/60x40?text=Sunshine+2" alt="Sunshine 2" />
+            <img src="https://via.placeholder.com/60x40?text=Sunshine+3" alt="Sunshine 3" />
+          </div>
+        </div>
+        <h3>Sunshine</h3>
         <div class="price">₹280</div>
-        <button onclick="openModal('Ivory')">Buy</button>
+        <button onclick="openModal('Sunshine')">Buy</button>
       </div>
-      <div class="product" data-price="500">
-        <img src="https://via.placeholder.com/300x200?text=Coming+Soon" alt="Sunset" />
-        <h3>Sunset</h3>
-        <div class="price">₹500</div>
-        <button onclick="openModal('Sunset')">Buy</button>
-      </div>
-      <div class="product" data-price="270">
-        <img src="https://via.placeholder.com/300x200?text=Coming+Soon" alt="Dusk" />
-        <h3>Dusk</h3>
-        <div class="price">₹270</div>
-        <button onclick="openModal('Dusk')">Buy</button>
-      </div>
+
     </div>
   </div>
 
   <div id="buyModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle" aria-describedby="modalDesc">
     <div class="modal-content">
-      <button class="close-btn" onclick="closeModal()" aria-label="Close modal">×</button>
-      <h2 id="modalTitle">How would you like to place your order?</h2>
-      <p id="modalDesc">Choose one of the options below:</p>
+      <button class="close-btn" aria-label="Close modal" onclick="closeModal()">×</button>
+      <h2 id="modalTitle"></h2>
+      <p id="modalDesc">Please contact us on WhatsApp for purchase details.</p>
       <div class="modal-buttons">
-        <a href="https://instagram.com/oorjathreads.store" target="_blank" rel="noopener noreferrer" aria-label="Direct message on Instagram">Dm on Instagram</a>
-        <a href="mailto:oorja.threads@gmail.com" aria-label="Send order inquiry by email">Email</a>
+        <a href="https://wa.me/919669377698" target="_blank" rel="noopener" aria-label="Open WhatsApp chat">WhatsApp</a>
+        <a href="https://instagram.com/oorja_threads" target="_blank" rel="noopener" aria-label="Open Instagram profile">Instagram</a>
       </div>
     </div>
   </div>
 
   <script>
+    // Modal handling
+    const modal = document.getElementById('buyModal');
+    const modalTitle = document.getElementById('modalTitle');
+    const modalDesc = document.getElementById('modalDesc');
+
     function openModal(productName) {
-      // If you want to show productName somewhere in modal, you can add that here
-      document.getElementById('buyModal').style.display = 'flex';
+      modalTitle.textContent = productName;
+      modal.style.display = 'flex';
+      // Disable background scrolling while modal is open
+      document.body.style.overflow = 'hidden';
     }
     function closeModal() {
-      document.getElementById('buyModal').style.display = 'none';
+      modal.style.display = 'none';
+      document.body.style.overflow = '';
     }
-    document.getElementById('sortSelect').addEventListener('change', function() {
-      const sortType = this.value;
-      const container = document.getElementById('productsList');
-      const products = Array.from(container.children);
-      products.sort((a, b) => {
-        const priceA = parseInt(a.getAttribute('data-price'));
-        const priceB = parseInt(b.getAttribute('data-price'));
-        if (sortType === 'lowToHigh') return priceA - priceB;
-        if (sortType === 'highToLow') return priceB - priceA;
-        return 0;
-      });
-      products.forEach(prod => container.appendChild(prod));
-    });
-
-    function adjustContainerPadding() {
-      const header = document.querySelector('header');
-      const container = document.querySelector('.container');
-      if (header && container) {
-        const headerHeight = header.offsetHeight;
-        container.style.paddingTop = (headerHeight + 20) + 'px';
+    window.onclick = function(event) {
+      if (event.target == modal) {
+        closeModal();
       }
     }
-    window.addEventListener('load', adjustContainerPadding);
-    window.addEventListener('resize', adjustContainerPadding);
+    window.onkeydown = function(event) {
+      if (event.key === "Escape") {
+        closeModal();
+      }
+    }
+
+    // Sorting function
+    const sortSelect = document.getElementById('sortSelect');
+    const productsList = document.getElementById('productsList');
+
+    sortSelect.addEventListener('change', () => {
+      const option = sortSelect.value;
+      const products = Array.from(productsList.children);
+
+      if (option === 'lowToHigh') {
+        products.sort((a, b) => parseInt(a.dataset.price) - parseInt(b.dataset.price));
+      } else if (option === 'highToLow') {
+        products.sort((a, b) => parseInt(b.dataset.price) - parseInt(a.dataset.price));
+      }
+
+      products.forEach(p => productsList.appendChild(p));
+    });
+
+    // Thumbnail click for each product
+    document.querySelectorAll('.product').forEach(product => {
+      const mainImg = product.querySelector('.main-image');
+      const thumbnails = product.querySelectorAll('.thumbnails img');
+
+      thumbnails.forEach(thumb => {
+        thumb.addEventListener('click', () => {
+          // Update main image src and alt
+          mainImg.src = thumb.src.replace('60x40', '300x200').replace(/\?text=.*$/, `?text=${encodeURIComponent(product.querySelector('h3').textContent)}+Main`);
+          mainImg.alt = `${product.querySelector('h3').textContent} main image`;
+          // Remove active class from all thumbnails
+          thumbnails.forEach(t => t.classList.remove('active'));
+          // Add active class to clicked thumbnail
+          thumb.classList.add('active');
+        });
+      });
+
+      // Set first thumbnail active on load
+      if (thumbnails.length > 0) {
+        thumbnails[0].classList.add('active');
+      }
+    });
   </script>
 
 </body>
