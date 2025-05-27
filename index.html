@@ -237,6 +237,26 @@
       background-color: rgba(242, 195, 131, 0.8);
       color: black;
     }
+    @media (max-width: 768px) {
+  .popup-modal .prev,
+  .popup-modal .next {
+    bottom: 20px;
+    top: auto;
+    transform: none;
+    font-size: 28px;
+    background-color: rgba(0, 0, 0, 0.6);
+    padding: 10px 18px;
+    border-radius: 10px;
+  }
+
+  .popup-modal .prev {
+    left: 20px;
+  }
+
+  .popup-modal .next {
+    right: 20px;
+  }
+}
   </style>
 </head>
 <body>
@@ -325,23 +345,27 @@
     document.getElementById('sidebar').classList.toggle('active');
   }
 
-  // Popup images
-  const images = [
-    'popup.png',  // Slideshow image 1
-    'popu.png'    // Slideshow image 2
-  ];
-
+  const images = ['popup.png', 'popu.png'];
   let currentIndex = 0;
+  let isStaticImage = false; // Track if popup is for featured image
 
   function openPopup(index = null, src = null) {
     const popup = document.getElementById('popupModal');
     const img = document.getElementById('popupImage');
+    const prevBtn = document.querySelector('.prev');
+    const nextBtn = document.querySelector('.next');
 
     if (src !== null) {
-      img.src = src; // custom image (e.g., featured product)
+      img.src = src;
+      isStaticImage = true;
+      prevBtn.style.display = 'none';
+      nextBtn.style.display = 'none';
     } else {
       if (index !== null) currentIndex = index;
-      img.src = images[currentIndex]; // slideshow image
+      img.src = images[currentIndex];
+      isStaticImage = false;
+      prevBtn.style.display = 'block';
+      nextBtn.style.display = 'block';
     }
 
     popup.style.display = 'flex';
@@ -352,6 +376,7 @@
   }
 
   function changeSlide(direction) {
+    if (isStaticImage) return; // Don't slide if it's a featured image
     currentIndex += direction;
     if (currentIndex < 0) currentIndex = images.length - 1;
     if (currentIndex >= images.length) currentIndex = 0;
@@ -359,13 +384,13 @@
   }
 
   window.onload = function () {
-    // Auto-popup slideshow on page load
+    // Show popup slideshow on load
     openPopup();
 
-    // Enable featured product image click -> popup
+    // Add click handler to featured product images
     document.querySelectorAll('.features .feature-box img').forEach((img) => {
       img.addEventListener('click', () => {
-        openPopup(null, img.src); // open with that image
+        openPopup(null, img.src); // Open that image only
       });
     });
   };
