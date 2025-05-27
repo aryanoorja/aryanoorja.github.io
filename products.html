@@ -2,205 +2,201 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Products | Oorja Threads</title>
-  <link rel="icon" href="logo.png" type="image/png" sizes="32x32" />
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
   <style>
     * {
-      margin: 0; padding: 0; box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
     }
+
     body {
       font-family: 'Poppins', sans-serif;
       background-color: #fff8f2;
       color: #333;
     }
+
     header {
       background-color: #000;
       color: #fff;
       padding: 12px 24px;
       position: fixed;
-      width: 100%;
       top: 0;
+      left: 0;
+      width: 100%;
       z-index: 1000;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      flex-wrap: nowrap;
-      height: 64px;
-      box-sizing: border-box;
+      height: 56px;
     }
+
     .logo-area {
       display: flex;
       align-items: center;
       gap: 10px;
-      flex: 0 0 auto;
     }
+
     .logo-area img {
-      height: 40px; /* fixed logo height */
-      width: auto;
+      height: 40px;
     }
+
     .logo-area span {
       font-size: 22px;
       font-weight: 600;
-      white-space: nowrap;
     }
-    nav {
-      flex: 1 1 auto;
-      text-align: center;
+
+    .menu-toggle {
+      display: none;
+      font-size: 28px;
+      background: none;
+      border: none;
+      color: white;
+      cursor: pointer;
     }
-    nav a {
+
+    .sidebar {
+      position: fixed;
+      top: 56px;
+      left: 0;
+      width: 200px;
+      height: calc(100% - 56px);
+      background-color: #000;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding-top: 24px;
+      transition: transform 0.3s ease-in-out;
+    }
+
+    .sidebar a {
       color: #fff;
       text-decoration: none;
-      margin: 0 12px;
+      margin: 15px 0;
       font-size: 16px;
-      white-space: nowrap;
+      width: 100%;
+      text-align: center;
+      padding: 12px 0;
+      transition: background-color 0.3s;
+      border-left: 4px solid transparent;
     }
-    nav a:hover {
-      opacity: 0.75;
+
+    .sidebar a:hover {
+      background-color: #333;
+      border-left: 4px solid #c2873f;
     }
-    .sort-container {
-      flex: 0 0 auto;
-      margin-left: 24px;
-      text-align: right;
-      color: white;
-      font-weight: 600;
-      display: flex;
-      align-items: center;
-      white-space: nowrap;
-    }
-    .sort-container label {
-      margin-right: 8px;
-    }
-    @media (max-width: 599px) {
-      header {
-        flex-wrap: wrap;
-        height: auto;
-        justify-content: center;
-        padding: 12px 16px;
-        text-align: center;
-      }
-      .logo-area, nav, .sort-container {
-        flex: 1 1 100%;
-        margin: 8px 0;
-        justify-content: center;
-        text-align: center;
-      }
-      nav a {
-        margin: 0 8px;
-      }
-      .sort-container {
-        margin: 8px 0 0 0;
-        justify-content: center;
-      }
-    }
+
     .container {
-      max-width: 960px;
-      margin: auto;
-      padding: 24px;
+      margin-left: 200px;
+      padding: 80px 16px 24px 16px;
     }
+
     .product {
       background: #fff;
       padding: 16px;
       border-radius: 12px;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-      margin-bottom: 24px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+      margin: 16px auto;
       text-align: center;
+      max-width: 400px;
     }
+
     .product img {
       width: 100%;
-      max-width: 350px;
+      max-width: 300px;
       margin-bottom: 12px;
-      border-radius: 12px;
-      transition: all 0.3s ease;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      border-radius: 8px;
     }
+
     .product h3 {
       font-size: 20px;
-      margin-bottom: 4px;
+      margin-bottom: 6px;
     }
-    .product .price {
-      font-weight: 600;
-      margin-bottom: 12px;
-      color: #a96e35;
-      font-size: 18px;
-    }
+
     .product button {
-      padding: 10px 20px;
       background-color: #c2873f;
       color: white;
       border: none;
+      padding: 10px 16px;
       border-radius: 8px;
-      font-size: 14px;
       cursor: pointer;
-      transition: background-color 0.3s ease;
+      font-size: 14px;
+      transition: background-color 0.3s;
     }
+
     .product button:hover {
       background-color: #a96e35;
     }
-    .product:hover img {
-      box-shadow: 0 0 25px rgba(255, 100, 150, 0.6), 0 0 35px rgba(255, 150, 200, 0.4);
-      transform: scale(1.03);
-    }
+
     .modal {
       display: none;
       position: fixed;
-      z-index: 2000;
-      left: 0; top: 0;
-      width: 100%; height: 100%;
-      overflow: auto;
-      background-color: rgba(0,0,0,0.5);
+      z-index: 9999;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.6);
       justify-content: center;
       align-items: center;
-      padding: 20px;
     }
+
     .modal-content {
-      background: white;
+      background-color: #fff;
+      padding: 30px;
       border-radius: 12px;
-      max-width: 320px;
-      padding: 24px;
+      max-width: 90%;
+      max-width: 360px;
       text-align: center;
-      box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-      position: relative;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.2);
     }
-    .modal-content h2 {
-      margin-bottom: 16px;
+
+    .modal-content h4 {
+      margin-bottom: 20px;
+      font-size: 20px;
       font-weight: 600;
     }
-    .modal-content p {
-      margin-bottom: 20px;
-      font-size: 16px;
-    }
-    .modal-buttons {
-      display: flex;
-      justify-content: center;
-      gap: 16px;
-      flex-wrap: wrap;
-    }
-    .modal-buttons a, .modal-buttons button {
-      padding: 10px 20px;
+
+    .modal-content a {
+      display: inline-block;
+      margin: 8px 12px;
+      padding: 12px 20px;
       background-color: #c2873f;
       color: white;
       border-radius: 8px;
       text-decoration: none;
-      font-size: 14px;
-      cursor: pointer;
-      border: none;
-      transition: background-color 0.3s ease;
-      min-width: 120px;
+      font-size: 16px;
+      transition: background-color 0.3s;
     }
-    .modal-buttons a:hover, .modal-buttons button:hover {
+
+    .modal-content a:hover {
       background-color: #a96e35;
     }
-    .close-btn {
-      position: absolute;
-      right: 12px; top: 12px;
-      font-size: 20px;
-      font-weight: bold;
-      cursor: pointer;
-      border: none;
-      background: none;
-      color: #333;
+
+    /* Mobile responsive */
+    @media (max-width: 768px) {
+      .container {
+        margin-left: 0;
+        padding-top: 100px;
+      }
+
+      .menu-toggle {
+        display: block;
+      }
+
+      .sidebar {
+        transform: translateX(-100%);
+      }
+
+      .sidebar.active {
+        transform: translateX(0);
+      }
+
+      .product {
+        margin: 16px 0;
+      }
     }
   </style>
 </head>
@@ -211,126 +207,88 @@
       <img src="logo.png" alt="Oorja Threads Logo" />
       <span>Oorja Threads</span>
     </div>
-    <nav>
-      <a href="home.html">Home</a>
-      <a href="index.html">About</a>
-      <a href="products.html">Products</a>
-      <a href="terms.html">Terms</a>
-      <a href="contact.html">Contact</a>
-    </nav>
-    <div class="sort-container">
-      <label for="sortSelect">Sort by Price:</label>
-      <select id="sortSelect" aria-label="Sort products by price">
-        <option value="">Select</option>
-        <option value="lowToHigh">Low to High</option>
-        <option value="highToLow">High to Low</option>
-      </select>
-    </div>
+    <button class="menu-toggle" onclick="toggleSidebar()">☰</button>
   </header>
 
-  <div class="container">
-    <div id="productsList">
-      <div class="product" data-price="300">
-        <img src="logo.png" alt="Crimson" />
-        <h3>Crimson</h3>
-        <div class="price">₹300</div>
-        <button onclick="openModal('Crimson')">Buy</button>
-      </div>
-      <div class="product" data-price="200">
-        <img src="logo.png" alt="Frost" />
-        <h3>Frost</h3>
-        <div class="price">₹200</div>
-        <button onclick="openModal('Frost')">Buy</button>
-      </div>
-      <div class="product" data-price="400">
-        <img src="logo.png" alt="Shadow" />
-        <h3>Shadow</h3>
-        <div class="price">₹400</div>
-        <button onclick="openModal('Shadow')">Buy</button>
-      </div>
-      <div class="product" data-price="150">
-        <img src="logo.png" alt="Ghost" />
-        <h3>Ghost</h3>
-        <div class="price">₹150</div>
-        <button onclick="openModal('Ghost')">Buy</button>
-      </div>
-      <div class="product" data-price="350">
-        <img src="logo.png" alt="Flare" />
-        <h3>Flare</h3>
-        <div class="price">₹350</div>
-        <button onclick="openModal('Flare')">Buy</button>
-      </div>
-      <div class="product" data-price="220">
-        <img src="logo.png" alt="Ash" />
-        <h3>Ash</h3>
-        <div class="price">₹220</div>
-        <button onclick="openModal('Ash')">Buy</button>
-      </div>
-      <div class="product" data-price="280">
-        <img src="logo.png" alt="Ivory" />
-        <h3>Ivory</h3>
-        <div class="price">₹280</div>
-        <button onclick="openModal('Ivory')">Buy</button>
-      </div>
-      <div class="product" data-price="500">
-        <img src="logo.png" alt="Sunset" />
-        <h3>Sunset</h3>
-        <div class="price">₹500</div>
-        <button onclick="openModal('Sunset')">Buy</button>
-      </div>
-      <div class="product" data-price="270">
-        <img src="logo.png" alt="Dusk" />
-        <h3>Dusk</h3>
-        <div class="price">₹270</div>
-        <button onclick="openModal('Dusk')">Buy</button>
-      </div>
-    </div>
+  <div class="sidebar" id="sidebar">
+    <a href="index.html">Home</a>
+    <a href="products.html">Products</a>
+    <a href="terms.html">Terms</a>
+    <a href="contact.html">Contact</a>
   </div>
 
-  <div id="buyModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle" aria-describedby="modalDesc">
+  <div class="container">
+    <!-- 10 Products -->
+   <div class="product">
+  <img src="https://via.placeholder.com/300x200?text=Twilight" alt="Twilight Bracelet" />
+  <h3>Twilight</h3>
+  <button onclick="openModal()">Buy</button>
+</div>
+<div class="product">
+  <img src="https://via.placeholder.com/300x200?text=Pearl+Mist" alt="Pearl Mist Bracelet" />
+  <h3>Pearl Mist</h3>
+  <button onclick="openModal()">Buy</button>
+</div>
+<div class="product">
+  <img src="https://via.placeholder.com/300x200?text=Sunburst" alt="Sunburst Bracelet" />
+  <h3>Sunburst</h3>
+  <button onclick="openModal()">Buy</button>
+</div>
+<div class="product">
+  <img src="https://via.placeholder.com/300x200?text=Midnight" alt="Midnight Bracelet" />
+  <h3>Midnight</h3>
+  <button onclick="openModal()">Buy</button>
+</div>
+<div class="product">
+  <img src="https://via.placeholder.com/300x200?text=Rosewood" alt="Rosewood Bracelet" />
+  <h3>Rosewood</h3>
+  <button onclick="openModal()">Buy</button>
+</div>
+<div class="product">
+  <img src="https://via.placeholder.com/300x200?text=Oceanic" alt="Oceanic Bracelet" />
+  <h3>Oceanic</h3>
+  <button onclick="openModal()">Buy</button>
+</div>
+    <div class="product">
+      <img src="https://via.placeholder.com/300x200?text=Crimson" alt="Crimson Bracelet" />
+      <h3>Crimson</h3>
+      <button onclick="openModal()">Buy</button>
+    </div>
+    <div class="product">
+      <img src="https://via.placeholder.com/300x200?text=Azure" alt="Azure Bracelet" />
+      <h3>Azure</h3>
+      <button onclick="openModal()">Buy</button>
+    </div>
+    <div class="product">
+      <img src="https://via.placeholder.com/300x200?text=Emerald" alt="Emerald Bracelet" />
+      <h3>Emerald</h3>
+      <button onclick="openModal()">Buy</button>
+    </div>
+    <!-- Add other products here... -->
+  </div>
+
+  <div class="modal" id="modal" onclick="closeModal(event)">
     <div class="modal-content">
-      <button class="close-btn" onclick="closeModal()" aria-label="Close modal">×</button>
-      <h2 id="modalTitle">How would you like to place your order?</h2>
-      <p id="modalDesc">Choose one of the options below:</p>
-      <div class="modal-buttons">
-        <a href="https://instagram.com/oorjathreads" target="_blank" rel="noopener noreferrer" aria-label="Direct message on Instagram">Dm on Instagram</a>
-        <a href="mailto:your-email@example.com" aria-label="Send order inquiry by email">Email</a>
-      </div>
+      <h4>How would you like to place your order?</h4>
+      <a href="https://www.instagram.com/oorjathreads.store/" target="_blank" rel="noopener noreferrer">DM on Instagram</a>
+      <a href="mailto:oorja.threads@gmail.com">Email</a>
     </div>
   </div>
 
   <script>
-    function openModal(productName) {
-      // If you want to show productName somewhere in modal, you can add that here
-      document.getElementById('buyModal').style.display = 'flex';
+    function openModal() {
+      document.getElementById("modal").style.display = "flex";
     }
-    function closeModal() {
-      document.getElementById('buyModal').style.display = 'none';
-    }
-    document.getElementById('sortSelect').addEventListener('change', function() {
-      const sortType = this.value;
-      const container = document.getElementById('productsList');
-      const products = Array.from(container.children);
-      products.sort((a, b) => {
-        const priceA = parseInt(a.getAttribute('data-price'));
-        const priceB = parseInt(b.getAttribute('data-price'));
-        if (sortType === 'lowToHigh') return priceA - priceB;
-        if (sortType === 'highToLow') return priceB - priceA;
-        return 0;
-      });
-      products.forEach(prod => container.appendChild(prod));
-    });
 
-    function adjustContainerPadding() {
-      const header = document.querySelector('header');
-      const container = document.querySelector('.container');
-      if (header && container) {
-        const headerHeight = header.offsetHeight;
-        container.style.paddingTop = (headerHeight + 20) + 'px';
+    function closeModal(event) {
+      if (event.target.id === "modal") {
+        document.getElementById("modal").style.display = "none";
       }
     }
-    window.addEventListener('load', adjustContainerPadding);
-    window.addEventListener('resize', adjustContainerPadding);
+
+    function toggleSidebar() {
+      document.getElementById("sidebar").classList.toggle("active");
+    }
   </script>
 
 </body>
