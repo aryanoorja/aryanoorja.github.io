@@ -2,9 +2,9 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Products | Oorja Threads</title>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet"/>
   <style>
     * {
       margin: 0;
@@ -16,186 +16,211 @@
       font-family: 'Poppins', sans-serif;
       background-color: #fff8f2;
       color: #333;
+      padding-top: 60px;
+      padding-left: 200px;
+      transition: padding-left 0.3s ease;
     }
 
     header {
-      background-color: #000;
-      color: #fff;
-      padding: 12px 24px;
       position: fixed;
       top: 0;
       left: 0;
       width: 100%;
-      z-index: 1000;
+      height: 60px;
+      background-color: #000;
+      color: white;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      height: 56px;
+      padding: 0 20px;
+      z-index: 2000;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.2);
     }
 
     .logo-area {
       display: flex;
       align-items: center;
-      gap: 10px;
     }
 
     .logo-area img {
       height: 40px;
+      margin-right: 10px;
     }
 
     .logo-area span {
       font-size: 22px;
       font-weight: 600;
+      letter-spacing: 0.5px;
     }
 
-    .menu-toggle {
+    .menu-btn {
       display: none;
-      font-size: 28px;
+      font-size: 24px;
+      cursor: pointer;
       background: none;
       border: none;
       color: white;
-      cursor: pointer;
     }
 
-    .sidebar {
+    /* Sidebar styles */
+    #sidebar {
       position: fixed;
-      top: 56px;
+      top: 60px;
       left: 0;
       width: 200px;
-      height: calc(100% - 56px);
+      height: calc(100% - 60px);
       background-color: #000;
       display: flex;
       flex-direction: column;
-      align-items: center;
-      padding-top: 24px;
-      transition: transform 0.3s ease-in-out;
+      z-index: 1000;
+      transition: transform 0.3s ease;
     }
 
-    .sidebar a {
+    #sidebar a {
+      padding: 14px 24px;
+      color: white;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 16px;
+      border-left: 4px solid transparent;
+      transition: background-color 0.3s, border-color 0.3s;
+    }
+
+    #sidebar a:hover {
+      background-color: #222;
+      border-left: 4px solid #fff;
+    }
+
+    #sidebar a.active {
+      background-color: #222;
+      border-left: 4px solid #fff;
+    }
+
+    nav {
+      display: flex;
+      gap: 20px;
+    }
+
+    nav a {
       color: #fff;
       text-decoration: none;
-      margin: 15px 0;
       font-size: 16px;
-      width: 100%;
-      text-align: center;
-      padding: 12px 0;
-      transition: background-color 0.3s;
-      border-left: 4px solid transparent;
-    }
-
-    .sidebar a:hover {
-      background-color: #333;
-      border-left: 4px solid #c2873f;
     }
 
     .container {
-      margin-left: 200px;
-      padding: 80px 16px 24px 16px;
+      max-width: 960px;
+      margin: auto;
+      padding: 24px;
     }
 
-    .product {
+    .header-section {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 24px;
+    }
+
+    .header-section h2 {
+      color: #c2873f;
+      font-size: 30px;
+    }
+
+    .sort-select {
+      padding: 8px 12px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      font-size: 16px;
+      cursor: pointer;
+      background: #fff;
+      color: #333;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      transition: border-color 0.3s;
+    }
+
+    .sort-select:hover, .sort-select:focus {
+      border-color: #c2873f;
+      outline: none;
+    }
+
+    .product-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 24px;
+    }
+
+    .product-item {
       background: #fff;
       padding: 16px;
-      border-radius: 12px;
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-      margin: 16px auto;
+      border-radius: 16px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.07);
       text-align: center;
-      max-width: 400px;
+      transition: transform 0.2s;
     }
 
-    .product img {
-      width: 100%;
-      max-width: 300px;
+    .product-item:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+    }
+
+    .product-item img {
+      max-width: 100%;
+      border-radius: 12px;
       margin-bottom: 12px;
-      border-radius: 8px;
     }
 
-    .product h3 {
+    .product-item h3 {
       font-size: 20px;
-      margin-bottom: 6px;
+      color: #c2873f;
+      margin-bottom: 8px;
     }
 
-    .product button {
-      background-color: #c2873f;
-      color: white;
-      border: none;
-      padding: 10px 16px;
-      border-radius: 8px;
-      cursor: pointer;
+    .product-item p {
       font-size: 14px;
-      transition: background-color 0.3s;
+      color: #666;
+      margin-bottom: 8px;
+      min-height: 36px;
     }
 
-    .product button:hover {
-      background-color: #a96e35;
-    }
-
-    .modal {
-      display: none;
-      position: fixed;
-      z-index: 9999;
-      left: 0;
-      top: 0;
-      width: 100%;
-      height: 100%;
-      background-color: rgba(0, 0, 0, 0.6);
-      justify-content: center;
-      align-items: center;
-    }
-
-    .modal-content {
-      background-color: #fff;
-      padding: 30px;
-      border-radius: 12px;
-      max-width: 90%;
-      max-width: 360px;
-      text-align: center;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.2);
-    }
-
-    .modal-content h4 {
-      margin-bottom: 20px;
-      font-size: 20px;
-      font-weight: 600;
-    }
-
-    .modal-content a {
-      display: inline-block;
-      margin: 8px 12px;
-      padding: 12px 20px;
-      background-color: #c2873f;
-      color: white;
-      border-radius: 8px;
-      text-decoration: none;
+    .product-price {
+      font-weight: 700;
+      color: #000;
       font-size: 16px;
-      transition: background-color 0.3s;
     }
 
-    .modal-content a:hover {
-      background-color: #a96e35;
+    footer {
+      background-color: #000;
+      color: #fff;
+      padding: 20px;
+      text-align: center;
+      max-width: 960px;
+      margin: 40px auto 0 auto;
+      border-radius: 0 0 16px 16px;
     }
 
-    /* Mobile responsive */
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
     @media (max-width: 768px) {
-      .container {
-        margin-left: 0;
-        padding-top: 100px;
+      body {
+        padding-left: 0;
       }
 
-      .menu-toggle {
-        display: block;
-      }
-
-      .sidebar {
+      #sidebar {
         transform: translateX(-100%);
       }
 
-      .sidebar.active {
+      #sidebar.active {
         transform: translateX(0);
       }
 
-      .product {
-        margin: 16px 0;
+      .menu-btn {
+        display: block;
+      }
+
+      nav {
+        display: none;
       }
     }
   </style>
@@ -207,88 +232,139 @@
       <img src="logo.png" alt="Oorja Threads Logo" />
       <span>Oorja Threads</span>
     </div>
-    <button class="menu-toggle" onclick="toggleSidebar()">☰</button>
+    <button class="menu-btn" onclick="toggleSidebar()">☰</button>
   </header>
 
-  <div class="sidebar" id="sidebar">
-    <a href="index.html">Home</a>
-    <a href="products.html">Products</a>
+  <div id="sidebar">
+    <a href="home.html">Home</a>
+    <a href="index.html">About</a>
+    <a class="active" href="products.html">Products</a>
     <a href="terms.html">Terms</a>
     <a href="contact.html">Contact</a>
   </div>
 
   <div class="container">
-    <!-- 10 Products -->
-   <div class="product">
-  <img src="https://via.placeholder.com/300x200?text=Twilight" alt="Twilight Bracelet" />
-  <h3>Twilight</h3>
-  <button onclick="openModal()">Buy</button>
-</div>
-<div class="product">
-  <img src="https://via.placeholder.com/300x200?text=Pearl+Mist" alt="Pearl Mist Bracelet" />
-  <h3>Pearl Mist</h3>
-  <button onclick="openModal()">Buy</button>
-</div>
-<div class="product">
-  <img src="https://via.placeholder.com/300x200?text=Sunburst" alt="Sunburst Bracelet" />
-  <h3>Sunburst</h3>
-  <button onclick="openModal()">Buy</button>
-</div>
-<div class="product">
-  <img src="https://via.placeholder.com/300x200?text=Midnight" alt="Midnight Bracelet" />
-  <h3>Midnight</h3>
-  <button onclick="openModal()">Buy</button>
-</div>
-<div class="product">
-  <img src="https://via.placeholder.com/300x200?text=Rosewood" alt="Rosewood Bracelet" />
-  <h3>Rosewood</h3>
-  <button onclick="openModal()">Buy</button>
-</div>
-<div class="product">
-  <img src="https://via.placeholder.com/300x200?text=Oceanic" alt="Oceanic Bracelet" />
-  <h3>Oceanic</h3>
-  <button onclick="openModal()">Buy</button>
-</div>
-    <div class="product">
-      <img src="https://via.placeholder.com/300x200?text=Crimson" alt="Crimson Bracelet" />
-      <h3>Crimson</h3>
-      <button onclick="openModal()">Buy</button>
+    <div class="header-section">
+      <h2>Our Products</h2>
+      <select class="sort-select" id="sortPrice" aria-label="Sort products by price">
+        <option value="low-high">Price: Low to High</option>
+        <option value="high-low">Price: High to Low</option>
+      </select>
     </div>
-    <div class="product">
-      <img src="https://via.placeholder.com/300x200?text=Azure" alt="Azure Bracelet" />
-      <h3>Azure</h3>
-      <button onclick="openModal()">Buy</button>
+
+    <div class="product-list" id="productList">
+
+      <!-- Product data with prices -->
+      <div class="product-item" data-price="199">
+        <img src="bracelet1.jpg" alt="Elegant Brown Bracelet" />
+        <h3>Elegant Brown Bracelet</h3>
+        <p>Handmade with natural brown beads.</p>
+        <div class="product-price">₹199</div>
+      </div>
+
+      <div class="product-item" data-price="299">
+        <img src="bracelet2.jpg" alt="Blue Beaded Bracelet" />
+        <h3>Blue Beaded Bracelet</h3>
+        <p>Unique design with blue tones.</p>
+        <div class="product-price">₹299</div>
+      </div>
+
+      <div class="product-item" data-price="149">
+        <img src="bracelet3.jpg" alt="Classic Black Bracelet" />
+        <h3>Classic Black Bracelet</h3>
+        <p>Simple yet stylish black bracelet.</p>
+        <div class="product-price">₹149</div>
+      </div>
+
+      <div class="product-item" data-price="349">
+        <img src="bracelet4.jpg" alt="Multicolor Stone Bracelet" />
+        <h3>Multicolor Stone Bracelet</h3>
+        <p>Vibrant stones for a pop of color.</p>
+        <div class="product-price">₹349</div>
+      </div>
+
+      <div class="product-item" data-price="259">
+        <img src="bracelet5.jpg" alt="Rustic Wood Bracelet" />
+        <h3>Rustic Wood Bracelet</h3>
+        <p>Earthy tones with wooden beads.</p>
+        <div class="product-price">₹259</div>
+      </div>
+
+      <div class="product-item" data-price="199">
+        <img src="bracelet6.jpg" alt="Elegant Silver Bracelet" />
+        <h3>Elegant Silver Bracelet</h3>
+        <p>Sleek silver finish and design.</p>
+        <div class="product-price">₹199</div>
+      </div>
+
+      <div class="product-item" data-price="379">
+        <img src="bracelet7.jpg" alt="Golden Charm Bracelet" />
+        <h3>Golden Charm Bracelet</h3>
+        <p>Perfect for special occasions.</p>
+        <div class="product-price">₹379</div>
+      </div>
+
+      <div class="product-item" data-price="179">
+        <img src="bracelet8.jpg" alt="Pink Beaded Bracelet" />
+        <h3>Pink Beaded Bracelet</h3>
+        <p>Soft pink beads for a gentle look.</p>
+        <div class="product-price">₹179</div>
+      </div>
+
+      <div class="product-item" data-price="229">
+        <img src="bracelet9.jpg" alt="Earth Tone Bracelet" />
+        <h3>Earth Tone Bracelet</h3>
+        <p>Natural colors with comfort fit.</p>
+        <div class="product-price">₹229</div>
+      </div>
+
+      <div class="product-item" data-price="329">
+        <img src="bracelet10.jpg" alt="Ocean Blue Bracelet" />
+        <h3>Ocean Blue Bracelet</h3>
+        <p>Inspired by the colors of the sea.</p>
+        <div class="product-price">₹329</div>
+      </div>
+
     </div>
-    <div class="product">
-      <img src="https://via.placeholder.com/300x200?text=Emerald" alt="Emerald Bracelet" />
-      <h3>Emerald</h3>
-      <button onclick="openModal()">Buy</button>
-    </div>
-    <!-- Add other products here... -->
   </div>
 
-  <div class="modal" id="modal" onclick="closeModal(event)">
-    <div class="modal-content">
-      <h4>How would you like to place your order?</h4>
-      <a href="https://www.instagram.com/oorjathreads.store/" target="_blank" rel="noopener noreferrer">DM on Instagram</a>
-      <a href="mailto:oorja.threads@gmail.com">Email</a>
-    </div>
-  </div>
+  <footer>
+    &copy; 2025 Oorja Threads. All rights reserved.
+  </footer>
 
   <script>
-    function openModal() {
-      document.getElementById("modal").style.display = "flex";
-    }
-
-    function closeModal(event) {
-      if (event.target.id === "modal") {
-        document.getElementById("modal").style.display = "none";
-      }
-    }
-
+    // Sidebar toggle for small screens
     function toggleSidebar() {
-      document.getElementById("sidebar").classList.toggle("active");
+      const sidebar = document.getElementById('sidebar');
+      sidebar.classList.toggle('active');
     }
+
+    // Sorting logic
+    const sortSelect = document.getElementById('sortPrice');
+    const productList = document.getElementById('productList');
+
+    sortSelect.addEventListener('change', () => {
+      const products = Array.from(productList.children);
+      const sortValue = sortSelect.value;
+
+      products.sort((a, b) => {
+        const priceA = parseInt(a.getAttribute('data-price'));
+        const priceB = parseInt(b.getAttribute('data-price'));
+        if (sortValue === 'low-high') {
+          return priceA - priceB;
+        } else {
+          return priceB - priceA;
+        }
+      });
+
+      // Remove all and re-append sorted
+      products.forEach(p => productList.appendChild(p));
+    });
+
+    // Optional: trigger sort on page load to set default sorting
+    window.addEventListener('load', () => {
+      sortSelect.dispatchEvent(new Event('change'));
+    });
   </script>
 
 </body>
