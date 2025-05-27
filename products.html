@@ -5,8 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Products | Oorja Threads</title>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet"/>
-<p class="note-text"><strong>Note:</strong> <b>Delivery charges not included</b>.</p>  
-<style>
+  <p class="note-text"><strong>Note:</strong> <b>Delivery charges not included</b>.</p>  
+  <style>
+    /* Your existing styles unchanged */
     * {
       margin: 0;
       padding: 0;
@@ -143,11 +144,11 @@
       outline: none;
     }
 
-    .product-list {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 24px;
-    }
+   .product-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
 
     .product-item {
       background: #fff;
@@ -156,6 +157,7 @@
       box-shadow: 0 4px 12px rgba(0,0,0,0.07);
       text-align: center;
       transition: transform 0.2s;
+      position: relative;
     }
 
     .product-item:hover {
@@ -167,6 +169,7 @@
       max-width: 100%;
       border-radius: 12px;
       margin-bottom: 12px;
+      cursor: pointer; /* show clickable */
     }
 
     .product-item h3 {
@@ -186,6 +189,23 @@
       font-weight: 700;
       color: #000;
       font-size: 16px;
+      margin-bottom: 12px;
+    }
+
+    .buy-btn {
+      background-color: #c2873f;
+      border: none;
+      padding: 10px 18px;
+      font-weight: 600;
+      color: white;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+      font-size: 16px;
+    }
+
+    .buy-btn:hover {
+      background-color: #a36e2f;
     }
 
     footer {
@@ -224,14 +244,80 @@
         display: none;
       }
     }
-.note-text {
-  margin-top: 20px;
-  font-size:18px;
-  color: #ff0000;
-  font-weight: 500;
-  text-align: center;
-}  
-</style>
+
+    .note-text {
+      margin-top: 20px;
+      font-size: 18px;
+      color: #ff0000;
+      font-weight: 500;
+      text-align: center;
+    }
+
+    /* Lightbox overlay styles */
+    #lightboxOverlay {
+      display: none;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100vw; height: 100vh;
+      background: rgba(0, 0, 0, 0.8);
+      justify-content: center;
+      align-items: center;
+      z-index: 3000;
+      cursor: pointer;
+    }
+
+    #lightboxImage {
+      max-width: 90%;
+      max-height: 90%;
+      border-radius: 12px;
+      box-shadow: 0 0 15px #fff;
+      cursor: auto;
+    }
+
+    /* Order popup overlay */
+    #orderPopup {
+      display: none;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100vw; height: 100vh;
+      background: rgba(0, 0, 0, 0.7);
+      justify-content: center;
+      align-items: center;
+      z-index: 4000;
+    }
+
+    #orderPopupContent {
+      background: white;
+      padding: 24px 32px;
+      border-radius: 16px;
+      text-align: center;
+      max-width: 320px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    }
+
+    #orderPopupContent h3 {
+      margin-bottom: 20px;
+      font-size: 22px;
+      color: #333;
+    }
+
+    .order-btn {
+      background-color: #c2873f;
+      color: white;
+      border: none;
+      padding: 12px 20px;
+      border-radius: 10px;
+      margin: 8px 12px;
+      font-weight: 600;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    .order-btn:hover {
+      background-color: #a36e2f;
+    }
+  </style>
 </head>
 <body>
 
@@ -262,117 +348,201 @@
 
     <div class="product-list" id="productList">
 
-      <!-- Product data with prices -->
+      <!-- Product data with prices and buy buttons -->
       <div class="product-item" data-price="199">
-        <img src="bracelet1.jpg" alt="Elegant Brown Bracelet" />
+        <img src="banner.png" alt="Elegant Brown Bracelet" />
         <h3>Ghost Pearl</h3>
         <p>For Aesthetics</p>
         <div class="product-price">₹199</div>
+        <button class="buy-btn">Buy</button>
       </div>
-
+5
       <div class="product-item" data-price="299">
-        <img src="bracelet2.jpg" alt="Blue Beaded Bracelet" />
+        <img src="banner.png" alt="Blue Beaded Bracelet" />
         <h3>Shadow Pearl</h3>
         <p>For Aesthetics.</p>
         <div class="product-price">₹299</div>
+        <button class="buy-btn">Buy</button>
       </div>
 
       <div class="product-item" data-price="149">
-        <img src="bracelet3.jpg" alt="Classic Black Bracelet" />
+        <img src="banner.png" alt="Classic Black Bracelet" />
         <h3>Void Pearl</h3>
         <p>For Aesthetics</p>
         <div class="product-price">₹149</div>
+        <button class="buy-btn">Buy</button>
       </div>
 
       <div class="product-item" data-price="349">
-        <img src="bracelet4.jpg" alt="Multicolor Stone Bracelet" />
+        <img src="banner.png" alt="Multicolor Stone Bracelet" />
         <h3>Frost Pearl</h3>
         <p>For Aesthetics</p>
         <div class="product-price">₹349</div>
+        <button class="buy-btn">Buy</button>
       </div>
 
-      <div class="product-item" data-price="259">
-        <img src="bracelet5.jpg" alt="Rustic Wood Bracelet" />
-        <h3>Blaze Pearl</h3>
-        <p>For Aesthetics</p>
-        <div class="product-price">₹259</div>
-      </div>
-
-      <div class="product-item" data-price="199">
-        <img src="bracelet6.jpg" alt="Elegant Silver Bracelet" />
-        <h3>Crimson Pearl</h3>
-        <p>For Aesthetics</p>
-        <div class="product-price">₹199</div>
-      </div>
-
-      <div class="product-item" data-price="379">
-        <img src="bracelet7.jpg" alt="Golden Charm Bracelet" />
-        <h3>Ash Pearl</h3>
-        <p>For Aesthetics</p>
-        <div class="product-price">₹379</div>
-      </div>
-
-      <div class="product-item" data-price="179">
-        <img src="bracelet8.jpg" alt="Pink Beaded Bracelet" />
-        <h3>Moss Pearl</h3>
-        <p>For Aesthetics</p>
-        <div class="product-price">₹179</div>
-      </div>
-
-      <div class="product-item" data-price="229">
-        <img src="bracelet9.jpg" alt="Earth Tone Bracelet" />
-        <h3>Crown Pearl</h3>
-        <p>For Aesthetics</p>
-        <div class="product-price">₹229</div>
-      </div>
-
-      <div class="product-item" data-price="329">
-        <img src="bracelet10.jpg" alt="Ocean Blue Bracelet" />
+      <div class="product-item" data-price="399">
+        <img src="banner.png" alt="Colorful Beaded Bracelet" />
         <h3>Rose Pearl</h3>
         <p>For Aesthetics</p>
-        <div class="product-price">₹329</div>
+        <div class="product-price">₹399</div>
+        <button class="buy-btn">Buy</button>
       </div>
 
+      <div class="product-item" data-price="129">
+        <img src="banner.png" alt="Simple Light Brown Bracelet" />
+        <h3>Moss Pearl</h3>
+        <p>For Aesthetics</p>
+        <div class="product-price">₹129</div>
+        <button class="buy-btn">Buy</button>
+      </div>
+
+      <div class="product-item" data-price="129">
+        <img src="banner.png" alt="Simple Light Brown Bracelet" />
+        <h3>Blaze Pearl</h3>
+        <p>For Aesthetics</p>
+        <div class="product-price">₹129</div>
+        <button class="buy-btn">Buy</button>
     </div>
+        
+      <div class="product-item" data-price="129">
+        <img src="banner.png" alt="Simple Light Brown Bracelet" />
+        <h3>Crimson Pearl</h3>
+        <p>For Aesthetics</p>
+        <div class="product-price">₹129</div>
+        <button class="buy-btn">Buy</button>
+      </div>
+        
+      <div class="product-item" data-price="129">
+        <img src="banner.png" alt="Simple Light Brown Bracelet" />
+        <h3>Crown Pearl</h3>
+        <p>For Aesthetics</p>
+        <div class="product-price">₹129</div>
+        <button class="buy-btn">Buy</button>
+      </div>
+        
+      <div class="product-item" data-price="129">
+        <img src="banner.png" alt="Simple Light Brown Bracelet" />
+        <h3>Ash Pearl</h3>
+        <p>For Aesthetics</p>
+        <div class="product-price">₹129</div>
+        <button class="buy-btn">Buy</button>
+      
   </div>
 
   <footer>
-    &copy; 2025 Oorja Threads. All rights reserved.
+    © 2024 Oorja Threads - All Rights Reserved
   </footer>
 
+  <!-- Lightbox Overlay -->
+  <div id="lightboxOverlay">
+    <img id="lightboxImage" src="" alt="Product Image"/>
+  </div>
+
+  <!-- Order Popup Overlay -->
+  <div id="orderPopup" role="dialog" aria-modal="true" aria-labelledby="orderPopupTitle" tabindex="-1">
+    <div id="orderPopupContent">
+      <h3 id="orderPopupTitle">How would you like to place your order?</h3>
+      <button class="order-btn" id="instagramBtn">DM on Instagram</button>
+      <button class="order-btn" id="emailBtn">Email</button>
+    </div>
+  </div>
+
   <script>
-    // Sidebar toggle for small screens
+    // Sidebar toggle for mobile
     function toggleSidebar() {
-      const sidebar = document.getElementById('sidebar');
-      sidebar.classList.toggle('active');
+      document.getElementById('sidebar').classList.toggle('active');
     }
 
-    // Sorting logic
-    const sortSelect = document.getElementById('sortPrice');
+    // Sorting functionality
     const productList = document.getElementById('productList');
+    const sortSelect = document.getElementById('sortPrice');
 
     sortSelect.addEventListener('change', () => {
       const products = Array.from(productList.children);
-      const sortValue = sortSelect.value;
-
+      const sortOrder = sortSelect.value;
       products.sort((a, b) => {
-        const priceA = parseInt(a.getAttribute('data-price'));
-        const priceB = parseInt(b.getAttribute('data-price'));
-        if (sortValue === 'low-high') {
-          return priceA - priceB;
-        } else {
-          return priceB - priceA;
-        }
+        const priceA = +a.dataset.price;
+        const priceB = +b.dataset.price;
+        return sortOrder === 'low-high' ? priceA - priceB : priceB - priceA;
       });
-
-      // Remove all and re-append sorted
       products.forEach(p => productList.appendChild(p));
     });
 
-    // Optional: trigger sort on page load to set default sorting
-    window.addEventListener('load', () => {
-      sortSelect.dispatchEvent(new Event('change'));
+    // Lightbox functionality
+    const lightboxOverlay = document.getElementById('lightboxOverlay');
+    const lightboxImage = document.getElementById('lightboxImage');
+
+    document.querySelectorAll('.product-item img').forEach(img => {
+      img.addEventListener('click', () => {
+        lightboxImage.src = img.src;
+        lightboxImage.alt = img.alt;
+        lightboxOverlay.style.display = 'flex';
+        document.body.style.overflow = 'hidden';
+      });
     });
+
+    lightboxOverlay.addEventListener('click', (e) => {
+      if (e.target === lightboxOverlay) {
+        lightboxOverlay.style.display = 'none';
+        document.body.style.overflow = '';
+      }
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && lightboxOverlay.style.display === 'flex') {
+        lightboxOverlay.style.display = 'none';
+        document.body.style.overflow = '';
+      }
+    });
+
+    // Order popup
+    const orderPopup = document.getElementById('orderPopup');
+    const instagramBtn = document.getElementById('instagramBtn');
+    const emailBtn = document.getElementById('emailBtn');
+
+    // Your Instagram DM URL and Email link here
+    const instagramURL = 'https://instagram.com/oorjathreads.store'; // Change this to your Insta profile
+    const emailAddress = 'mailto:oorja.threads@gmail.com'; // Change to your email
+
+    // Show popup on Buy button click
+    document.querySelectorAll('.buy-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        orderPopup.style.display = 'flex';
+        orderPopup.focus();
+        document.body.style.overflow = 'hidden';
+      });
+    });
+
+    // Redirect handlers
+    instagramBtn.addEventListener('click', () => {
+      window.open(instagramURL, '_blank');
+      closeOrderPopup();
+    });
+
+    emailBtn.addEventListener('click', () => {
+      window.location.href = emailAddress;
+      closeOrderPopup();
+    });
+
+    // Close popup if click outside content
+    orderPopup.addEventListener('click', (e) => {
+      if (e.target === orderPopup) {
+        closeOrderPopup();
+      }
+    });
+
+    // Close popup on Escape key
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && orderPopup.style.display === 'flex') {
+        closeOrderPopup();
+      }
+    });
+
+    function closeOrderPopup() {
+      orderPopup.style.display = 'none';
+      document.body.style.overflow = '';
+    }
   </script>
 
 </body>
