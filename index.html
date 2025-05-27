@@ -269,17 +269,17 @@
     <div class="features">
       <div class="feature-box">
         <img src="banner.png" alt="Bracelet">
-        <h3>Boho Bracelet</h3>
+        <h3>Ghost Pearl</h3>
         <p>Elegant design for daily wear</p>
       </div>
       <div class="feature-box">
         <img src="banner.png" alt="Anklet">
-        <h3>Thread Anklet</h3>
+        <h3>Void Pearl</h3>
         <p>For those aesthetics</p>
       </div>
       <div class="feature-box">
         <img src="banner.png" alt="Custom">
-        <h3>Custom Orders</h3>
+        <h3>Shadow Pearl</h3>
         <p>Your ideas, our threads!</p>
       </div>
     </div>
@@ -294,11 +294,11 @@
       </div>
       <div class="feature-box">
         <h3>Made in Bhopal</h3>
-        <p>Locally crafted by young entrepreneurs.</p>
+        <p>Locally crafted by me.</p>
       </div>
       <div class="feature-box">
-        <h3>Eco-Friendly</h3>
-        <p>We use sustainable materials and processes.</p>
+        <h3>Unique Designs</h3>
+        <p>Designs For Every Ocassion</p>
       </div>
     </div>
   </section>
@@ -319,41 +319,56 @@
     <a class="prev" onclick="changeSlide(-1)">&#10094;</a>
     <a class="next" onclick="changeSlide(1)">&#10095;</a>
   </div>
+<script>
+  // Sidebar toggle
+  function toggleSidebar() {
+    document.getElementById('sidebar').classList.toggle('active');
+  }
 
-  <script>
-    // Sidebar toggle
-    function toggleSidebar() {
-      document.getElementById('sidebar').classList.toggle('active');
+  // Popup images
+  const images = [
+    'popup.png',  // Slideshow image 1
+    'popu.png'    // Slideshow image 2
+  ];
+
+  let currentIndex = 0;
+
+  function openPopup(index = null, src = null) {
+    const popup = document.getElementById('popupModal');
+    const img = document.getElementById('popupImage');
+
+    if (src !== null) {
+      img.src = src; // custom image (e.g., featured product)
+    } else {
+      if (index !== null) currentIndex = index;
+      img.src = images[currentIndex]; // slideshow image
     }
 
-    // Popup Slideshow images
-    const images = [
-      'popup.png',       // First image
-      'popu.png'     // Second image (replace with your actual second image)
-    ];
+    popup.style.display = 'flex';
+  }
 
-    let currentIndex = 0;
+  function closePopup() {
+    document.getElementById('popupModal').style.display = 'none';
+  }
 
-    function openPopup() {
-      const popup = document.getElementById('popupModal');
-      const img = document.getElementById('popupImage');
-      img.src = images[currentIndex];
-      popup.style.display = 'flex';
-    }
+  function changeSlide(direction) {
+    currentIndex += direction;
+    if (currentIndex < 0) currentIndex = images.length - 1;
+    if (currentIndex >= images.length) currentIndex = 0;
+    document.getElementById('popupImage').src = images[currentIndex];
+  }
 
-    function closePopup() {
-      document.getElementById('popupModal').style.display = 'none';
-    }
+  window.onload = function () {
+    // Auto-popup slideshow on page load
+    openPopup();
 
-    function changeSlide(direction) {
-      currentIndex += direction;
-      if (currentIndex < 0) currentIndex = images.length - 1;
-      if (currentIndex >= images.length) currentIndex = 0;
-      document.getElementById('popupImage').src = images[currentIndex];
-    }
-
-    // Open popup automatically on page load
-    window.onload = openPopup;
-  </script>
+    // Enable featured product image click -> popup
+    document.querySelectorAll('.features .feature-box img').forEach((img) => {
+      img.addEventListener('click', () => {
+        openPopup(null, img.src); // open with that image
+      });
+    });
+  };
+</script>
 </body>
 </html>
