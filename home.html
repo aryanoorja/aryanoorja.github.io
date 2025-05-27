@@ -171,6 +171,72 @@
       .menu-btn { display: block; }
       .hero-content h1 { font-size: 32px; }
     }
+
+    /* --- Popup modal styles --- */
+    .popup-modal {
+      display: none; /* Hidden by default */
+      position: fixed;
+      z-index: 1500;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0,0,0,0.8);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+    }
+    .popup-modal img {
+      max-width: 90%;
+      max-height: 80vh;
+      border-radius: 12px;
+      box-shadow: 0 0 25px black;
+      display: block;
+      margin: 0 auto;
+    }
+    .close-btn {
+      position: absolute;
+      top: 20px;
+      right: 35px;
+      color: white;
+      font-size: 40px;
+      font-weight: bold;
+      cursor: pointer;
+      user-select: none;
+      transition: color 0.3s;
+      z-index: 1600;
+    }
+    .close-btn:hover {
+      color: #f2c383;
+    }
+    .prev, .next {
+      cursor: pointer;
+      position: fixed;
+      top: 50%;
+      width: auto;
+      padding: 16px;
+      margin-top: -22px;
+      color: white;
+      font-weight: bold;
+      font-size: 40px;
+      user-select: none;
+      border-radius: 0 3px 3px 0;
+      background-color: rgba(0,0,0,0.4);
+      transition: background-color 0.3s;
+      z-index: 1600;
+    }
+    .next {
+      right: 20px;
+      border-radius: 3px 0 0 3px;
+    }
+    .prev {
+      left: 20px;
+    }
+    .prev:hover, .next:hover {
+      background-color: rgba(242, 195, 131, 0.8);
+      color: black;
+    }
   </style>
 </head>
 <body>
@@ -246,10 +312,48 @@
     &copy; 2025 Oorja Threads. All rights reserved.
   </footer>
 
+  <!-- Popup Modal -->
+  <div id="popupModal" class="popup-modal">
+    <span class="close-btn" onclick="closePopup()">&times;</span>
+    <img id="popupImage" src="" alt="Popup Image" />
+    <a class="prev" onclick="changeSlide(-1)">&#10094;</a>
+    <a class="next" onclick="changeSlide(1)">&#10095;</a>
+  </div>
+
   <script>
+    // Sidebar toggle
     function toggleSidebar() {
       document.getElementById('sidebar').classList.toggle('active');
     }
+
+    // Popup Slideshow images
+    const images = [
+      'popup.png',       // First image
+      'popu.png'     // Second image (replace with your actual second image)
+    ];
+
+    let currentIndex = 0;
+
+    function openPopup() {
+      const popup = document.getElementById('popupModal');
+      const img = document.getElementById('popupImage');
+      img.src = images[currentIndex];
+      popup.style.display = 'flex';
+    }
+
+    function closePopup() {
+      document.getElementById('popupModal').style.display = 'none';
+    }
+
+    function changeSlide(direction) {
+      currentIndex += direction;
+      if (currentIndex < 0) currentIndex = images.length - 1;
+      if (currentIndex >= images.length) currentIndex = 0;
+      document.getElementById('popupImage').src = images[currentIndex];
+    }
+
+    // Open popup automatically on page load
+    window.onload = openPopup;
   </script>
 </body>
 </html>
