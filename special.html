@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Special Offers | Oorja Threads</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet"/>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: #fff8f2;
+      color: #333;
+      padding-top: 60px;
+      padding-left: 200px;
+      transition: padding-left 0.3s ease;
+    }
+
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 60px;
+      background-color: #000;
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 20px;
+      z-index: 2000;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+    }
+
+    .logo-area {
+      display: flex;
+      align-items: center;
+    }
+
+    .logo-area img {
+      height: 40px;
+      margin-right: 10px;
+    }
+
+    .logo-area span {
+      font-size: 22px;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+    }
+
+    .menu-btn {
+      display: none;
+      font-size: 24px;
+      cursor: pointer;
+      background: none;
+      border: none;
+      color: white;
+    }
+
+    #sidebar {
+      position: fixed;
+      top: 60px;
+      left: 0;
+      width: 200px;
+      height: calc(100% - 60px);
+      background-color: #000;
+      display: flex;
+      flex-direction: column;
+      z-index: 1000;
+      transition: transform 0.3s ease;
+    }
+
+    #sidebar a {
+      padding: 14px 24px;
+      color: white;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 16px;
+      border-left: 4px solid transparent;
+      transition: background-color 0.3s, border-color 0.3s;
+    }
+
+    #sidebar a:hover,
+    #sidebar a.active {
+      background-color: #222;
+      border-left: 4px solid #fff;
+    }
+
+    .container {
+      max-width: 960px;
+      margin: auto;
+      padding: 24px;
+    }
+
+    .terms-section {
+      background: #fff;
+      padding: 36px 24px;
+      border-radius: 16px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+      animation: fadeIn 1.2s ease;
+    }
+
+    .terms-section h2 {
+      font-size: 30px;
+      color: #c2873f;
+      margin-bottom: 24px;
+      text-align: center;
+    }
+
+    .offer {
+      background-color: #fff4e3;
+      border-left: 6px solid #c2873f;
+      padding: 20px;
+      margin-bottom: 30px;
+      border-radius: 12px;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+      text-align: center; /* Center text and buttons */
+    }
+
+    .offer h3 {
+      font-size: 22px;
+      margin-bottom: 8px;
+      color: #c2873f;
+    }
+
+    .images {
+      display: flex;
+      gap: 15px;
+      flex-wrap: nowrap;
+      justify-content: center; /* Center images horizontally */
+      margin-bottom: 15px;
+    }
+
+    .images img {
+      width: 140px;  /* increased size */
+      height: 140px;
+      object-fit: cover;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: transform 0.2s ease;
+    }
+
+    .images img:hover {
+      transform: scale(1.05);
+    }
+
+    .buy-btn {
+      margin-top: 10px;
+      padding: 10px 20px;
+      background-color: #c2873f;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 15px;
+    }
+
+    .buy-popup {
+      display: none;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background-color: rgba(0, 0, 0, 0.6);
+      justify-content: center;
+      align-items: center;
+      z-index: 3000;
+    }
+
+    .popup-content {
+      background-color: white;
+      padding: 24px;
+      border-radius: 16px;
+      text-align: center;
+      width: 300px;
+    }
+
+    .popup-content h4 {
+      margin-bottom: 20px;
+      font-size: 18px;
+    }
+
+    .popup-content button {
+      display: block;
+      width: 100%;
+      margin: 8px 0;
+      padding: 10px;
+      font-size: 15px;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      background-color: #c2873f;
+      color: white;
+      font-weight: 600;
+    }
+
+    .popup-content button:hover {
+      background-color: #a6702f;
+    }
+
+    .image-popup {
+      display: none;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background-color: rgba(0, 0, 0, 0.8);
+      justify-content: center;
+      align-items: center;
+      z-index: 4000;
+    }
+
+    .image-popup img {
+      max-width: 90%;
+      max-height: 90%;
+      border-radius: 12px;
+    }
+
+    footer {
+      background-color: #000;
+      color: #fff;
+      padding: 20px;
+      text-align: center;
+      max-width: 960px;
+      margin: 40px auto 0 auto;
+      border-radius: 0 0 16px 16px;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (max-width: 768px) {
+      body { padding-left: 0; }
+      #sidebar { transform: translateX(-100%); }
+      #sidebar.active { transform: translateX(0); }
+      .menu-btn { display: block; }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="logo-area">
+      <img src="logo.png" alt="Oorja Threads Logo" />
+      <span>Oorja Threads</span>
+    </div>
+    <button class="menu-btn" onclick="toggleSidebar()">☰</button>
+  </header>
+
+  <div id="sidebar">
+    <a href="index.html">Home</a>
+    <a href="about.html">About</a>
+    <a href="products.html">Products</a>
+    <a class="active" href="special.html">Special Offers</a>
+    <a href="contact.html">Contact</a>
+    <a href="terms.html">Terms</a>
+  </div>
+
+  <div class="container">
+    <section class="terms-section">
+      <h2>Special Offers</h2>
+
+      <!-- Repeat for 5 Products -->
+      <div class="offer">
+        <h3>✨ Elegant Charm Set</h3>
+        <div class="images">
+          <img src="banner.png" onclick="enlarge(this)">
+          <img src="banner.png" onclick="enlarge(this)">
+        </div>
+        <p>Get this chic charm set of 2 for just ₹349!</p>
+        <button class="buy-btn" onclick="openBuyPopup()">Buy</button>
+      </div>
+
+      <div class="offer">
+        <h3>🌈 Rainbow Thread Combo</h3>
+        <div class="images">
+          <img src="banner.png" onclick="enlarge(this)">
+          <img src="banner.png" onclick="enlarge(this)">
+        </div>
+        <p>Vibrant and colorful – 3 for ₹499 only!</p>
+        <button class="buy-btn" onclick="openBuyPopup()">Buy</button>
+      </div>
+
+      <div class="offer">
+        <h3>💖 Minimal Heart Pair</h3>
+        <div class="images">
+          <img src="banner.png" onclick="enlarge(this)">
+          <img src="banner.png" onclick="enlarge(this)">
+        </div>
+        <p>Buy 1 Get 1 Free – Special Love Edition!</p>
+        <button class="buy-btn" onclick="openBuyPopup()">Buy</button>
+      </div>
+
+      <div class="offer">
+        <h3>🔥 Rustic Trio Pack</h3>
+        <div class="images">
+          <img src="banner.png" onclick="enlarge(this)">
+          <img src="banner.png" onclick="enlarge(this)">
+        </div>
+        <p>Handcrafted earthy styles, 3 for ₹499.</p>
+        <button class="buy-btn" onclick="openBuyPopup()">Buy</button>
+      </div>
+
+      <div class="offer">
+        <h3>🌸 Boho Chic Bundle</h3>
+        <div class="images">
+          <img src="banner.png" onclick="enlarge(this)">
+          <img src="banner.png" onclick="enlarge(this)">
+        </div>
+        <p>Limited-time deal – 2 for ₹299!</p>
+        <button class="buy-btn" onclick="openBuyPopup()">Buy</button>
+      </div>
+
+    </section>
+  </div>
+
+  <div class="buy-popup" id="buyPopup">
+    <div class="popup-content">
+      <h4>How would you like to place your order?</h4>
+      <button onclick="window.open('https://instagram.com/oorjathreads.store', '_blank')">DM on Instagram</button>
+      <button onclick="window.open('mailto:oorja.threads@gmail.com')">Email</button>
+    </div>
+  </div>
+
+  <div class="image-popup" id="imagePopup" onclick="closeImagePopup()">
+    <img id="popupImage" src="" alt="Zoomed Image">
+  </div>
+
+  <footer>
+    &copy; 2025 Oorja Threads. All rights reserved.
+  </footer>
+
+  <script>
+    function toggleSidebar() {
+      document.getElementById('sidebar').classList.toggle('active');
+    }
+
+    function openBuyPopup() {
+      document.getElementById('buyPopup').style.display = 'flex';
+    }
+
+    window.onclick = function(event) {
+      if (event.target.id === "buyPopup") {
+        document.getElementById('buyPopup').style.display = 'none';
+      }
+    }
+
+    function enlarge(img) {
+      const popup = document.getElementById("imagePopup");
+      const popupImg = document.getElementById("popupImage");
+      popupImg.src = img.src;
+      popup.style.display = "flex";
+    }
+
+    function closeImagePopup() {
+      document.getElementById("imagePopup").style.display = "none";
+    }
+  </script>
+
+</body>
+</html>
