@@ -2,228 +2,159 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>About Me | Oorja Threads</title>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>About Us - Oorja Threads</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&display=swap" rel="stylesheet">
   <style>
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
+      font-family: 'Montserrat', sans-serif;
     }
 
     body {
-      font-family: 'Poppins', sans-serif;
-      background-color: #fff8f2;
-      color: #333;
-      padding-top: 60px;
-      padding-left: 200px;
-      transition: padding-left 0.3s ease;
+      background-color: #0d0d0d;
+      color: white;
+      overflow-x: hidden;
     }
 
-    header {
-      position: fixed;
-      top: 0;
-      left: 0;
+    .topbar {
       width: 100%;
-      height: 60px;
-      background-color: #000;
-      color: white;
+      background: #111;
+      padding: 15px 20px;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 0 20px;
-      z-index: 2000;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+      border-bottom: 1px solid #222;
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 1100;
     }
 
-    .logo-area {
+    .topbar .brand {
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: #ff3c38;
       display: flex;
       align-items: center;
     }
 
-    .logo-area img {
-      height: 40px;
-      margin-right: 10px;
-    }
-
-    .logo-area span {
-      font-size: 22px;
-      font-weight: 600;
-      letter-spacing: 0.5px;
-    }
-
-    .menu-btn {
+    .menu-toggle {
       display: none;
-      font-size: 24px;
+      position: fixed;
+      top: 15px;
+      right: 20px;
+      z-index: 1200;
       cursor: pointer;
-      background: none;
-      border: none;
-      color: white;
+      flex-direction: column;
+      gap: 4px;
     }
 
-    /* Sidebar styles */
-    #sidebar {
+    .menu-toggle div {
+      width: 25px;
+      height: 3px;
+      background-color: white;
+    }
+
+    .sidebar {
       position: fixed;
       top: 60px;
       left: 0;
-      width: 200px;
       height: calc(100% - 60px);
-      background-color: #000;
+      width: 220px;
+      background: #111;
+      padding: 40px 20px;
       display: flex;
       flex-direction: column;
+      gap: 20px;
+      border-right: 1px solid #222;
       z-index: 1000;
-      transition: transform 0.3s ease;
+      transition: transform 0.3s;
     }
 
-    #sidebar a {
-      padding: 14px 24px;
-      color: white;
+    .sidebar a {
+      color: #ddd;
       text-decoration: none;
       font-weight: 600;
-      font-size: 16px;
-      border-left: 4px solid transparent;
-      transition: background-color 0.3s, border-color 0.3s;
+      transition: 0.3s;
     }
 
-    #sidebar a:hover {
-      background-color: #222;
-      border-left: 4px solid #fff;
+    .sidebar a:hover {
+      color: #ff3c38;
     }
 
-    #sidebar a.active {
-      background-color: #222;
-      border-left: 4px solid #fff;
+    main {
+      margin-left: 240px;
+      padding: 100px 40px 40px;
+      max-width: 900px;
     }
 
-    nav {
-      display: flex;
-      gap: 20px;
+    h1 {
+      font-size: 2.5rem;
+      font-weight: 800;
+      margin-bottom: 30px;
+      text-align: center;
     }
 
-    nav a {
-      color: #fff;
-      text-decoration: none;
-      font-size: 16px;
-    }
-
-    .container {
-      max-width: 960px;
-      margin: auto;
-      padding: 24px;
-    }
-
-    .about-section {
-      background: #fff;
-      padding: 36px 24px;
-      border-radius: 16px;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.08);
-      animation: fadeIn 1.2s ease;
+    p {
+      font-size: 1.1rem;
       line-height: 1.7;
-    }
-
-    .about-section h2 {
-      font-size: 30px;
-      color: #c2873f;
-      margin-bottom: 24px;
-      text-align: center;
-    }
-
-    .about-section p {
-      font-size: 16px;
-      margin-bottom: 14px;
-    }
-
-    footer {
-      background-color: #000;
-      color: #fff;
-      padding: 20px;
-      text-align: center;
-      max-width: 960px;
-      margin: 40px auto 0 auto;
-      border-radius: 0 0 16px 16px;
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
+      color: #ccc;
+      margin-bottom: 20px;
     }
 
     @media (max-width: 768px) {
-      body {
-        padding-left: 0;
-      }
-
-      #sidebar {
+      .sidebar {
         transform: translateX(-100%);
       }
 
-      #sidebar.active {
+      .sidebar.active {
         transform: translateX(0);
       }
 
-      .menu-btn {
-        display: block;
+      .menu-toggle {
+        display: flex;
       }
 
-      nav {
-        display: none;
+      main {
+        margin-left: 0;
+        padding: 120px 20px 40px;
       }
     }
   </style>
-<!-- Favicon and Icons -->
-<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-<link rel="manifest" href="/site.webmanifest">
-<link rel="shortcut icon" href="/favicon.ico">
 </head>
 <body>
-
-  <header>
-    <div class="logo-area">
-      <img src="logo.png" alt="Oorja Threads Logo" />
-      <span>Oorja Threads</span>
+  <div class="topbar">
+    <div class="brand">Oorja Threads</div>
+    <div class="menu-toggle" onclick="document.getElementById('sidebar').classList.toggle('active')">
+      <div></div>
+      <div></div>
+      <div></div>
     </div>
-    <button class="menu-btn" onclick="toggleSidebar()">☰</button>
-  </header>
+  </div>
 
-  <div id="sidebar">
+  <nav class="sidebar" id="sidebar">
     <a href="index.html">Home</a>
-    <a class="active" href="about.html">About</a>
-    <a href="products.html">Bracelets</a>
-    <a href="terms.html">Terms</a>
-    <a href="contact.html">Contact</a>
-    <a href="speacial.html">Speacial Offers</a>
-  </div>
+    <a href="products.html">Products</a>
+    <a href="terms.html">Terms & Conditions</a>
+    <a href="contact.html">Contact Us</a>
+  </nav>
 
-  <div class="container">
-    <section class="about-section">
-      <h2>About Me</h2>
-      <p>Hi! I’m <strong> Aryan</strong>, <strong>14yo</strong>, I have <strong>big love</strong> for <strong>creativity</strong> and a dream to build something of my own.</p>
-
-<p>I started <strong> Oorja Threads</strong> because I’ve always believed that what we wear should reflect who we are inside — our <strong>vibe</strong>, our <strong>mood</strong>, our <strong>energy</strong> (which is what <strong>Oorja</strong> means!). I was inspired to create bracelets that aren't just accessories, but <strong>expressions of personality</strong> — handmade with <strong>care, color,</strong> and <strong>meaning</strong>.</p>
-
-<p>Every piece from <strong>Oorja Threads</strong> is crafted by hand, by me. I don’t have a huge team or a fancy studio — just <strong>passion, patience, and a lot of love for what I do.</strong></p>
-
-<p>This isn’t just a <strong>business</strong> — it’s my <strong>journey</strong> as a <strong>young creator</strong>, and I’m super excited to share it with you. 💫</p>
-
-<p><strong>Feel free to Dm me on</strong> <a href="https://instagram.com/oorjathreads.store" target="_blank" rel="noopener noreferrer">@oorjathreads.store</a> <strong>or email me at </strong><a href="mailto:oorja.threads@gmail.com">oorja.threads@gmail.com</a>  if you want to order, ask questions, or just say hi!</p>
-
-<strong>Thanks</strong> for supporting me, and for supporting handmade 💖
-
-<p>— <strong>Aryan</strong>, Creator of <strong>Oorja Threads</strong></p>
-    </section>
-  </div>
-
-  <footer>
-    &copy; 2025 Oorja Threads. All rights reserved.
-  </footer>
+  <main>
+    <h1>About Oorja Threads</h1>
+    <p>At <strong>Oorja Threads</strong>, we handcraft each bracelet with passion and precision. Our goal is to bring you uniquely styled, meaningful accessories that complement your individuality.</p>
+    <p>Started in 2024, Oorja Threads is a small, Indian-run bracelet brand powered by creativity, love for design, and a vision to inspire through minimal yet bold fashion.</p>
+    <p>Every piece you see is thoughtfully created using high-quality beads, durable cords, and carefully curated color palettes — ensuring every bracelet is as special as the person wearing it.</p>
+    <p>We believe in slow fashion, quality over quantity, and connecting with our customers through authenticity. Thank you for being part of the journey!</p>
+  </main>
 
   <script>
-    function toggleSidebar() {
-      document.getElementById('sidebar').classList.toggle('active');
-    }
+    // Toggle sidebar on mobile
+    document.querySelector(".menu-toggle").addEventListener("click", () => {
+      document.getElementById("sidebar").classList.toggle("active");
+    });
   </script>
 </body>
 </html>
