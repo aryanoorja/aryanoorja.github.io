@@ -2,540 +2,326 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Products | Oorja Threads</title>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet"/>  
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Oorja Threads - Bracelets</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&display=swap" rel="stylesheet">
   <style>
-    /* Your existing styles unchanged */
     * {
+      box-sizing: border-box;
       margin: 0;
       padding: 0;
-      box-sizing: border-box;
+      font-family: 'Montserrat', sans-serif;
     }
 
     body {
-      font-family: 'Poppins', sans-serif;
-      background-color: #fff8f2;
-      color: #333;
-      padding-top: 60px;
-      padding-left: 200px;
-      transition: padding-left 0.3s ease;
+      background-color: #0d0d0d;
+      color: white;
+      overflow-x: hidden;
     }
 
-    header {
+    .topbar {
+      width: 100%;
+      background: #111;
+      padding: 15px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid #222;
       position: fixed;
       top: 0;
       left: 0;
-      width: 100%;
-      height: 60px;
-      background-color: #000;
-      color: white;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 0 20px;
-      z-index: 2000;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+      z-index: 1100;
     }
 
-    .logo-area {
+    .topbar .brand {
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: #ff3c38;
       display: flex;
       align-items: center;
     }
 
-    .logo-area img {
-      height: 40px;
-      margin-right: 10px;
-    }
-
-    .logo-area span {
-      font-size: 22px;
-      font-weight: 600;
-      letter-spacing: 0.5px;
-    }
-
-    .menu-btn {
+    .menu-toggle {
       display: none;
-      font-size: 24px;
+      position: fixed;
+      top: 15px;
+      right: 20px;
+      z-index: 1200;
       cursor: pointer;
-      background: none;
-      border: none;
-      color: white;
+      flex-direction: column;
+      gap: 4px;
     }
 
-    /* Sidebar styles */
-    #sidebar {
+    .menu-toggle div {
+      width: 25px;
+      height: 3px;
+      background-color: white;
+    }
+
+    .sidebar {
       position: fixed;
       top: 60px;
       left: 0;
-      width: 200px;
       height: calc(100% - 60px);
-      background-color: #000;
+      width: 220px;
+      background: #111;
+      padding: 40px 20px;
       display: flex;
       flex-direction: column;
-      z-index: 1000;
-      transition: transform 0.3s ease;
-    }
-
-    #sidebar a {
-      padding: 14px 24px;
-      color: white;
-      text-decoration: none;
-      font-weight: 600;
-      font-size: 16px;
-      border-left: 4px solid transparent;
-      transition: background-color 0.3s, border-color 0.3s;
-    }
-
-    #sidebar a:hover {
-      background-color: #222;
-      border-left: 4px solid #fff;
-    }
-
-    #sidebar a.active {
-      background-color: #222;
-      border-left: 4px solid #fff;
-    }
-
-    nav {
-      display: flex;
       gap: 20px;
+      border-right: 1px solid #222;
+      z-index: 1000;
+      transition: transform 0.3s;
     }
 
-    nav a {
-      color: #fff;
+    .sidebar a {
+      color: #ddd;
       text-decoration: none;
-      font-size: 16px;
-    }
-
-    .container {
-      max-width: 960px;
-      margin: auto;
-      padding: 24px;
-    }
-
-    .header-section {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 24px;
-    }
-
-    .header-section h2 {
-      color: #c2873f;
-      font-size: 30px;
-    }
-
-    .sort-select {
-      padding: 8px 12px;
-      border-radius: 8px;
-      border: 1px solid #ccc;
-      font-size: 16px;
-      cursor: pointer;
-      background: #fff;
-      color: #333;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-      transition: border-color 0.3s;
-    }
-
-    .sort-select:hover, .sort-select:focus {
-      border-color: #c2873f;
-      outline: none;
-    }
-
-   .product-list {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-}
-
-    .product-item {
-      background: #fff;
-      padding: 16px;
-      border-radius: 16px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.07);
-      text-align: center;
-      transition: transform 0.2s;
-      position: relative;
-    }
-
-    .product-item:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 8px 20px rgba(0,0,0,0.12);
-    }
-
-    .product-item img {
-      max-width: 100%;
-      max-height: 300px; /* Limit the height */
-      object-fit: cover;  /* Crop the image to fit the box */
-      border-radius: 12px;
-      margin-bottom: 12px;
-      cursor: pointer;
-    }
-
-    .product-item h3 {
-      font-size: 20px;
-      color: #c2873f;
-      margin-bottom: 8px;
-    }
-
-    .product-item p {
-      font-size: 14px;
-      color: #666;
-      margin-bottom: 8px;
-      min-height: 36px;
-    }
-
-    .product-price {
-      font-weight: 700;
-      color: #000;
-      font-size: 16px;
-      margin-bottom: 12px;
-    }
-
-    .buy-btn {
-      background-color: #c2873f;
-      border: none;
-      padding: 10px 18px;
       font-weight: 600;
-      color: white;
-      border-radius: 8px;
+      transition: 0.3s;
+    }
+
+    .sidebar a:hover {
+      color: #ff3c38;
+    }
+
+    main {
+      margin-left: 240px;
+      padding: 100px 40px 40px;
+    }
+
+    h1 {
+      text-align: center;
+      font-size: 2.5rem;
+      margin-bottom: 50px;
+      font-weight: 800;
+    }
+
+    .product-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 30px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .product-card {
+      background: linear-gradient(145deg, #1a1a1a, #111);
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 12px 24px rgba(0, 0, 0, 0.5);
+      transition: 0.3s ease;
       cursor: pointer;
-      transition: background-color 0.3s;
-      font-size: 16px;
+      display: flex;
+      flex-direction: column;
     }
 
-    .buy-btn:hover {
-      background-color: #a36e2f;
+    .product-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 20px 30px rgba(255, 60, 56, 0.15);
     }
 
-    footer {
-      background-color: #000;
-      color: #fff;
+    .product-card img {
+      width: 100%;
+      height: 220px;
+      object-fit: cover;
+      border-bottom: 1px solid #222;
+    }
+
+    .product-details {
       padding: 20px;
-      text-align: center;
-      max-width: 960px;
-      margin: 40px auto 0 auto;
-      border-radius: 0 0 16px 16px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
     }
 
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
+    .product-details h3 {
+      font-size: 1.5rem;
+      margin-bottom: 10px;
+      font-weight: 700;
     }
 
-    @media (max-width: 768px) {
-      body {
-        padding-left: 0;
-      }
-
-      #sidebar {
-        transform: translateX(-100%);
-      }
-
-      #sidebar.active {
-        transform: translateX(0);
-      }
-
-      .menu-btn {
-        display: block;
-      }
-
-      nav {
-        display: none;
-      }
+    .product-details p {
+      margin-bottom: 15px;
+      color: #ff3c38;
+      font-size: 1.1rem;
+      font-weight: 600;
     }
 
-    .note-text {
-      margin-top: 20px;
-      font-size: 18px;
-      color: #ff0000;
-      font-weight: 500;
-      text-align: center;
+    .product-details button {
+      padding: 10px;
+      background-color: #ff3c38;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: 0.3s ease;
     }
 
-    /* Lightbox overlay styles */
-    #lightboxOverlay {
+    .product-details button:hover {
+      background-color: #e12b2b;
+    }
+
+    .modal, .buy-modal {
       display: none;
       position: fixed;
-      top: 0; left: 0;
-      width: 100vw; height: 100vh;
-      background: rgba(0, 0, 0, 0.8);
+      z-index: 2000;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.8);
       justify-content: center;
       align-items: center;
-      z-index: 3000;
-      cursor: pointer;
     }
 
-    #lightboxImage {
+    .modal img {
       max-width: 90%;
       max-height: 90%;
       border-radius: 12px;
-      box-shadow: 0 0 15px #fff;
-      cursor: auto;
     }
 
-    /* Order popup overlay */
-    #orderPopup {
-      display: none;
-      position: fixed;
-      top: 0; left: 0;
-      width: 100vw; height: 100vh;
-      background: rgba(0, 0, 0, 0.7);
-      justify-content: center;
-      align-items: center;
-      z-index: 4000;
-    }
-
-    #orderPopupContent {
-      background: white;
-      padding: 24px 32px;
+    .buy-modal-content {
+      background: #111;
+      padding: 30px;
       border-radius: 16px;
       text-align: center;
-      max-width: 320px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+      max-width: 300px;
+      width: 90%;
     }
 
-    #orderPopupContent h3 {
+    .buy-modal-content h2 {
+      font-size: 1.4rem;
       margin-bottom: 20px;
-      font-size: 22px;
-      color: #333;
     }
 
-    .order-btn {
-      background-color: #c2873f;
-      color: white;
+    .buy-modal-content button {
+      display: block;
+      width: 100%;
+      padding: 12px;
+      margin-top: 10px;
       border: none;
-      padding: 12px 20px;
-      border-radius: 10px;
-      margin: 8px 12px;
+      border-radius: 8px;
       font-weight: 600;
-      font-size: 16px;
+      font-size: 1rem;
       cursor: pointer;
-      transition: background-color 0.3s;
+      transition: 0.3s;
     }
 
-    .order-btn:hover {
-      background-color: #a36e2f;
+    .btn-insta {
+      background-color: #c13584;
+      color: white;
+    }
+
+    .btn-insta:hover {
+      background-color: #a42b6d;
+    }
+
+    .btn-email {
+      background-color: #0072c6;
+      color: white;
+    }
+
+    .btn-email:hover {
+      background-color: #005999;
+    }
+
+    @media (max-width: 768px) {
+      .sidebar {
+        transform: translateX(-100%);
+      }
+
+      .sidebar.active {
+        transform: translateX(0);
+      }
+
+      .menu-toggle {
+        display: flex;
+      }
+
+      main {
+        margin-left: 0;
+        padding: 120px 20px 40px;
+      }
     }
   </style>
-  <!-- Favicon and Icons -->
-<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-<link rel="manifest" href="/site.webmanifest">
-<link rel="shortcut icon" href="/favicon.ico">
 </head>
 <body>
-
-  <header>
-    <div class="logo-area">
-      <img src="logo.png" alt="Oorja Threads Logo" />
-      <span>Oorja Threads</span>
+  <div class="topbar">
+    <div class="brand">Oorja Threads</div>
+    <div class="menu-toggle" onclick="document.getElementById('sidebar').classList.toggle('active')">
+      <div></div>
+      <div></div>
+      <div></div>
     </div>
-    <button class="menu-btn" onclick="toggleSidebar()">☰</button>
-  </header>
+  </div>
 
-  <div id="sidebar">
+  <nav class="sidebar" id="sidebar">
     <a href="index.html">Home</a>
-    <a href="about.html">About</a>
-    <a class="active" href="products.html">Bracelets</a>
-    <a href="terms.html">Terms</a>
-    <a href="contact.html">Contact</a>
-    <a href="speacial.html">Speacial Offers</a>
-  </div>
+    <a href="products.html">Products</a>
+    <a href="terms.html">Terms & Conditions</a>
+    <a href="contact.html">Contact Us</a>
+  </nav>
 
-  <div class="container">
-    <div class="header-section">
-      <h2>Our Bracelets</h2>
-      <select class="sort-select" id="sortPrice" aria-label="Sort products by price">
-        <option value="low-high">Price: Low to High</option>
-        <option value="high-low">Price: High to Low</option>
-      </select>
+  <main>
+    <h1>Our Bracelets</h1>
+    <div class="product-list" id="product-list">
+      <!-- Product cards will be inserted here -->
     </div>
+  </main>
 
-    <div class="product-list" id="productList">
-
-      <!-- Product data with prices and buy buttons -->
-        <div class="product-item" data-price="299">
-        <img src="Shadow.png" alt="Moon Pearl Bracelet" />
-        <h3>Moon Pearl</h3>
-        <p>Delivery charges not included</p>
-        <div class="product-price">₹79</div>
-        <button class="buy-btn">Buy</button>
-      </div>
-
-      <div class="product-item" data-price="349">
-        <img src="frost.png" alt="Frost Pearl Bracelet" />
-        <h3>Frost Pearl</h3>
-        <p>Delivery charges not included</p>
-        <div class="product-price">₹59</div>
-        <button class="buy-btn">Buy</button>
-      </div>
-
-      <div class="product-item" data-price="399">
-        <img src="rose.png" alt="Rose Pearl Bracelet" />
-        <h3>Rose Pearl</h3>
-        <p>Delivery charges not included</p>
-        <div class="product-price">₹59</div>
-        <button class="buy-btn">Buy</button>
-      </div>
-
-      <div class="product-item" data-price="129">
-        <img src="moss.png" alt="Moss Pearl Bracelet" />
-        <h3>Moss Pearl</h3>
-        <p>Delivery charges not included</p>
-        <div class="product-price">₹59</div>
-        <button class="buy-btn">Buy</button>
-      </div>
-
-      <div class="product-item" data-price="129">
-        <img src="blaze.png" alt="Blaze Pearl Bracelet" />
-        <h3>Blaze Pearl</h3>
-        <p>Delivery charges not included</p>
-        <div class="product-price">₹59</div>
-        <button class="buy-btn">Buy</button>
-    </div>
-        
-      <div class="product-item" data-price="129">
-        <img src="crimson.png" alt="Crimson Pearl Bracelet" />
-        <h3>Crimson Pearl</h3>
-        <p>Delivery charges not included</p>
-        <div class="product-price">₹59</div>
-        <button class="buy-btn">Buy</button>
-      </div>
-        
-      <div class="product-item" data-price="129">
-        <img src="aqua.png" alt="Aqua Pearl Bracelet" />
-        <h3>Aqua Pearl</h3>
-        <p>Delivery charges not included</p>
-        <div class="product-price">₹59</div>
-        <button class="buy-btn">Buy</button>
-      
-  </div>
-     
-      <div class="product-item" data-price="129">
-        <img src="cotton.png" alt="Bracelet" />
-        <h3>Cotton Pearl</h3>
-        <p>Delivery charges not included</p>
-        <div class="product-price">₹59</div>
-        <button class="buy-btn">Buy</button>
-
-  </div>
-  <footer>
-    © 2024 Oorja Threads - All Rights Reserved
-  </footer>
-
-  <!-- Lightbox Overlay -->
-  <div id="lightboxOverlay">
-    <img id="lightboxImage" src="" alt="Product Image"/>
+  <div class="modal" id="imageModal" onclick="this.style.display='none'">
+    <img id="modalImage" src="" alt="Expanded Product Image">
   </div>
 
-  <!-- Order Popup Overlay -->
-  <div id="orderPopup" role="dialog" aria-modal="true" aria-labelledby="orderPopupTitle" tabindex="-1">
-    <div id="orderPopupContent">
-      <h3 id="orderPopupTitle">How would you like to place your order?</h3>
-      <button class="order-btn" id="instagramBtn">DM on Instagram</button>
-      <button class="order-btn" id="emailBtn">Email</button>
+  <div class="buy-modal" id="buyModal">
+    <div class="buy-modal-content">
+      <h2>How would you like to place your order?</h2>
+      <button class="btn-insta" onclick="window.open('https://www.instagram.com/oorjathreads.store', '_blank')">DM on Instagram</button>
+      <button class="btn-email" onclick="window.location.href='mailto:oorja.threads@gmail.com'">Email</button>
     </div>
   </div>
 
   <script>
-    // Sidebar toggle for mobile
-    function toggleSidebar() {
-      document.getElementById('sidebar').classList.toggle('active');
+    function openBuyModal() {
+      document.getElementById('buyModal').style.display = 'flex';
     }
 
-    // Sorting functionality
-    const productList = document.getElementById('productList');
-    const sortSelect = document.getElementById('sortPrice');
-
-    sortSelect.addEventListener('change', () => {
-      const products = Array.from(productList.children);
-      const sortOrder = sortSelect.value;
-      products.sort((a, b) => {
-        const priceA = +a.dataset.price;
-        const priceB = +b.dataset.price;
-        return sortOrder === 'low-high' ? priceA - priceB : priceB - priceA;
-      });
-      products.forEach(p => productList.appendChild(p));
-    });
-
-    // Lightbox functionality
-    const lightboxOverlay = document.getElementById('lightboxOverlay');
-    const lightboxImage = document.getElementById('lightboxImage');
-
-    document.querySelectorAll('.product-item img').forEach(img => {
-      img.addEventListener('click', () => {
-        lightboxImage.src = img.src;
-        lightboxImage.alt = img.alt;
-        lightboxOverlay.style.display = 'flex';
-        document.body.style.overflow = 'hidden';
-      });
-    });
-
-    lightboxOverlay.addEventListener('click', (e) => {
-      if (e.target === lightboxOverlay) {
-        lightboxOverlay.style.display = 'none';
-        document.body.style.overflow = '';
+    window.addEventListener('click', function(event) {
+      const buyModal = document.getElementById('buyModal');
+      if (event.target === buyModal) {
+        buyModal.style.display = 'none';
       }
     });
 
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape' && lightboxOverlay.style.display === 'flex') {
-        lightboxOverlay.style.display = 'none';
-        document.body.style.overflow = '';
-      }
+    const products = [
+      { name: "Crimson Pearl", price: 85, image: "bracelet1.jpg" },
+      { name: "Shadow Core", price: 85, image: "bracelet2.jpg" },
+      { name: "Mystic Frost", price: 85, image: "bracelet3.jpg" },
+      { name: "Sunflare", price: 85, image: "bracelet4.jpg" },
+      { name: "Obsidian Glow", price: 85, image: "bracelet5.jpg" },
+      { name: "Ocean Drift", price: 85, image: "bracelet6.jpg" },
+      { name: "Celestial Wave", price: 85, image: "bracelet7.jpg" },
+      { name: "Twilight Rune", price: 85, image: "bracelet8.jpg" },
+      { name: "Lunar Dust", price: 85, image: "bracelet9.jpg" },
+      { name: "Ember Heart", price: 85, image: "bracelet10.jpg" }
+    ];
+
+    const productList = document.getElementById("product-list");
+    products.forEach(product => {
+      const card = document.createElement("div");
+      card.className = "product-card";
+      card.innerHTML = `
+        <img src="${product.image}" alt="${product.name}">
+        <div class="product-details">
+          <h3>${product.name}</h3>
+          <p>₹${product.price}</p>
+          <button onclick="openBuyModal()">Buy Now</button>
+        </div>
+      `;
+      productList.appendChild(card);
     });
-
-    // Order popup
-    const orderPopup = document.getElementById('orderPopup');
-    const instagramBtn = document.getElementById('instagramBtn');
-    const emailBtn = document.getElementById('emailBtn');
-
-    // Your Instagram DM URL and Email link here
-    const instagramURL = 'https://instagram.com/oorjathreads.store'; // Change this to your Insta profile
-    const emailAddress = 'mailto:oorja.threads@gmail.com'; // Change to your email
-
-    // Show popup on Buy button click
-    document.querySelectorAll('.buy-btn').forEach(btn => {
-      btn.addEventListener('click', () => {
-        orderPopup.style.display = 'flex';
-        orderPopup.focus();
-        document.body.style.overflow = 'hidden';
-      });
-    });
-
-    // Redirect handlers
-    instagramBtn.addEventListener('click', () => {
-      window.open(instagramURL, '_blank');
-      closeOrderPopup();
-    });
-
-    emailBtn.addEventListener('click', () => {
-      window.location.href = emailAddress;
-      closeOrderPopup();
-    });
-
-    // Close popup if click outside content
-    orderPopup.addEventListener('click', (e) => {
-      if (e.target === orderPopup) {
-        closeOrderPopup();
-      }
-    });
-
-    // Close popup on Escape key
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape' && orderPopup.style.display === 'flex') {
-        closeOrderPopup();
-      }
-    });
-
-    function closeOrderPopup() {
-      orderPopup.style.display = 'none';
-      document.body.style.overflow = '';
-    }
   </script>
-
 </body>
 </html>
