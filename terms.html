@@ -2,255 +2,178 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Terms & Conditions | Oorja Threads</title>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Terms & Conditions - Oorja Threads</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&display=swap" rel="stylesheet">
   <style>
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
+      font-family: 'Montserrat', sans-serif;
     }
 
     body {
-      font-family: 'Poppins', sans-serif;
-      background-color: #fff8f2;
-      color: #333;
-      padding-top: 60px;
-      padding-left: 200px;
-      transition: padding-left 0.3s ease;
+      background-color: #0d0d0d;
+      color: white;
+      overflow-x: hidden;
     }
 
-    header {
-      position: fixed;
-      top: 0;
-      left: 0;
+    .topbar {
       width: 100%;
-      height: 60px;
-      background-color: #000;
-      color: white;
+      background: #111;
+      padding: 15px 20px;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 0 20px;
-      z-index: 2000;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+      border-bottom: 1px solid #222;
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 1100;
     }
 
-    .logo-area {
-      display: flex;
-      align-items: center;
+    .topbar .brand {
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: #ff3c38;
     }
 
-    .logo-area img {
-      height: 40px;
-      margin-right: 10px;
-    }
-
-    .logo-area span {
-      font-size: 22px;
-      font-weight: 600;
-      letter-spacing: 0.5px;
-    }
-
-    .menu-btn {
+    .menu-toggle {
       display: none;
-      font-size: 24px;
+      position: fixed;
+      top: 15px;
+      right: 20px;
+      z-index: 1200;
       cursor: pointer;
-      background: none;
-      border: none;
-      color: white;
+      flex-direction: column;
+      gap: 4px;
     }
 
-    /* Sidebar styles */
-    #sidebar {
+    .menu-toggle div {
+      width: 25px;
+      height: 3px;
+      background-color: white;
+    }
+
+    .sidebar {
       position: fixed;
       top: 60px;
       left: 0;
-      width: 200px;
       height: calc(100% - 60px);
-      background-color: #000;
+      width: 220px;
+      background: #111;
+      padding: 40px 20px;
       display: flex;
       flex-direction: column;
+      gap: 20px;
+      border-right: 1px solid #222;
       z-index: 1000;
-      transition: transform 0.3s ease;
+      transition: transform 0.3s;
     }
 
-    #sidebar a {
-      padding: 14px 24px;
-      color: white;
+    .sidebar a {
+      color: #ddd;
       text-decoration: none;
       font-weight: 600;
-      font-size: 16px;
-      border-left: 4px solid transparent;
-      transition: background-color 0.3s, border-color 0.3s;
+      transition: 0.3s;
     }
 
-    #sidebar a:hover {
-      background-color: #222;
-      border-left: 4px solid #fff;
+    .sidebar a:hover {
+      color: #ff3c38;
     }
 
-    #sidebar a.active {
-      background-color: #222;
-      border-left: 4px solid #fff;
+    main {
+      margin-left: 240px;
+      padding: 100px 40px 40px;
+      max-width: 900px;
     }
 
-    nav {
-      display: flex;
-      gap: 20px;
+    h1 {
+      font-size: 2.5rem;
+      font-weight: 800;
+      margin-bottom: 30px;
+      text-align: center;
     }
 
-    nav a {
-      color: #fff;
-      text-decoration: none;
-      font-size: 16px;
+    h2 {
+      font-size: 1.5rem;
+      color: #ff3c38;
+      margin-top: 30px;
+      margin-bottom: 10px;
     }
 
-    .container {
-      max-width: 960px;
-      margin: auto;
-      padding: 24px;
-    }
-
-    .terms-section {
-      background: #fff;
-      padding: 36px 24px;
-      border-radius: 16px;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.08);
-      animation: fadeIn 1.2s ease;
+    p {
+      font-size: 1.05rem;
       line-height: 1.7;
-    }
-
-    .terms-section h2 {
-      font-size: 30px;
-      color: #c2873f;
-      margin-bottom: 24px;
-      text-align: center;
-    }
-
-    .terms-section h3 {
-      font-size: 20px;
-      margin-top: 20px;
-      margin-bottom: 12px;
-    }
-
-    .terms-section p, .terms-section ul {
-      font-size: 16px;
-      margin-bottom: 14px;
-    }
-
-    .terms-section ul {
-      list-style-type: disc;
-      margin-left: 20px;
-    }
-
-    footer {
-      background-color: #000;
-      color: #fff;
-      padding: 20px;
-      text-align: center;
-      max-width: 960px;
-      margin: 40px auto 0 auto;
-      border-radius: 0 0 16px 16px;
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
+      color: #ccc;
+      margin-bottom: 20px;
     }
 
     @media (max-width: 768px) {
-      body {
-        padding-left: 0;
-      }
-
-      #sidebar {
+      .sidebar {
         transform: translateX(-100%);
       }
 
-      #sidebar.active {
+      .sidebar.active {
         transform: translateX(0);
       }
 
-      .menu-btn {
-        display: block;
+      .menu-toggle {
+        display: flex;
       }
 
-      nav {
-        display: none;
+      main {
+        margin-left: 0;
+        padding: 120px 20px 40px;
       }
     }
   </style>
-<!-- Favicon and Icons -->
-<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-<link rel="manifest" href="/site.webmanifest">
-<link rel="shortcut icon" href="/favicon.ico">
 </head>
 <body>
-
-  <header>
-    <div class="logo-area">
-      <img src="logo.png" alt="Oorja Threads Logo" />
-      <span>Oorja Threads</span>
+  <div class="topbar">
+    <div class="brand">Oorja Threads</div>
+    <div class="menu-toggle" onclick="document.getElementById('sidebar').classList.toggle('active')">
+      <div></div>
+      <div></div>
+      <div></div>
     </div>
-    <button class="menu-btn" onclick="toggleSidebar()">☰</button>
-  </header>
+  </div>
 
-  <div id="sidebar">
+  <nav class="sidebar" id="sidebar">
     <a href="index.html">Home</a>
-    <a href="about.html">About</a>
-    <a href="products.html">Bracelets</a>
-    <a class="active" href="terms.html">Terms</a>
-    <a href="contact.html">Contact</a>
-    <a href="speacial.html">Speacial Offers</a>
-  </div>
+    <a href="products.html">Products</a>
+    <a class="active" href="terms.html">Terms & Conditions</a>
+    <a href="contact.html">Contact Us</a>
+  </nav>
 
-  <div class="container">
-    <section class="terms-section">
-      <h2>Terms & Conditions</h2>
-      <p>Welcome to Oorja Threads. By accessing or using our website and services, you agree to be bound by the following terms and conditions. Please read them carefully.</p>
+  <main>
+    <h1>Terms & Conditions</h1>
 
-      <h3>1. Products & Orders</h3>
-      <p>All products are handmade and crafted with care. While we strive for perfection, slight variations may occur as each item is unique. We currently deliver across India.</p>
+    <h2>1. Handmade Nature</h2>
+    <p>All our bracelets are handmade, so slight variations in color, size, and design may occur. This uniqueness is what makes every piece special.</p>
 
-      <h3>2. Payment</h3>
-      <p>We accept online payments only. Please ensure payment is complete before delivery. No Cash on Delivery is available at this time.</p>
+    <h2>2. Orders & Shipping</h2>
+    <p>Once an order is placed, it cannot be cancelled or changed. Please double-check your order details before confirming. Orders are usually shipped within 2–4 working days.</p>
 
-      <h3>3. Shipping & Delivery</h3>
-      <ul>
-        <li>Deliveries are limited to India.</li>
-        <li>Estimated delivery times will be communicated at the time of order.</li>
-        <li>We are not responsible for delays caused by external factors.</li>
-      </ul>
+    <h2>3. Payment</h2>
+    <p>We accept digital payments only through supported methods listed on our site. All payments are 100% secure and encrypted.</p>
 
-      <h3>4. Returns & Refunds</h3>
-      <p>Due to the handmade nature of our products, we do not accept returns or exchanges. If your product arrives damaged, please contact us within 48 hours with photos for resolution.</p>
+    <h2>4. Returns & Exchanges</h2>
+    <p>Since our items are handmade and made-to-order, we do not accept returns or exchanges unless there is a manufacturing defect or shipping damage.</p>
 
-      <h3>5. Intellectual Property</h3>
-      <p>All content, designs, and materials on this website are the property of Oorja Threads. Unauthorized use is prohibited.</p>
+    <h2>5. Contact</h2>
+    <p>For any issues, reach out to us at <a href="mailto:oorja.threads@gmail.com">oorja.threads@gmail.com</a> or DM us on Instagram <a href="https://instagram.com/oorjathreads.store" target="_blank">@oorjathreads.store</a>.</p>
 
-      <h3>6. Limitation of Liability</h3>
-      <p>Oorja Threads is not liable for any damages arising from the use of our products or website.</p>
-
-      <h3>7. Changes to Terms</h3>
-      <p>We reserve the right to modify these terms at any time. Continued use of the website indicates acceptance of any changes.</p>
-
-      <h3>8. Contact Us</h3>
-      <p>If you have questions about these terms, please reach out via email at <a href="mailto:oorja.threads@gmail.com">oorja.threads@gmail.com</a> or Instagram <a href="https://instagram.com/oorjathreads.store" target="_blank" rel="noopener noreferrer">@oorjathreads.store</a>.</p>
-    </section>
-  </div>
-
-  <footer>
-    &copy; 2025 Oorja Threads. All rights reserved.
-  </footer>
+    <h2>6. Updates</h2>
+    <p>We reserve the right to update these terms at any time without prior notice. Please review this page regularly for any changes.</p>
+  </main>
 
   <script>
-    function toggleSidebar() {
-      document.getElementById('sidebar').classList.toggle('active');
-    }
+    // Sidebar toggle
+    document.querySelector(".menu-toggle").addEventListener("click", () => {
+      document.getElementById("sidebar").classList.toggle("active");
+    });
   </script>
 </body>
 </html>
