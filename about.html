@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Oorja Threads - About Us</title>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&display=swap" rel="stylesheet">
   <style>
@@ -14,8 +14,8 @@
     }
 
     body {
-      background-color: #0d0d0d;
-      color: white;
+      background: #0d0d0d;
+      color: #fff;
       overflow-x: hidden;
     }
 
@@ -33,29 +33,17 @@
       z-index: 1100;
     }
 
+    .topbar img {
+      height: 32px;
+      margin-right: 10px;
+    }
+
     .topbar .brand {
       font-size: 1.4rem;
       font-weight: 700;
       color: #ff3c38;
       display: flex;
       align-items: center;
-    }
-
-    .menu-toggle {
-      display: none;
-      position: fixed;
-      top: 15px;
-      right: 20px;
-      z-index: 1200;
-      cursor: pointer;
-      flex-direction: column;
-      gap: 4px;
-    }
-
-    .menu-toggle div {
-      width: 25px;
-      height: 3px;
-      background-color: white;
     }
 
     .sidebar {
@@ -71,7 +59,6 @@
       gap: 20px;
       border-right: 1px solid #222;
       z-index: 1000;
-      transition: transform 0.3s;
     }
 
     .sidebar a {
@@ -85,29 +72,27 @@
       color: #ff3c38;
     }
 
-    main {
-      margin-left: 240px;
-      padding: 100px 40px 40px;
-      max-width: 900px;
+    .menu-toggle {
+      display: none;
+      position: absolute;
+      top: 15px;
+      left: 20px;
+      z-index: 1200;
+      cursor: pointer;
+      flex-direction: column;
+      gap: 4px;
     }
 
-    h1 {
-      font-size: 2.5rem;
-      font-weight: 800;
-      margin-bottom: 30px;
-      text-align: center;
-    }
-
-    p {
-      font-size: 1.1rem;
-      line-height: 1.7;
-      color: #ccc;
-      margin-bottom: 20px;
+    .menu-toggle div {
+      width: 25px;
+      height: 3px;
+      background-color: white;
     }
 
     @media (max-width: 768px) {
       .sidebar {
         transform: translateX(-100%);
+        transition: transform 0.3s;
       }
 
       .sidebar.active {
@@ -118,44 +103,101 @@
         display: flex;
       }
 
+      .topbar {
+        justify-content: flex-start;
+        gap: 10px;
+      }
+    }
+
+    main {
+      margin-left: 240px;
+      padding: 100px 40px 40px;
+      max-width: 900px;
+    }
+
+    @media (max-width: 768px) {
       main {
         margin-left: 0;
         padding: 120px 20px 40px;
       }
     }
+
+    h1 {
+      font-size: 2.8rem;
+      background: linear-gradient(to right, #ff3c38, #ff8e38);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 30px;
+    }
+
+    p {
+      font-size: 1.1rem;
+      line-height: 1.8;
+      color: #ccc;
+      margin-bottom: 20px;
+    }
+
+    .highlight {
+      color: #ff3c38;
+      font-weight: 600;
+    }
+
+    footer {
+      margin-top: 80px;
+      text-align: center;
+      color: #777;
+      font-size: 0.9rem;
+      padding: 60px 0;
+    }
   </style>
 </head>
 <body>
+
   <div class="topbar">
-    <div class="brand">Oorja Threads</div>
-    <div class="menu-toggle" onclick="document.getElementById('sidebar').classList.toggle('active')">
-      <div></div>
-      <div></div>
-      <div></div>
+    <div class="brand">
+      <img src="logo.png" alt="Logo">
+      OorjaThreads
     </div>
+  </div>
+
+  <div class="menu-toggle" onclick="toggleSidebar()">
+    <div></div>
+    <div></div>
+    <div></div>
   </div>
 
   <nav class="sidebar" id="sidebar">
     <a href="index.html">Home</a>
     <a href="products.html">Bracelets</a>
-    <a href="about.html">About Us</a>    
-    <a href="terms.html">Terms & Conditions</a>
-    <a href="contact.html">Contact Us</a>
+    <a href="about.html">About Us</a>
+    <a href="terms.html">T&C</a>
+    <a href="contact.html">Contact Us/a>
   </nav>
 
   <main>
     <h1>About Oorja Threads</h1>
-    <p>At <strong>Oorja Threads</strong>, we handcraft each bracelet with passion and precision. Our goal is to bring you uniquely styled, meaningful accessories that complement your individuality.</p>
-    <p>Started in 2024, Oorja Threads is a small, Indian-run bracelet brand powered by creativity, love for design, and a vision to inspire through minimal yet bold fashion.</p>
-    <p>Every piece you see is thoughtfully created using high-quality beads, durable cords, and carefully curated color palettes — ensuring every bracelet is as special as the person wearing it.</p>
-    <p>We believe in slow fashion, quality over quantity, and connecting with our customers through authenticity. Thank you for being part of the journey!</p>
+    <p>
+      At <span class="highlight">Oorja Threads,</span> we handcraft each bracelet with passion and precision. Our goal is to bring you uniquely styled, meaningful accessories that complement your individuality.
+    <p>
+       Oorja Threads is a small, Indian-run bracelet brand powered by creativity, love for design, and a vision to inspire through minimal yet bold fashion.
+    </p>
+    <p>
+      Every piece you see is thoughtfully created using high-quality beads, durable cords, and carefully curated color palettes — ensuring every bracelet is as special as the person wearing it. everything we design is made to help you <span class="highlight">wear your vibe</span>.
+    </p>
+    <p>
+      <strong>We believe in slow fashion, quality over quantity, and connecting with our customers through authenticity. Thank you for being part of the journey.</strong> Spark your Oorja!!!
+    </p>
+
+    <footer>
+      &copy; 2025 Oorja Threads. Designed for the bold.
+    </footer>
   </main>
 
   <script>
-    // Toggle sidebar on mobile
-    document.querySelector(".menu-toggle").addEventListener("click", () => {
-      document.getElementById("sidebar").classList.toggle("active");
-    });
+    function toggleSidebar() {
+      document.getElementById('sidebar').classList.toggle('active');
+    }
   </script>
+
 </body>
 </html>
