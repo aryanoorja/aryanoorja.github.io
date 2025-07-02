@@ -259,8 +259,7 @@
 
   <nav class="sidebar" id="sidebar">
     <a href="index.html">Home</a>
-    <a href="products.html">Bracelets</a>
-    <a href="about.html">About Us</a>
+    <a href="products.html">Products</a>
     <a href="terms.html">Terms & Conditions</a>
     <a href="contact.html">Contact Us</a>
   </nav>
@@ -297,15 +296,15 @@
     });
 
     const products = [
-      { name: "Crimson Pearl Bracelet", price: 29, image: "crimson.png" },
-      { name: "Moon Pearl Bracelet", price: 39, image: "Shadow.png" },
-      { name: "Aqua Pearl Bracelet", price: 29, image: "aqua.png" },
-      { name: "Blaze Pearl Bracelet", price: 29, image: "blaze.png" },
-      { name: "Frost Pearl Bracelet", price: 29, image: "frost.png" },
-      { name: "Moss Pearl Bracelet", price: 29, image: "moss.png" },
-      { name: "Rose Pearl Bracelet", price: 29, image: "rose.png" },
-      { name: "Cotton Pearl Bracelet", price: 29, image: "cotton.png" },
-      { name: "Lavender Pearl Bracelet", price: 29, image: "lavender.png" },
+      { name: "Crimson Pearl", price: 85, image: "crimson.png" },
+      { name: "Moon Pearl", price: 85, image: "Shadow.png" },
+      { name: "Aqua Pearl;", price: 85, image: "aqua.png" },
+      { name: "Blaze Pearl", price: 85, image: "blaze.png" },
+      { name: "Frost Pearl", price: 85, image: "frost.png" },
+      { name: "Moss Pearl", price: 85, image: "moss.png" },
+      { name: "Rose Pearl", price: 85, image: "rose.png" },
+      { name: "Cotton Pearl", price: 85, image: "cotton.png" },
+      { name: "Lavender Pearl", price: 85, image: "lavender.png" },
       { name: "Coming Soon", price: 999, image: "" }
     ];
 
@@ -323,6 +322,17 @@
       `;
       productList.appendChild(card);
     });
+    // Add click listener to each product image
+document.addEventListener("DOMContentLoaded", () => {
+  document.querySelectorAll(".product-card img").forEach(img => {
+    img.addEventListener("click", (e) => {
+      const modal = document.getElementById("imageModal");
+      const modalImg = document.getElementById("modalImage");
+      modalImg.src = e.target.src;
+      modal.style.display = "flex";
+    });
+  });
+});
   </script>
 </body>
 </html>
