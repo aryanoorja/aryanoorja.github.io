@@ -41,21 +41,40 @@
       align-items: center;
     }
 
+    .top-actions {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
     .menu-toggle {
       display: none;
-      position: fixed;
-      top: 15px;
-      right: 20px;
-      z-index: 1200;
-      cursor: pointer;
       flex-direction: column;
       gap: 4px;
+      cursor: pointer;
     }
 
     .menu-toggle div {
       width: 25px;
       height: 3px;
       background-color: white;
+    }
+
+    .cart-icon {
+      font-size: 1.5rem;
+      cursor: pointer;
+      position: relative;
+    }
+
+    .cart-count {
+      position: absolute;
+      top: -8px;
+      right: -10px;
+      background-color: red;
+      color: white;
+      font-size: 0.8rem;
+      border-radius: 50%;
+      padding: 2px 6px;
     }
 
     .sidebar {
@@ -111,18 +130,8 @@
       overflow: hidden;
       box-shadow: 0 12px 24px rgba(0, 0, 0, 0.5);
       transition: 0.3s ease;
-      cursor: pointer;
       display: flex;
       flex-direction: column;
-    }
-
-    .product-card img:hover {
-      transform: scale(1.05);
-      transition: transform 0.3s ease;
-    }
-    .product-card:hover {
-      transform: translateY(-6px);
-      box-shadow: 0 20px 30px rgba(255, 60, 56, 0.15);
     }
 
     .product-card img {
@@ -136,17 +145,15 @@
       padding: 20px;
       display: flex;
       flex-direction: column;
-      justify-content: center;
+      gap: 10px;
     }
 
     .product-details h3 {
       font-size: 1.5rem;
-      margin-bottom: 10px;
       font-weight: 700;
     }
 
     .product-details p {
-      margin-bottom: 15px;
       color: #ff3c38;
       font-size: 1.1rem;
       font-weight: 600;
@@ -154,8 +161,6 @@
 
     .product-details button {
       padding: 10px;
-      background-color: #ff3c38;
-      color: white;
       border: none;
       border-radius: 8px;
       font-weight: 600;
@@ -163,11 +168,25 @@
       transition: 0.3s ease;
     }
 
-    .product-details button:hover {
+    .product-details .buy {
+      background-color: #ff3c38;
+      color: white;
+    }
+
+    .product-details .buy:hover {
       background-color: #e12b2b;
     }
 
-    .modal, .buy-modal {
+    .product-details .cart {
+      background-color: #fff;
+      color: #111;
+    }
+
+    .product-details .cart:hover {
+      background-color: #ddd;
+    }
+
+    .modal, .buy-modal, .cart-modal {
       display: none;
       position: fixed;
       z-index: 2000;
@@ -186,21 +205,17 @@
       border-radius: 12px;
     }
 
-    .buy-modal-content {
+    .buy-modal-content, .cart-modal-content {
       background: #111;
       padding: 30px;
       border-radius: 16px;
       text-align: center;
-      max-width: 300px;
+      max-width: 400px;
       width: 90%;
+      color: #fff;
     }
 
-    .buy-modal-content h2 {
-      font-size: 1.4rem;
-      margin-bottom: 20px;
-    }
-
-    .buy-modal-content button {
+    .buy-modal-content button, .cart-modal-content button {
       display: block;
       width: 100%;
       padding: 12px;
@@ -213,22 +228,26 @@
       transition: 0.3s;
     }
 
-    .btn-insta {
-      background-color: #c13584;
-      color: white;
+    .cart-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 10px;
+      border-bottom: 1px solid #333;
+      padding-bottom: 10px;
     }
 
-    .btn-insta:hover {
-      background-color: #a42b6d;
+    .cart-item img {
+      width: 50px;
+      height: 50px;
+      border-radius: 8px;
+      margin-right: 10px;
     }
 
-    .btn-email {
-      background-color: #0072c6;
-      color: white;
-    }
-
-    .btn-email:hover {
-      background-color: #005999;
+    .cart-controls {
+      display: flex;
+      gap: 5px;
+      align-items: center;
     }
 
     @media (max-width: 768px) {
@@ -254,10 +273,13 @@
 <body>
   <div class="topbar">
     <div class="brand">Oorja Threads</div>
-    <div class="menu-toggle" onclick="document.getElementById('sidebar').classList.toggle('active')">
-      <div></div>
-      <div></div>
-      <div></div>
+    <div class="top-actions">
+      <div class="cart-icon" onclick="openCart()">
+        🛒 <span class="cart-count" id="cart-count">0</span>
+      </div>
+      <div class="menu-toggle" onclick="document.getElementById('sidebar').classList.toggle('active')">
+        <div></div><div></div><div></div>
+      </div>
     </div>
   </div>
 
@@ -271,49 +293,99 @@
 
   <main>
     <h1>Our Bracelets</h1>
-    <div class="product-list" id="product-list">
-      <!-- Product cards will be inserted here -->
-    </div>
+    <div class="product-list" id="product-list"></div>
   </main>
 
-  <div class="modal" id="imageModal" onclick="this.style.display='none'">
-    <img id="modalImage" src="" alt="Expanded Product Image">
+  <div class="cart-modal" id="cartModal">
+    <div class="cart-modal-content">
+      <h2>Your Cart</h2>
+      <div id="cart-items"></div>
+      <p id="cart-total"></p>
+      <button onclick="copyCartDetails()">Copy Cart Details</button>
+      <p style="font-size: 0.9rem; color: #aaa; margin-top: 8px">You can copy the cart details and manually paste them via email or Instagram as you prefer.</p>
+      <button onclick="proceedCheckout()">Proceed Further</button>
+    </div>
   </div>
 
-  <div class="buy-modal" id="buyModal">
+  <div class="buy-modal" id="checkoutModal">
     <div class="buy-modal-content">
-      <h2>How would you like to place your order?</h2>
-      <button class="btn-insta" onclick="window.open('https://www.instagram.com/oorjathreads.store', '_blank')">DM on Instagram</button>
-      <button class="btn-email" onclick="window.location.href='mailto:oorja.threads@gmail.com'">Email</button>
+      <h2>How would you like to proceed?</h2>
+      <button onclick="window.open('https://www.instagram.com/oorjathreads.store', '_blank')">DM on Instagram</button>
+      <button onclick="window.location.href='mailto:oorja.threads@gmail.com?subject=Order&body=' + encodeURIComponent(getCartText())">Email</button>
     </div>
   </div>
 
   <script>
-    function openBuyModal() {
-      document.getElementById('buyModal').style.display = 'flex';
-    }
-
-    window.addEventListener('click', function(event) {
-      const buyModal = document.getElementById('buyModal');
-      if (event.target === buyModal) {
-        buyModal.style.display = 'none';
-      }
-    });
-
     const products = [
-      { name: "Crimson Pearl", price: 25, image: "crimson.png" },
-      { name: "Moon Pearl", price: 39, image: "moon.png" },
-      { name: "Aqua Pearl", price: 25, image: "aqua.png" },
-      { name: "Blaze Pearl", price: 25, image: "blaze.png" },
-      { name: "Frost Pearl", price: 25, image: "frost.png" },
-      { name: "Moss Pearl", price: 25, image: "moss.png" },
-      { name: "Rose Pearl", price: 25, image: "rose.png" },
-      { name: "Cotton Pearl", price: 25, image: "cotton.png" },
-      { name: "Lavender Pearl", price: 25, image: "lavender.png" },
-      { name: "Coming Soon", price: 999, image: "" }
+      { name: "Moon Pearl Bracelet", price: 39, image: "moon.png" },
+      { name: "Crimson Pearl Bracelet", price: 25, image: "crimson.png" },
+      { name: "Moss Pearl Bracelet", price: 25, image: "moss.png" },
+      { name: "Rose Pearl Bracelet", price: 25, image: "rose.png" },
+      { name: "Blaze Pearl Bracelet", price: 25, image: "blaze.png" },
+      { name: "Aqua Pearl Bracelet", price: 25, image: "aqua.png" },
+      { name: "Frost Pearl Bracelet", price: 25, image: "frost.png" },
+      { name: "Cotton Pearl Bracelet", price: 25, image: "cotton.png" },
+      { name: "Lavender Pearl Bracelet", price: 25, image: "lavender.png" }
     ];
 
+    const cart = [];
     const productList = document.getElementById("product-list");
+
+    function updateCart() {
+      const cartItems = document.getElementById("cart-items");
+      cartItems.innerHTML = '';
+      let total = 0;
+      cart.forEach((item, index) => {
+        total += item.price * item.qty;
+        cartItems.innerHTML += `
+          <div class="cart-item">
+            <img src="${item.image}" />
+            <span>${item.name} - ₹${item.price} x ${item.qty}</span>
+            <div class="cart-controls">
+              <button onclick="changeQty(${index}, -1)">-</button>
+              <button onclick="changeQty(${index}, 1)">+</button>
+            </div>
+          </div>
+        `;
+      });
+      document.getElementById("cart-total").innerText = total ? `Total: ₹${total}` : '';
+      document.getElementById("cart-count").innerText = cart.reduce((a,b) => a + b.qty, 0);
+    }
+
+    function addToCart(product) {
+      const index = cart.findIndex(p => p.name === product.name);
+      if (index > -1) cart[index].qty++;
+      else cart.push({ ...product, qty: 1 });
+      updateCart();
+      alert("Added to cart!");
+    }
+
+    function changeQty(index, amount) {
+      cart[index].qty += amount;
+      if (cart[index].qty <= 0) cart.splice(index, 1);
+      updateCart();
+    }
+
+    function openCart() {
+      updateCart();
+      document.getElementById("cartModal").style.display = "flex";
+    }
+
+    function copyCartDetails() {
+      const text = getCartText();
+      navigator.clipboard.writeText(text);
+      alert("Cart details copied to clipboard!");
+    }
+
+    function proceedCheckout() {
+      document.getElementById("cartModal").style.display = "none";
+      document.getElementById("checkoutModal").style.display = "flex";
+    }
+
+    function getCartText() {
+      return cart.map(item => `${item.name} - ₹${item.price} x ${item.qty}`).join('\n');
+    }
+
     products.forEach(product => {
       const card = document.createElement("div");
       card.className = "product-card";
@@ -321,23 +393,13 @@
         <img src="${product.image}" alt="${product.name}">
         <div class="product-details">
           <h3>${product.name}</h3>
-          <p>₹${product.price}</p>
-          <button onclick="openBuyModal()">Buy Now</button>
+          <p>Price: ₹${product.price}</p>
+          <button class="buy" onclick="openCart()">Buy Now</button>
+          <button class="cart" onclick='addToCart(${JSON.stringify(product)})'>Add to Cart</button>
         </div>
       `;
       productList.appendChild(card);
     });
-    // Add click listener to each product image
-document.addEventListener("DOMContentLoaded", () => {
-  document.querySelectorAll(".product-card img").forEach(img => {
-    img.addEventListener("click", (e) => {
-      const modal = document.getElementById("imageModal");
-      const modalImg = document.getElementById("modalImage");
-      modalImg.src = e.target.src;
-      modal.style.display = "flex";
-    });
-  });
-});
   </script>
 </body>
 </html>
