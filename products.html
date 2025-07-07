@@ -14,8 +14,8 @@
     }
 
     body {
-      background-color: #0d0d0d;
-      color: white;
+      background: #0d0d0d;
+      color: #fff;
       overflow-x: hidden;
     }
 
@@ -33,48 +33,42 @@
       z-index: 1100;
     }
 
-    .topbar .brand {
+    .brand {
       font-size: 1.4rem;
       font-weight: 700;
       color: #ff3c38;
-      display: flex;
-      align-items: center;
-    }
-
-    .top-actions {
-      display: flex;
-      align-items: center;
-      gap: 16px;
-    }
-
-    .menu-toggle {
-      display: none;
-      flex-direction: column;
-      gap: 4px;
-      cursor: pointer;
-    }
-
-    .menu-toggle div {
-      width: 25px;
-      height: 3px;
-      background-color: white;
     }
 
     .cart-icon {
-      font-size: 1.5rem;
       cursor: pointer;
       position: relative;
+      font-size: 2.3rem;
+      margin-right: 25px;
     }
 
     .cart-count {
       position: absolute;
       top: -8px;
       right: -10px;
-      background-color: red;
+      background: red;
       color: white;
       font-size: 0.8rem;
-      border-radius: 50%;
       padding: 2px 6px;
+      border-radius: 50%;
+    }
+
+    .menu-toggle {
+      display: none;
+      cursor: pointer;
+      flex-direction: column;
+      gap: 4px;
+      z-index: 1200;
+    }
+
+    .menu-toggle div {
+      width: 25px;
+      height: 3px;
+      background-color: white;
     }
 
     .sidebar {
@@ -106,148 +100,141 @@
 
     main {
       margin-left: 240px;
-      padding: 100px 40px 40px;
-    }
-
-    h1 {
-      text-align: center;
-      font-size: 2.5rem;
-      margin-bottom: 50px;
-      font-weight: 800;
+      padding: 100px 20px 40px;
     }
 
     .product-list {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 30px;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
       max-width: 1200px;
       margin: 0 auto;
     }
 
     .product-card {
-      background: linear-gradient(145deg, #1a1a1a, #111);
-      border-radius: 16px;
+      background: #181818;
+      border-radius: 10px;
       overflow: hidden;
-      box-shadow: 0 12px 24px rgba(0, 0, 0, 0.5);
-      transition: 0.3s ease;
       display: flex;
       flex-direction: column;
+      justify-content: space-between;
     }
 
     .product-card img {
       width: 100%;
-      height: 220px;
+      height: 240px;
       object-fit: cover;
-      border-bottom: 1px solid #222;
     }
 
     .product-details {
-      padding: 20px;
+      padding: 15px;
       display: flex;
       flex-direction: column;
       gap: 10px;
     }
 
     .product-details h3 {
-      font-size: 1.5rem;
-      font-weight: 700;
+      font-size: 1.4rem;
     }
 
     .product-details p {
       color: #ff3c38;
-      font-size: 1.1rem;
       font-weight: 600;
     }
 
     .product-details button {
-      padding: 10px;
-      border: none;
-      border-radius: 8px;
-      font-weight: 600;
-      cursor: pointer;
-      transition: 0.3s ease;
-    }
-
-    .product-details .buy {
-      background-color: #ff3c38;
-      color: white;
-    }
-
-    .product-details .buy:hover {
-      background-color: #e12b2b;
-    }
-
-    .product-details .cart {
-      background-color: #fff;
-      color: #111;
-    }
-
-    .product-details .cart:hover {
-      background-color: #ddd;
-    }
-
-    .modal, .buy-modal, .cart-modal {
-      display: none;
-      position: fixed;
-      z-index: 2000;
-      left: 0;
-      top: 0;
-      width: 100%;
-      height: 100%;
-      background-color: rgba(0, 0, 0, 0.8);
-      justify-content: center;
-      align-items: center;
-    }
-
-    .modal img {
-      max-width: 90%;
-      max-height: 90%;
-      border-radius: 12px;
-    }
-
-    .buy-modal-content, .cart-modal-content {
-      background: #111;
-      padding: 30px;
-      border-radius: 16px;
-      text-align: center;
-      max-width: 400px;
-      width: 90%;
-      color: #fff;
-    }
-
-    .buy-modal-content button, .cart-modal-content button {
-      display: block;
-      width: 100%;
       padding: 12px;
-      margin-top: 10px;
       border: none;
       border-radius: 8px;
       font-weight: 600;
       font-size: 1rem;
       cursor: pointer;
-      transition: 0.3s;
+    }
+
+    .buy {
+      background: #ff3c38;
+      color: white;
+    }
+
+    .cart {
+      background: #fff;
+      color: #111;
+    }
+
+    .cart-modal, .buy-modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 100%;
+      width: 100%;
+      background: rgba(0, 0, 0, 0.8);
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+    }
+
+    .cart-modal-content, .buy-modal-content {
+      background: #111;
+      padding: 30px;
+      border-radius: 12px;
+      width: 90%;
+      max-width: 400px;
+      position: relative;
+      text-align: center;
+    }
+
+    .close-btn {
+      position: absolute;
+      top: 10px;
+      right: 15px;
+      font-size: 1.5rem;
+      background: none;
+      color: white;
+      border: none;
+      cursor: pointer;
     }
 
     .cart-item {
       display: flex;
-      align-items: center;
       justify-content: space-between;
-      margin-bottom: 10px;
-      border-bottom: 1px solid #333;
-      padding-bottom: 10px;
+      margin: 10px 0;
     }
 
-    .cart-item img {
-      width: 50px;
-      height: 50px;
-      border-radius: 8px;
-      margin-right: 10px;
+    .cart-controls button {
+      background: #333;
+      color: white;
+      border: none;
+      padding: 4px 10px;
+      border-radius: 6px;
+      cursor: pointer;
     }
 
-    .cart-controls {
-      display: flex;
-      gap: 5px;
-      align-items: center;
+    .big-button {
+      background: #ff3c38;
+      color: white;
+      padding: 14px;
+      font-size: 1.1rem;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      margin-top: 15px;
+      width: 100%;
+    }
+
+    #cart-popup {
+      display: none;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: #111;
+      padding: 20px 30px;
+      border-radius: 12px;
+      color: white;
+      font-weight: 600;
+      box-shadow: 0 0 20px rgba(255,60,56,0.3);
+      z-index: 10000;
     }
 
     @media (max-width: 768px) {
@@ -261,103 +248,102 @@
 
       .menu-toggle {
         display: flex;
+        position: absolute;
+        top: 18px;
+        right: 20px;
+      }
+
+      .topbar {
+        justify-content: space-between;
+      }
+
+      .cart-icon {
+        font-size: 2rem;
+        margin-right: 60px;
       }
 
       main {
         margin-left: 0;
         padding: 120px 20px 40px;
       }
+
+      .product-list {
+        grid-template-columns: 1fr;
+      }
+
+      .product-card img {
+        height: 220px;
+      }
     }
-    .close-btn {
-  position: absolute;
-  top: 12px;
-  right: 16px;
-  font-size: 1.5rem;
-  background: none;
-  border: none;
-  color: white;
-  cursor: pointer;
+    .left-topbar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
 }
 
-.cart-modal-content,
-.buy-modal-content {
-  position: relative;
-}
-
-/* Mobile responsive adjustments */
-@media (max-width: 768px) {
-  .product-details button {
-    font-size: 0.9rem;
-    padding: 8px;
-  }
-
-  .product-details h3 {
-    font-size: 1.2rem;
-  }
-
-  .product-details p {
-    font-size: 1rem;
-  }
-
-  .buy-modal-content,
-  .cart-modal-content {
-    width: 95%;
-    padding: 20px;
-  }
-
-  .close-btn {
-    top: 8px;
-    right: 10px;
-  }
+.logo {
+  width: 32px;
+  height: 28px;
 }
   </style>
 </head>
 <body>
   <div class="topbar">
+  <div class="left-topbar">
+    <img src="logo.png" alt="Logo" class="logo">
     <div class="brand">Oorja Threads</div>
-    <div class="top-actions">
-      <div class="cart-icon" onclick="openCart()">
-        🛒 <span class="cart-count" id="cart-count">0</span>
-      </div>
-      <div class="menu-toggle" onclick="document.getElementById('sidebar').classList.toggle('active')">
-        <div></div><div></div><div></div>
-      </div>
+    <div class="menu-toggle" onclick="document.getElementById('sidebar').classList.toggle('active')">
+      <div></div>
+      <div></div>
+      <div></div>
     </div>
   </div>
+  <div class="cart-icon" onclick="openCart()">🛒 <span class="cart-count" id="cart-count">0</span></div>
+</div>
+
 
   <nav class="sidebar" id="sidebar">
     <a href="index.html">Home</a>
-    <a href="products.html">Products</a>
+    <a href="products.html" class="active">Bracelets</a>
     <a href="about.html">About Us</a>
     <a href="terms.html">Terms & Conditions</a>
     <a href="contact.html">Contact Us</a>
   </nav>
 
   <main>
-    <h1>Our Bracelets</h1>
+    <h1 style="text-align:center; font-size:2.5rem; margin-bottom:40px;">Our Bracelets</h1>
     <div class="product-list" id="product-list"></div>
   </main>
 
   <div class="cart-modal" id="cartModal">
     <div class="cart-modal-content">
+      <button class="close-btn" onclick="closeModal('cartModal')">×</button>
       <h2>Your Cart</h2>
       <div id="cart-items"></div>
       <p id="cart-total"></p>
-      <button class="close-btn" onclick="closeModal('cartModal')">×</button>
-      <button onclick="copyCartDetails()">Copy Cart Details</button>
-      <p style="font-size: 0.9rem; color: #aaa; margin-top: 8px">You can copy the cart details and manually paste them via email or Instagram as you prefer.</p>
-      <button onclick="proceedCheckout()">Proceed Further</button>
+      <button class="big-button" onclick="showCheckoutOptions()">Checkout</button>
+    </div>
+  </div>
+
+  <div class="cart-modal" id="copyModal">
+    <div class="cart-modal-content">
+      <button class="close-btn" onclick="closeModal('copyModal')">×</button>
+      <button class="big-button" onclick="copyCartDetails()">Copy Cart Details</button>
+      <p style="margin-top:10px; font-size:0.9rem; color:#aaa">You have to copy the cart details manually then paste and send them via email or Instagram as you prefer.</p>
+      <button id="proceedBtn" class="big-button" onclick="proceedCheckout()" disabled style="opacity:0.6">Proceed Further</button>
     </div>
   </div>
 
   <div class="buy-modal" id="checkoutModal">
     <div class="buy-modal-content">
-      <h2>How would you like to proceed?</h2>
       <button class="close-btn" onclick="closeModal('checkoutModal')">×</button>
-      <button onclick="window.open('https://www.instagram.com/oorjathreads.store', '_blank')">DM on Instagram</button>
-      <button onclick="window.location.href='mailto:oorja.threads@gmail.com?subject=Order&body=' + encodeURIComponent(getCartText())">Email</button>
+      <h2>How would you like to proceed?</h2>
+      <button class="big-button" onclick="window.open('https://www.instagram.com/oorjathreads.store', '_blank')">DM on Instagram</button>
+      <button class="big-button" onclick="window.location.href='mailto:oorja.threads@gmail.com?subject=Order&body=' + encodeURIComponent(getCartText())">Email</button>
     </div>
   </div>
+
+  <div id="cart-popup"></div>
 
   <script>
     const products = [
@@ -373,74 +359,43 @@
     ];
 
     const cart = [];
-    const productList = document.getElementById("product-list");
-
     let cartCopied = false;
 
-function updateCart() {
-  const cartItems = document.getElementById("cart-items");
-  const checkoutBtn = document.querySelector("#cartModal button:nth-of-type(3)");
-  const cartTotal = document.getElementById("cart-total");
+    function updateCart() {
+      const cartItems = document.getElementById("cart-items");
+      const cartTotal = document.getElementById("cart-total");
+      cartItems.innerHTML = '';
+      let total = 0;
+      cart.forEach((item, index) => {
+        total += item.price * item.qty;
+        cartItems.innerHTML += `
+          <div class="cart-item">
+            <span>${item.name} - ₹${item.price} x ${item.qty}</span>
+            <div class="cart-controls">
+              <button onclick="changeQty(${index}, -1)">-</button>
+              <button onclick="changeQty(${index}, 1)">+</button>
+            </div>
+          </div>
+        `;
+      });
+      cartTotal.innerText = total ? `Total: ₹${total}` : '';
+      document.getElementById("cart-count").innerText = cart.reduce((a, b) => a + b.qty, 0);
+    }
 
-  cartItems.innerHTML = '';
-  let total = 0;
-
-  cart.forEach((item, index) => {
-    total += item.price * item.qty;
-    cartItems.innerHTML += `
-      <div class="cart-item">
-        <img src="${item.image}" />
-        <span>${item.name} - ₹${item.price} x ${item.qty}</span>
-        <div class="cart-controls">
-          <button onclick="changeQty(${index}, -1)">-</button>
-          <button onclick="changeQty(${index}, 1)">+</button>
-        </div>
-      </div>
-    `;
-  });
-
-  cartTotal.innerText = total ? `Total: ₹${total}` : '';
-  document.getElementById("cart-count").innerText = cart.reduce((a, b) => a + b.qty, 0);
-
-  // Enable proceed button only if cart has items and copied
-  checkoutBtn.disabled = !(cart.length > 0 && cartCopied);
-  checkoutBtn.style.opacity = checkoutBtn.disabled ? "0.6" : "1";
-}
-
-function copyCartDetails() {
-  const text = getCartText();
-  navigator.clipboard.writeText(text);
-  cartCopied = true;
-  alert("Cart details copied to clipboard!");
-  updateCart();
-}
-
-function proceedCheckout() {
-  document.getElementById("cartModal").style.display = "none";
-  document.getElementById("checkoutModal").style.display = "flex";
-}
-
-function closeModal(id) {
-  document.getElementById(id).style.display = "none";
-}
-
-function addToCart(product) {
-  const index = cart.findIndex(p => p.name === product.name);
-  if (index > -1) cart[index].qty++;
-  else cart.push({ ...product, qty: 1 });
-  updateCart();
-
-  // Custom popup
-  const popup = document.getElementById("cart-popup");
-  popup.innerText = `${product.name} added to cart!`;
-  popup.style.display = "block";
-  popup.style.opacity = "1";
-
-  setTimeout(() => {
-    popup.style.opacity = "0";
-    setTimeout(() => (popup.style.display = "none"), 300);
-  }, 2000);
-}
+    function addToCart(product) {
+      const index = cart.findIndex(p => p.name === product.name);
+      if (index > -1) cart[index].qty++;
+      else cart.push({ ...product, qty: 1 });
+      updateCart();
+      const popup = document.getElementById("cart-popup");
+      popup.innerText = `${product.name} added to cart!`;
+      popup.style.display = "block";
+      popup.style.opacity = "1";
+      setTimeout(() => {
+        popup.style.opacity = "0";
+        setTimeout(() => popup.style.display = "none", 300);
+      }, 2000);
+    }
 
     function changeQty(index, amount) {
       cart[index].qty += amount;
@@ -452,11 +407,42 @@ function addToCart(product) {
       updateCart();
       document.getElementById("cartModal").style.display = "flex";
     }
-    
+
+    function closeModal(id) {
+      document.getElementById(id).style.display = "none";
+    }
+
+    function showCheckoutOptions() {
+      if (cart.length === 0) {
+        alert("Your cart is empty!");
+        return;
+      }
+      closeModal('cartModal');
+      document.getElementById("copyModal").style.display = "flex";
+    }
+
+    function copyCartDetails() {
+      navigator.clipboard.writeText(getCartText());
+      cartCopied = true;
+      alert("Cart details copied to clipboard!");
+      document.getElementById("proceedBtn").disabled = false;
+      document.getElementById("proceedBtn").style.opacity = "1";
+    }
+
+    function proceedCheckout() {
+      if (!cartCopied) {
+        alert("Please copy cart details first before proceeding.");
+        return;
+      }
+      closeModal('copyModal');
+      document.getElementById("checkoutModal").style.display = "flex";
+    }
+
     function getCartText() {
       return cart.map(item => `${item.name} - ₹${item.price} x ${item.qty}`).join('\n');
     }
 
+    const productList = document.getElementById("product-list");
     products.forEach(product => {
       const card = document.createElement("div");
       card.className = "product-card";
@@ -465,30 +451,12 @@ function addToCart(product) {
         <div class="product-details">
           <h3>${product.name}</h3>
           <p>Price: ₹${product.price}</p>
-          <button class="buy" onclick="openCart()">Buy Now</button>
+          <button class="buy" onclick='document.getElementById("checkoutModal").style.display = "flex"'>Buy Now</button>
           <button class="cart" onclick='addToCart(${JSON.stringify(product)})'>Add to Cart</button>
         </div>
       `;
       productList.appendChild(card);
     });
   </script>
-  <!-- Insert this right before </body> -->
-<div id="cart-popup" style="
-  display: none;
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  background: #111;
-  color: white;
-  padding: 20px 30px;
-  border-radius: 12px;
-  box-shadow: 0 0 20px rgba(255,60,56,0.3);
-  font-weight: 600;
-  font-size: 1rem;
-  z-index: 3000;
-  text-align: center;
-  transition: opacity 0.3s;
-"></div>
 </body>
 </html>
