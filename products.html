@@ -268,6 +268,48 @@
         padding: 120px 20px 40px;
       }
     }
+    .close-btn {
+  position: absolute;
+  top: 12px;
+  right: 16px;
+  font-size: 1.5rem;
+  background: none;
+  border: none;
+  color: white;
+  cursor: pointer;
+}
+
+.cart-modal-content,
+.buy-modal-content {
+  position: relative;
+}
+
+/* Mobile responsive adjustments */
+@media (max-width: 768px) {
+  .product-details button {
+    font-size: 0.9rem;
+    padding: 8px;
+  }
+
+  .product-details h3 {
+    font-size: 1.2rem;
+  }
+
+  .product-details p {
+    font-size: 1rem;
+  }
+
+  .buy-modal-content,
+  .cart-modal-content {
+    width: 95%;
+    padding: 20px;
+  }
+
+  .close-btn {
+    top: 8px;
+    right: 10px;
+  }
+}
   </style>
 </head>
 <body>
@@ -301,6 +343,7 @@
       <h2>Your Cart</h2>
       <div id="cart-items"></div>
       <p id="cart-total"></p>
+      <button class="close-btn" onclick="closeModal('cartModal')">×</button>
       <button onclick="copyCartDetails()">Copy Cart Details</button>
       <p style="font-size: 0.9rem; color: #aaa; margin-top: 8px">You can copy the cart details and manually paste them via email or Instagram as you prefer.</p>
       <button onclick="proceedCheckout()">Proceed Further</button>
@@ -310,6 +353,7 @@
   <div class="buy-modal" id="checkoutModal">
     <div class="buy-modal-content">
       <h2>How would you like to proceed?</h2>
+      <button class="close-btn" onclick="closeModal('checkoutModal')">×</button>
       <button onclick="window.open('https://www.instagram.com/oorjathreads.store', '_blank')">DM on Instagram</button>
       <button onclick="window.location.href='mailto:oorja.threads@gmail.com?subject=Order&body=' + encodeURIComponent(getCartText())">Email</button>
     </div>
@@ -331,26 +375,55 @@
     const cart = [];
     const productList = document.getElementById("product-list");
 
-    function updateCart() {
-      const cartItems = document.getElementById("cart-items");
-      cartItems.innerHTML = '';
-      let total = 0;
-      cart.forEach((item, index) => {
-        total += item.price * item.qty;
-        cartItems.innerHTML += `
-          <div class="cart-item">
-            <img src="${item.image}" />
-            <span>${item.name} - ₹${item.price} x ${item.qty}</span>
-            <div class="cart-controls">
-              <button onclick="changeQty(${index}, -1)">-</button>
-              <button onclick="changeQty(${index}, 1)">+</button>
-            </div>
-          </div>
-        `;
-      });
-      document.getElementById("cart-total").innerText = total ? `Total: ₹${total}` : '';
-      document.getElementById("cart-count").innerText = cart.reduce((a,b) => a + b.qty, 0);
-    }
+    let cartCopied = false;
+
+function updateCart() {
+  const cartItems = document.getElementById("cart-items");
+  const checkoutBtn = document.querySelector("#cartModal button:nth-of-type(3)");
+  const cartTotal = document.getElementById("cart-total");
+
+  cartItems.innerHTML = '';
+  let total = 0;
+
+  cart.forEach((item, index) => {
+    total += item.price * item.qty;
+    cartItems.innerHTML += `
+      <div class="cart-item">
+        <img src="${item.image}" />
+        <span>${item.name} - ₹${item.price} x ${item.qty}</span>
+        <div class="cart-controls">
+          <button onclick="changeQty(${index}, -1)">-</button>
+          <button onclick="changeQty(${index}, 1)">+</button>
+        </div>
+      </div>
+    `;
+  });
+
+  cartTotal.innerText = total ? `Total: ₹${total}` : '';
+  document.getElementById("cart-count").innerText = cart.reduce((a, b) => a + b.qty, 0);
+
+  // Enable proceed button only if cart has items and copied
+  checkoutBtn.disabled = !(cart.length > 0 && cartCopied);
+  checkoutBtn.style.opacity = checkoutBtn.disabled ? "0.6" : "1";
+}
+
+function copyCartDetails() {
+  const text = getCartText();
+  navigator.clipboard.writeText(text);
+  cartCopied = true;
+  alert("Cart details copied to clipboard!");
+  updateCart();
+}
+
+function proceedCheckout() {
+  document.getElementById("cartModal").style.display = "none";
+  document.getElementById("checkoutModal").style.display = "flex";
+}
+
+function closeModal(id) {
+  document.getElementById(id).style.display = "none";
+}
+
 function addToCart(product) {
   const index = cart.findIndex(p => p.name === product.name);
   if (index > -1) cart[index].qty++;
@@ -379,18 +452,7 @@ function addToCart(product) {
       updateCart();
       document.getElementById("cartModal").style.display = "flex";
     }
-
-    function copyCartDetails() {
-      const text = getCartText();
-      navigator.clipboard.writeText(text);
-      alert("Cart details copied to clipboard!");
-    }
-
-    function proceedCheckout() {
-      document.getElementById("cartModal").style.display = "none";
-      document.getElementById("checkoutModal").style.display = "flex";
-    }
-
+    
     function getCartText() {
       return cart.map(item => `${item.name} - ₹${item.price} x ${item.qty}`).join('\n');
     }
