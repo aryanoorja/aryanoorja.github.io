@@ -5,302 +5,67 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Oorja Threads - Bracelets</title>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&display=swap" rel="stylesheet">
+  <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
   <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-      font-family: 'Montserrat', sans-serif;
-    }
-
-    body {
-      background: #0d0d0d;
-      color: #fff;
-      overflow-x: hidden;
-    }
-
-    .topbar {
-      width: 100%;
-      background: #111;
-      padding: 15px 20px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      border-bottom: 1px solid #222;
-      position: fixed;
-      top: 0;
-      left: 0;
-      z-index: 1100;
-    }
-
-    .brand {
-      font-size: 1.4rem;
-      font-weight: 700;
-      color: #ff3c38;
-    }
-
-    .cart-icon {
-      cursor: pointer;
-      position: relative;
-      font-size: 2.3rem;
-      margin-right: 25px;
-    }
-
-    .cart-count {
-      position: absolute;
-      top: -8px;
-      right: -10px;
-      background: red;
-      color: white;
-      font-size: 0.8rem;
-      padding: 2px 6px;
-      border-radius: 50%;
-    }
-
-    .menu-toggle {
-      display: none;
-      cursor: pointer;
-      flex-direction: column;
-      gap: 4px;
-      z-index: 1200;
-    }
-
-    .menu-toggle div {
-      width: 25px;
-      height: 3px;
-      background-color: white;
-    }
-
-    .sidebar {
-      position: fixed;
-      top: 60px;
-      left: 0;
-      height: calc(100% - 60px);
-      width: 220px;
-      background: #111;
-      padding: 40px 20px;
-      display: flex;
-      flex-direction: column;
-      gap: 20px;
-      border-right: 1px solid #222;
-      z-index: 1000;
-      transition: transform 0.3s;
-    }
-
-    .sidebar a {
-      color: #ddd;
-      text-decoration: none;
-      font-weight: 600;
-      transition: 0.3s;
-    }
-
-    .sidebar a:hover {
-      color: #ff3c38;
-    }
-
-    main {
-      margin-left: 240px;
-      padding: 100px 20px 40px;
-    }
-
-    .product-list {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 20px;
-      max-width: 1200px;
-      margin: 0 auto;
-    }
-
-    .product-card {
-      background: #181818;
-      border-radius: 10px;
-      overflow: hidden;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-    }
-
-    .product-card img {
-      width: 100%;
-      height: 240px;
-      object-fit: cover;
-    }
-
-    .product-details {
-      padding: 15px;
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-    }
-
-    .product-details h3 {
-      font-size: 1.4rem;
-    }
-
-    .product-details p {
-      color: #ff3c38;
-      font-weight: 600;
-    }
-
-    .product-details button {
-      padding: 12px;
-      border: none;
-      border-radius: 8px;
-      font-weight: 600;
-      font-size: 1rem;
-      cursor: pointer;
-    }
-
-    .buy {
-      background: #ff3c38;
-      color: white;
-    }
-
-    .cart {
-      background: #fff;
-      color: #111;
-    }
-
-    .cart-modal, .buy-modal {
-      display: none;
-      position: fixed;
-      top: 0;
-      left: 0;
-      height: 100%;
-      width: 100%;
-      background: rgba(0, 0, 0, 0.8);
-      justify-content: center;
-      align-items: center;
-      z-index: 9999;
-    }
-
-    .cart-modal-content, .buy-modal-content {
-      background: #111;
-      padding: 30px;
-      border-radius: 12px;
-      width: 90%;
-      max-width: 400px;
-      position: relative;
-      text-align: center;
-    }
-
-    .close-btn {
-      position: absolute;
-      top: 10px;
-      right: 15px;
-      font-size: 1.5rem;
-      background: none;
-      color: white;
-      border: none;
-      cursor: pointer;
-    }
-
-    .cart-item {
-      display: flex;
-      justify-content: space-between;
-      margin: 10px 0;
-    }
-
-    .cart-controls button {
-      background: #333;
-      color: white;
-      border: none;
-      padding: 4px 10px;
-      border-radius: 6px;
-      cursor: pointer;
-    }
-
-    .big-button {
-      background: #ff3c38;
-      color: white;
-      padding: 14px;
-      font-size: 1.1rem;
-      border: none;
-      border-radius: 10px;
-      cursor: pointer;
-      margin-top: 15px;
-      width: 100%;
-    }
-
-    #cart-popup {
-      display: none;
-      position: fixed;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      background: #111;
-      padding: 20px 30px;
-      border-radius: 12px;
-      color: white;
-      font-weight: 600;
-      box-shadow: 0 0 20px rgba(255,60,56,0.3);
-      z-index: 10000;
-    }
-
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Montserrat', sans-serif; }
+    body { background: #0d0d0d; color: #fff; overflow-x: hidden; }
+    .topbar { width: 100%; background: #111; padding: 15px 20px; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid #222; position: fixed; top: 0; left: 0; z-index: 1100; }
+    .brand { font-size: 1.4rem; font-weight: 700; color: #ff3c38; }
+    .menu-toggle { display: none; cursor: pointer; flex-direction: column; gap: 4px; z-index: 1200; }
+    .menu-toggle div { width: 25px; height: 3px; background-color: white; }
+    .sidebar { position: fixed; top: 60px; left: 0; height: calc(100% - 60px); width: 220px; background: #111; padding: 40px 20px; display: flex; flex-direction: column; gap: 20px; border-right: 1px solid #222; z-index: 1000; transition: transform 0.3s; }
+    .sidebar a { color: #ddd; text-decoration: none; font-weight: 600; transition: 0.3s; }
+    .sidebar a:hover { color: #ff3c38; }
+    main { margin-left: 240px; padding: 100px 20px 40px; }
+    .product-list { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; max-width: 1200px; margin: 0 auto; }
+    .product-card { background: #181818; border-radius: 10px; overflow: hidden; display: flex; flex-direction: column; justify-content: space-between; }
+    .product-card img { width: 100%; height: 240px; object-fit: cover; }
+    .product-details { padding: 15px; display: flex; flex-direction: column; gap: 10px; }
+    .product-details h3 { font-size: 1.4rem; }
+    .product-details p { color: #ff3c38; font-weight: 600; }
+    .product-details button { padding: 12px; border: none; border-radius: 8px; font-weight: 600; font-size: 1rem; cursor: pointer; }
+    .buy { background: #ff3c38; color: white; }
+    .cart { background: #fff; color: #111; }
+    .cart-icon { cursor: pointer; position: relative; font-size: 2.3rem; margin-right: 25px; }
+    .cart-count { position: absolute; top: -8px; right: -10px; background: red; color: white; font-size: 0.8rem; padding: 2px 6px; border-radius: 50%; }
+    .cart-modal { display: none; position: fixed; top: 0; left: 0; height: 100%; width: 100%; background: rgba(0, 0, 0, 0.8); justify-content: center; align-items: center; z-index: 9999; }
+    .cart-modal-content { background: #111; padding: 30px; border-radius: 12px; width: 90%; max-width: 600px; position: relative; text-align: center; }
+    .close-btn { position: absolute; top: 10px; right: 15px; font-size: 1.5rem; background: none; color: white; border: none; cursor: pointer; }
+    .cart-item { display: flex; align-items: center; justify-content: space-between; margin: 10px 0; padding: 10px; background: #222; border-radius: 8px; }
+    .cart-item img { width: 60px; height: 60px; object-fit: cover; border-radius: 5px; margin-right: 10px; }
+    .cart-item-details { flex-grow: 1; display: flex; justify-content: space-between; align-items: center; }
+    .cart-item-name { flex-grow: 1; }
+    .cart-controls { display: flex; align-items: center; gap: 5px; }
+    .cart-controls button { background: #333; color: white; border: none; padding: 4px 10px; border-radius: 6px; cursor: pointer; }
+    .cart-price { min-width: 80px; text-align: right; }
+    .big-button { background: #ff3c38; color: white; padding: 14px; font-size: 1.1rem; border: none; border-radius: 10px; cursor: pointer; margin-top: 15px; width: 100%; }
+    #cart-popup { position: fixed; bottom: 30px; right: 30px; background: #222; color: #fff; padding: 12px 20px; border-radius: 8px; display: none; z-index: 10000; }
     @media (max-width: 768px) {
-      .sidebar {
-        transform: translateX(-100%);
-      }
-
-      .sidebar.active {
-        transform: translateX(0);
-      }
-
-      .menu-toggle {
-        display: flex;
-        position: absolute;
-        top: 18px;
-        right: 20px;
-      }
-
-      .topbar {
-        justify-content: space-between;
-      }
-
-      .cart-icon {
-        font-size: 2rem;
-        margin-right: 60px;
-      }
-
-      main {
-        margin-left: 0;
-        padding: 120px 20px 40px;
-      }
-
-      .product-list {
-        grid-template-columns: 1fr;
-      }
-
-      .product-card img {
-        height: 220px;
-      }
+      .sidebar { transform: translateX(-100%); }
+      .sidebar.active { transform: translateX(0); }
+      .menu-toggle { display: flex; position: absolute; top: 18px; right: 20px; }
+      .topbar { justify-content: space-between; }
+      main { margin-left: 0; padding: 120px 20px 40px; }
+      .product-list { grid-template-columns: 1fr; }
+      .product-card img { height: 220px; }
     }
-    .left-topbar {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
-
-.logo {
-  width: 32px;
-  height: 28px;
-}
+    .left-topbar { display: flex; align-items: center; gap: 12px; }
+    .logo { width: 32px; height: 28px; }
   </style>
 </head>
 <body>
   <div class="topbar">
-  <div class="left-topbar">
-    <img src="logo.png" alt="Logo" class="logo">
-    <div class="brand">Oorja Threads</div>
-    <div class="menu-toggle" onclick="document.getElementById('sidebar').classList.toggle('active')">
-      <div></div>
-      <div></div>
-      <div></div>
+    <div class="left-topbar">
+      <img src="logo.png" alt="Logo" class="logo">
+      <div class="brand">Oorja Threads</div>
+      <div class="menu-toggle" onclick="document.getElementById('sidebar').classList.toggle('active')">
+        <div></div>
+        <div></div>
+        <div></div>
+      </div>
     </div>
+    <div class="cart-icon" onclick="openCart()">🛒 <span class="cart-count" id="cart-count">0</span></div>
   </div>
-  <div class="cart-icon" onclick="openCart()">🛒 <span class="cart-count" id="cart-count">0</span></div>
-</div>
-
 
   <nav class="sidebar" id="sidebar">
     <a href="index.html">Home</a>
@@ -321,25 +86,7 @@
       <h2>Your Cart</h2>
       <div id="cart-items"></div>
       <p id="cart-total"></p>
-      <button class="big-button" onclick="showCheckoutOptions()">Checkout</button>
-    </div>
-  </div>
-
-  <div class="cart-modal" id="copyModal">
-    <div class="cart-modal-content">
-      <button class="close-btn" onclick="closeModal('copyModal')">×</button>
-      <button class="big-button" onclick="copyCartDetails()">Copy Cart Details</button>
-      <p style="margin-top:10px; font-size:0.9rem; color:#aaa">You have to copy the cart details manually then paste and send them via email or Instagram as you prefer.</p>
-      <button id="proceedBtn" class="big-button" onclick="proceedCheckout()" disabled style="opacity:0.6">Proceed Further</button>
-    </div>
-  </div>
-
-  <div class="buy-modal" id="checkoutModal">
-    <div class="buy-modal-content">
-      <button class="close-btn" onclick="closeModal('checkoutModal')">×</button>
-      <h2>How would you like to proceed?</h2>
-      <button class="big-button" onclick="window.open('https://www.instagram.com/oorjathreads.store', '_blank')">DM on Instagram</button>
-      <button class="big-button" onclick="window.location.href='mailto:oorja.threads@gmail.com?subject=Order&body=' + encodeURIComponent(getCartText())">Email</button>
+      <button class="big-button" onclick="proceedToPay()">Checkout</button>
     </div>
   </div>
 
@@ -358,8 +105,7 @@
       { name: "Lavender Pearl Bracelet", price: 25, image: "lavender.png" }
     ];
 
-    const cart = [];
-    let cartCopied = false;
+    const cart = JSON.parse(localStorage.getItem("cart")) || [];
 
     function updateCart() {
       const cartItems = document.getElementById("cart-items");
@@ -370,16 +116,22 @@
         total += item.price * item.qty;
         cartItems.innerHTML += `
           <div class="cart-item">
-            <span>${item.name} - ₹${item.price} x ${item.qty}</span>
-            <div class="cart-controls">
-              <button onclick="changeQty(${index}, -1)">-</button>
-              <button onclick="changeQty(${index}, 1)">+</button>
+            <img src="${item.image}" alt="${item.name}">
+            <div class="cart-item-details">
+              <span class="cart-item-name">${item.name}</span>
+              <div class="cart-controls">
+                <button onclick="changeQty(${index}, -1)">-</button>
+                <span>${item.qty}</span>
+                <button onclick="changeQty(${index}, 1)">+</button>
+              </div>
+              <span class="cart-price">₹${(item.price * item.qty) / 100}</span>
             </div>
           </div>
         `;
       });
-      cartTotal.innerText = total ? `Total: ₹${total}` : '';
+      cartTotal.innerText = total ? `Total: ₹${total / 100}` : '';
       document.getElementById("cart-count").innerText = cart.reduce((a, b) => a + b.qty, 0);
+      localStorage.setItem("cart", JSON.stringify(cart)); // Save cart to localStorage
     }
 
     function addToCart(product) {
@@ -387,14 +139,14 @@
       if (index > -1) cart[index].qty++;
       else cart.push({ ...product, qty: 1 });
       updateCart();
+      showPopup(`${product.name} added to cart!`);
+    }
+
+    function showPopup(message) {
       const popup = document.getElementById("cart-popup");
-      popup.innerText = `${product.name} added to cart!`;
+      popup.innerText = message;
       popup.style.display = "block";
-      popup.style.opacity = "1";
-      setTimeout(() => {
-        popup.style.opacity = "0";
-        setTimeout(() => popup.style.display = "none", 300);
-      }, 2000);
+      setTimeout(() => popup.style.display = "none", 2000);
     }
 
     function changeQty(index, amount) {
@@ -412,34 +164,28 @@
       document.getElementById(id).style.display = "none";
     }
 
-    function showCheckoutOptions() {
-      if (cart.length === 0) {
-        alert("Your cart is empty!");
-        return;
-      }
-      closeModal('cartModal');
-      document.getElementById("copyModal").style.display = "flex";
-    }
-
-    function copyCartDetails() {
-      navigator.clipboard.writeText(getCartText());
-      cartCopied = true;
-      alert("Cart details copied to clipboard!");
-      document.getElementById("proceedBtn").disabled = false;
-      document.getElementById("proceedBtn").style.opacity = "1";
-    }
-
-    function proceedCheckout() {
-      if (!cartCopied) {
-        alert("Please copy cart details first before proceeding.");
-        return;
-      }
-      closeModal('copyModal');
-      document.getElementById("checkoutModal").style.display = "flex";
-    }
-
-    function getCartText() {
-      return cart.map(item => `${item.name} - ₹${item.price} x ${item.qty}`).join('\n');
+    function proceedToPay() {
+      const totalAmount = cart.reduce((acc, item) => acc + item.price * item.qty, 0);
+      if (!totalAmount) return alert("Cart is empty!");
+      const options = {
+        key: "RAZORPAY_API_KEY",
+        amount: totalAmount,
+        currency: "INR",
+        name: "Oorja Threads",
+        description: "Bracelet Order",
+        image: "logo.png",
+        handler: function (response) {
+          alert("Payment successful! ID: " + response.razorpay_payment_id);
+          cart.length = 0;
+          localStorage.removeItem("cart"); // Clear cart from localStorage
+          updateCart();
+          closeModal('cartModal');
+        },
+        prefill: { name: "", email: "", contact: "" },
+        theme: { color: "#ff3c38" }
+      };
+      const rzp = new Razorpay(options);
+      rzp.open();
     }
 
     const productList = document.getElementById("product-list");
@@ -450,12 +196,17 @@
         <img src="${product.image}" alt="${product.name}">
         <div class="product-details">
           <h3>${product.name}</h3>
-          <p>Price: ₹${product.price}</p>
-          <button class="buy" onclick='document.getElementById("checkoutModal").style.display = "flex"'>Buy Now</button>
+          <p>Price: ₹${product.price / 100}</p>
+          <button class="buy" onclick='proceedToPay();'>Buy Now</button>
           <button class="cart" onclick='addToCart(${JSON.stringify(product)})'>Add to Cart</button>
         </div>
       `;
       productList.appendChild(card);
+    });
+
+    // Load cart from localStorage when the page loads
+    document.addEventListener("DOMContentLoaded", () => {
+      updateCart();
     });
   </script>
 </body>
