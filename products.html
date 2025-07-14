@@ -405,51 +405,35 @@
     }
 
     async function initiatePayment() {
-      const totalAmount = cart.reduce((sum, item) => sum + (getPricePerUnit(item.qty) * item.qty), 0) * 100; // Convert to paise
-      const orderData = {
-        amount: totalAmount,
-        currency: "INR",
-        receipt: "receipt#1",
-        payment_capture: 1
-      };
-
-      // Make a request to your server to create an order
-      const response = await fetch('/create-order', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(orderData)
-      });
-
-      const order = await response.json();
-
-      const options = {
-        key: "rzp_test_y9yrNr48P4OveJ", // Enter the Key ID generated from the Dashboard
-        amount: order.amount,
-        currency: order.currency,
-        name: "Oorja Threads",
-        description: "Purchase of Bracelets",
-        order_id: order.id,
-        handler: function (response) {
-          alert(`Payment successful! Payment ID: ${response.razorpay_payment_id}`);
-          // Optionally, you can clear the cart here
-          cart.length = 0; // Clear the cart
-          updateCart();
-        },
-        prefill: {
-          name: "Customer Name",
-          email: "customer@example.com",
-          contact: "9999999999"
-        },
-        theme: {
-          color: "#ff3c38"
-        }
-      };
-
-      const razorpay = new Razorpay(options);
-      razorpay.open();
+  const totalAmount = cart.reduce((sum, item) => sum + (getPricePerUnit(item.qty) * item.qty), 0) * 100; // in paise
+  const options = {
+    key: "rzp_test_XXXXXXXXXXXXXXXX", // Replace with your Razorpay Key ID
+    amount: totalAmount,
+    currency: "INR",
+    name: "Oorja Threads",
+    description: "Bracelet Purchase",
+    image: "logo.png", // optional
+    handler: function (response) {
+      alert("Payment successful! ID: " + response.razorpay_payment_id);
+      cart.length = 0;
+      updateCart();
+    },
+    prefill: {
+      name: "",
+      email: "",
+      contact: ""
+    },
+    notes: {
+      cart: JSON.stringify(cart)
+    },
+    theme: {
+      color: "#ff3c38"
     }
+  };
+
+  const rzp = new Razorpay(options);
+  rzp.open();
+}
 
     const productList = document.getElementById("product-list");
     products.forEach(product => {
