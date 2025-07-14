@@ -16,8 +16,85 @@
     body {
       background: #0d0d0d;
       color: #fff;
-      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    .topbar {
+      width: 100%;
+      background: #111;
+      padding: 15px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid #222;
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 1100;
+    }
+
+    .left-topbar {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .logo {
+      width: 32px;
+      height: 28px;
+    }
+
+    .brand {
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: #ff3c38;
+    }
+
+    .menu-toggle {
+      display: none;
+      cursor: pointer;
+      flex-direction: column;
+      gap: 4px;
+      z-index: 1200;
+    }
+
+    .menu-toggle div {
+      width: 25px;
+      height: 3px;
+      background-color: white;
+    }
+
+    .sidebar {
+      position: fixed;
+      top: 60px;
+      left: 0;
+      height: calc(100% - 60px);
+      width: 220px;
+      background: #111;
       padding: 40px 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      border-right: 1px solid #222;
+      z-index: 1000;
+      transition: transform 0.3s;
+    }
+
+    .sidebar a {
+      color: #ddd;
+      text-decoration: none;
+      font-weight: 600;
+      transition: 0.3s;
+    }
+
+    .sidebar a:hover,
+    .sidebar a.active {
+      color: #ff3c38;
+    }
+
+    main {
+      margin-left: 240px;
+      padding: 100px 20px 40px;
     }
 
     .container {
@@ -53,9 +130,25 @@
       text-decoration: underline;
     }
 
-    @media (max-width: 600px) {
-      body {
-        padding: 20px 15px;
+    @media (max-width: 768px) {
+      .sidebar {
+        transform: translateX(-100%);
+      }
+
+      .sidebar.active {
+        transform: translateX(0);
+      }
+
+      .menu-toggle {
+        display: flex;
+        position: absolute;
+        top: 18px;
+        right: 20px;
+      }
+
+      main {
+        margin-left: 0;
+        padding: 120px 20px 40px;
       }
 
       h1 {
@@ -65,22 +158,48 @@
   </style>
 </head>
 <body>
-  <div class="container">
-    <h1>Policies</h1>
-
-    <h2>Return & Exchange Policy</h2>
-    <p>All our bracelets are handmade with care and undergo quality checks before shipping. We currently do not offer returns or refunds.</p>
-
-    <h2>Shipping Policy</h2>
-    <p>We ship across India. Standard shipping time is 3–14 business days. Shipping delays due to courier service are beyond our control, but we’ll do our best to assist you.</p>
-    <p> For tracking details you can <a href="mailto:oorja.threads@gmail.com">email us</a>.</p>
-
-    <h2>Privacy Policy</h2>
-    <p>We value your privacy. Any personal information you share with us (such as email or shipping address) is kept confidential and used only for order processing and communication.</p>
-    <p>We do not sell, trade, or share your information with any third party.</p>
-
-    <h2>Contact Us</h2>
-    <p>If you have any questions about our policies, feel free to <a href="mailto:oorja.threads@gmail.com">email us</a> or reach out via <a href="https://www.instagram.com/oorjathreads.store" target="_blank">Instagram</a>.</p>
+  <!-- Topbar -->
+  <div class="topbar">
+    <div class="left-topbar">
+      <img src="logo.png" alt="Logo" class="logo">
+      <div class="brand">Oorja Threads</div>
+      <div class="menu-toggle" onclick="document.getElementById('sidebar').classList.toggle('active')">
+        <div></div>
+        <div></div>
+        <div></div>
+      </div>
+    </div>
   </div>
+
+  <!-- Sidebar -->
+  <nav class="sidebar" id="sidebar">
+    <a href="index.html">Home</a>
+    <a href="products.html">Bracelets</a>
+    <a href="about.html">About Us</a>
+    <a href="terms.html">Terms & Conditions</a>
+    <a href="policy.html" class="active">Privacy Policy</a>
+    <a href="contact.html">Contact Us</a>
+  </nav>
+
+  <!-- Main Content -->
+  <main>
+    <div class="container">
+      <h1>Policies</h1>
+
+      <h2>Return & Exchange Policy</h2>
+      <p>All our bracelets are handmade with care and undergo quality checks before shipping. We currently do not offer returns or refunds.</p>
+
+      <h2>Shipping Policy</h2>
+      <p>We ship across India. Standard shipping time is 3–14 business days. Shipping delays due to courier service are beyond our control, but we’ll do our best to assist you.</p>
+      <p> For tracking details you can <a href="mailto:oorja.threads@gmail.com">email us</a>.</p>
+
+      <h2>Privacy Policy</h2>
+      <p>We value your privacy. Any personal information you share with us (such as email or shipping address) is kept confidential and used only for order processing and communication.</p>
+      <p>We do not sell, trade, or share your information with any third party.</p>
+
+      <h2>Contact Us</h2>
+      <p>If you have any questions about our policies, feel free to <a href="mailto:oorja.threads@gmail.com">email us</a> or reach out via <a href="https://www.instagram.com/oorjathreads.store" target="_blank">Instagram</a>.</p>
+    </div>
+  </main>
 </body>
 </html>
