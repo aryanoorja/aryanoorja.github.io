@@ -460,7 +460,7 @@
         <div class="product-details">
           <h3>${product.name}</h3>
           <p class="original-price">Original Price: ₹${product.basePrice}</p>
-          <p>Discounted Price: ₹<span id="discounted-price-${product.name.replace(/\s+/g, '')}">${getPricePerUnit(12)}</span></p>
+          <p>Discounted Price per unit:₹<span id="discounted-price-${product.name.replace(/\s+/g, '')}">${getPricePerUnit(12)}</span></p>
           <select id="quantity-${product.name.replace(/\s+/g, '')}" onchange="updateDiscountedPrice('${product.name.replace(/\s+/g, '')}')">
             <option value="12">12</option>
             <option value="50">50</option>
