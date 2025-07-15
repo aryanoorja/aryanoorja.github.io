@@ -328,7 +328,7 @@
       <h2>Your Cart</h2>
       <div id="cart-items"></div>
       <p id="cart-total"></p>
-      <button class="big-button" onclick="showCheckoutOptions()">Checkout</button>
+      <button class="big-button" onclick="checkoutCart()">Checkout</button>
     </div>
   </div>
 
@@ -503,6 +503,46 @@ function buyNow(product, qty) {
       const discountedPrice = getPricePerUnit(quantity);
       document.getElementById(`discounted-price-${productId}`).innerText = discountedPrice;
     }
+function checkoutCart() {
+  if (cart.length === 0) {
+    alert("Your cart is empty.");
+    return;
+  }
+
+  const totalAmount = cart.reduce((sum, item) => {
+    const price = getPricePerUnit(item.qty);
+    return sum + (price * item.qty);
+  }, 0) * 100; // convert to paise
+
+  const options = {
+    key: "rzp_live_8Pt6ht4xpnsY1Y", // Replace with your actual Razorpay key
+    amount: totalAmount,
+    currency: "INR",
+    name: "Oorja Threads",
+    description: "Bracelet Cart Checkout",
+    image: "logo.png",
+    handler: function (response) {
+      alert("Payment successful! ID: " + response.razorpay_payment_id);
+      cart.length = 0;
+      updateCart();
+      closeModal('cartModal');
+    },
+    notes: {
+      cart: JSON.stringify(cart)
+    },
+    theme: {
+      color: "#ff3c38"
+    },
+    prefill: {
+      name: "",
+      email: "",
+      contact: ""
+    }
+  };
+
+  const rzp = new Razorpay(options);
+  rzp.open();
+}
   </script>
 </body>
 </html>
