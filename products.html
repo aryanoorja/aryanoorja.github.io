@@ -407,7 +407,7 @@
     async function initiatePayment() {
   const totalAmount = cart.reduce((sum, item) => sum + (getPricePerUnit(item.qty) * item.qty), 0) * 100; // in paise
   const options = {
-    key: "rzp_test_XXXXXXXXXXXXXXXX", // Replace with your Razorpay Key ID
+    key: "rzp_live_8Pt6ht4xpnsY1Y", // Replace with your Razorpay Key ID
     amount: totalAmount,
     currency: "INR",
     name: "Oorja Threads",
