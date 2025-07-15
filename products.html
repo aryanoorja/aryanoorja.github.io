@@ -334,218 +334,174 @@
 
   <div id="cart-popup"></div>
 
-  <script>
-    const products = [
-      { name: "Moon Pearl Bracelet", basePrice: 39, image: "moon.png" },
-      { name: "Crimson Pearl Bracelet", basePrice: 25, image: "crimson.png" },
-      { name: "Moss Pearl Bracelet", basePrice: 25, image: "moss.png" },
-      { name: "Rose Pearl Bracelet", basePrice: 25, image: "rose.png" },
-      { name: "Blaze Pearl Bracelet", basePrice: 25, image: "blaze.png" },
-      { name: "Aqua Pearl Bracelet", basePrice: 25, image: "aqua.png" },
-      { name: "Frost Pearl Bracelet", basePrice: 25, image: "frost.png" },
-      { name: "Cotton Pearl Bracelet", basePrice: 25, image: "cotton.png" },
-      { name: "Lavender Pearl Bracelet", basePrice: 25, image: "lavender.png" }
-    ];
+<script>
+  const products = [
+    { name: "Moon Pearl Bracelet", basePrice: 39, image: "moon.png" },
+    { name: "Crimson Pearl Bracelet", basePrice: 25, image: "crimson.png" },
+    { name: "Moss Pearl Bracelet", basePrice: 25, image: "moss.png" },
+    { name: "Rose Pearl Bracelet", basePrice: 25, image: "rose.png" },
+    { name: "Blaze Pearl Bracelet", basePrice: 25, image: "blaze.png" },
+    { name: "Aqua Pearl Bracelet", basePrice: 25, image: "aqua.png" },
+    { name: "Frost Pearl Bracelet", basePrice: 25, image: "frost.png" },
+    { name: "Cotton Pearl Bracelet", basePrice: 25, image: "cotton.png" },
+    { name: "Lavender Pearl Bracelet", basePrice: 25, image: "lavender.png" }
+  ];
 
-    const cart = [];
+  let cart = JSON.parse(localStorage.getItem("oorjaCart")) || [];
 
-    function getPricePerUnit(qty) {
-      if (qty >= 12 && qty <= 49) return 19;
-      if (qty >= 50 && qty <= 199) return 18;
-      if (qty >= 200 && qty <= 499) return 17;
-      if (qty >= 500 && qty <= 799) return 16;
-      if (qty >= 800 && qty <= 1000) return 15;
-      return 0; // Default price if quantity is out of range
-    }
-
-    function updateCart() {
-      const cartItems = document.getElementById("cart-items");
-      const cartTotal = document.getElementById("cart-total");
-      cartItems.innerHTML = '';
-      let total = 0;
-      cart.forEach((item) => {
-        const pricePerUnit = getPricePerUnit(item.qty);
-        const itemTotal = pricePerUnit * item.qty;
-        total += itemTotal;
-        cartItems.innerHTML += `
-          <div class="cart-item">
-            <span>${item.name} - ₹${pricePerUnit} x ${item.qty} = ₹${itemTotal}</span>
-          </div>
-        `;
-      });
-      cartTotal.innerText = total ? `Total: ₹${total}` : '';
-      document.getElementById("cart-count").innerText = cart.reduce((a, b) => a + b.qty, 0);
-    }
-
-    function addToCart(product, qty) {
-      const index = cart.findIndex(p => p.name === product.name);
-      if (index > -1) {
-        cart[index].qty += qty;
-      } else {
-        cart.push({ ...product, qty });
-      }
-      updateCart();
-      const popup = document.getElementById("cart-popup");
-      popup.innerText = `${product.name} added to cart!`;
-      popup.style.display = "block";
-      popup.style.opacity = "1";
-      setTimeout(() => {
-        popup.style.opacity = "0";
-        setTimeout(() => popup.style.display = "none", 300);
-      }, 2000);
-    }
-
-    function openCart() {
-      updateCart();
-      document.getElementById("cartModal").style.display = "flex";
-    }
-
-    function closeModal(id) {
-      document.getElementById(id).style.display = "none";
-    }
-
-    async function initiatePayment() {
-  const totalAmount = cart.reduce((sum, item) => sum + (getPricePerUnit(item.qty) * item.qty), 0) * 100; // in paise
-  const options = {
-    key: "rzp_live_8Pt6ht4xpnsY1Y", // Replace with your Razorpay Key ID
-    amount: totalAmount,
-    currency: "INR",
-    name: "Oorja Threads",
-    description: "Bracelet Purchase",
-    image: "logo.png", // optional
-    handler: function (response) {
-      alert("Payment successful! ID: " + response.razorpay_payment_id);
-      cart.length = 0;
-      updateCart();
-    },
-    prefill: {
-      name: "",
-      email: "",
-      contact: ""
-    },
-    notes: {
-      cart: JSON.stringify(cart)
-    },
-    theme: {
-      color: "#ff3c38"
-    }
-  };
-
-  const rzp = new Razorpay(options);
-  rzp.open();
-}
-
-    const productList = document.getElementById("product-list");
-    products.forEach(product => {
-      const card = document.createElement("div");
-      card.className = "product-card";
-      card.innerHTML = `
-        <img src="${product.image}" alt="${product.name}">
-        <div class="product-details">
-          <h3>${product.name}</h3>
-          <p class="original-price">Original Price: ₹${product.basePrice}</p>
-          <p>Discounted Price per unit:₹<span id="discounted-price-${product.name.replace(/\s+/g, '')}">${getPricePerUnit(12)}</span></p>
-          <select id="quantity-${product.name.replace(/\s+/g, '')}" onchange="updateDiscountedPrice('${product.name.replace(/\s+/g, '')}')">
-            <option value="12">12</option>
-            <option value="50">50</option>
-            <option value="100">100</option>
-            <option value="200">200</option>
-            <option value="300">300</option>
-            <option value="400">400</option>
-            <option value="500">500</option>
-            <option value="600">600</option>
-            <option value="700">700</option>
-            <option value="800">800</option>
-            <option value="900">900</option>
-            <option value="1000">1000</option>
-          </select>
-          <button class="buy" onclick='buyNow(${JSON.stringify(product)}, parseInt(document.getElementById("quantity-${product.name.replace(/\s+/g, '')}").value))'>Buy Now</button>
-          <button class="cart" onclick='addToCart(${JSON.stringify(product)}, parseInt(document.getElementById("quantity-${product.name.replace(/\s+/g, '')}").value))'>Add to Cart</button>
-        </div>
-      `;
-function buyNow(product, qty) {
-  const pricePerUnit = getPricePerUnit(qty);
-  const totalAmount = pricePerUnit * qty * 100; // in paise
-
-  const options = {
-    key: "rzp_live_8Pt6ht4xpnsY1Y", // Replace with your Razorpay Key ID
-    amount: totalAmount,
-    currency: "INR",
-    name: "Oorja Threads",
-    description: product.name + " x" + qty,
-    image: "logo.png",
-    handler: function (response) {
-      alert("Payment successful! ID: " + response.razorpay_payment_id);
-    },
-    prefill: {
-      name: "",
-      email: "",
-      contact: ""
-    },
-    notes: {
-      product: product.name,
-      quantity: qty
-    },
-    theme: {
-      color: "#ff3c38"
-    }
-  };
-
-  const rzp = new Razorpay(options);
-  rzp.open();
-}
-
-      productList.appendChild(card);
-    });
-
-    function updateDiscountedPrice(productId) {
-      const quantity = parseInt(document.getElementById(`quantity-${productId}`).value);
-      const discountedPrice = getPricePerUnit(quantity);
-      document.getElementById(`discounted-price-${productId}`).innerText = discountedPrice;
-    }
-function checkoutCart() {
-  if (cart.length === 0) {
-    alert("Your cart is empty.");
-    return;
+  function getPricePerUnit(qty) {
+    if (qty >= 12 && qty <= 49) return 19;
+    if (qty >= 50 && qty <= 199) return 18;
+    if (qty >= 200 && qty <= 499) return 17;
+    if (qty >= 500 && qty <= 799) return 16;
+    if (qty >= 800 && qty <= 1000) return 15;
+    return 0;
   }
 
-  const totalAmount = cart.reduce((sum, item) => {
-    const price = getPricePerUnit(item.qty);
-    return sum + (price * item.qty);
-  }, 0) * 100; // Convert to paise
+  function updateCart() {
+    const cartItems = document.getElementById("cart-items");
+    const cartTotal = document.getElementById("cart-total");
+    cartItems.innerHTML = '';
+    let total = 0;
+    cart.forEach((item) => {
+      const pricePerUnit = getPricePerUnit(item.qty);
+      const itemTotal = pricePerUnit * item.qty;
+      total += itemTotal;
+      cartItems.innerHTML += `
+        <div class="cart-item">
+          <span>${item.name} - ₹${pricePerUnit} x ${item.qty} = ₹${itemTotal}</span>
+        </div>
+      `;
+    });
+    cartTotal.innerText = total ? `Total: ₹${total}` : '';
+    document.getElementById("cart-count").innerText = cart.reduce((a, b) => a + b.qty, 0);
+    localStorage.setItem("oorjaCart", JSON.stringify(cart));
+  }
 
-  // Create a readable summary for the description
-  const summary = cart.map(item => `${item.name} x${item.qty}`).join(", ");
-
-  const options = {
-    key: "rzp_live_8Pt6ht4xpnsY1Y", // Replace with your key
-    amount: totalAmount,
-    currency: "INR",
-    name: "Oorja Threads",
-    description: summary, // Combined summary here
-    image: cart[0]?.image || "logo.png", // Use first product image or logo
-    handler: function (response) {
-      alert("Payment successful! ID: " + response.razorpay_payment_id);
-      cart.length = 0;
-      updateCart();
-      closeModal('cartModal');
-    },
-    notes: {
-      cart: JSON.stringify(cart) // Saves full cart in notes
-    },
-    theme: {
-      color: "#ff3c38"
-    },
-    prefill: {
-      name: "",
-      email: "",
-      contact: ""
+  function addToCart(product, qty) {
+    const index = cart.findIndex(p => p.name === product.name);
+    if (index > -1) {
+      cart[index].qty += qty;
+    } else {
+      cart.push({ ...product, qty });
     }
-  };
+    updateCart();
+    const popup = document.getElementById("cart-popup");
+    popup.innerText = `${product.name} added to cart!`;
+    popup.style.display = "block";
+    popup.style.opacity = "1";
+    setTimeout(() => {
+      popup.style.opacity = "0";
+      setTimeout(() => popup.style.display = "none", 300);
+    }, 2000);
+  }
 
-  const rzp = new Razorpay(options);
-  rzp.open();
-}
-  </script>
-</body>
-</html>
+  function openCart() {
+    updateCart();
+    document.getElementById("cartModal").style.display = "flex";
+  }
+
+  function closeModal(id) {
+    document.getElementById(id).style.display = "none";
+  }
+
+  function updateDiscountedPrice(productId) {
+    const quantity = parseInt(document.getElementById(`quantity-${productId}`).value);
+    const discountedPrice = getPricePerUnit(quantity);
+    document.getElementById(`discounted-price-${productId}`).innerText = discountedPrice;
+  }
+
+  function checkoutCart() {
+    if (cart.length === 0) {
+      alert("Your cart is empty.");
+      return;
+    }
+    const totalAmount = cart.reduce((sum, item) => {
+      const price = getPricePerUnit(item.qty);
+      return sum + (price * item.qty);
+    }, 0) * 100;
+
+    const summary = cart.map(item => `${item.name} x${item.qty}`).join(", ");
+    const options = {
+      key: "rzp_live_8Pt6ht4xpnsY1Y",
+      amount: totalAmount,
+      currency: "INR",
+      name: "Oorja Threads",
+      description: summary,
+      image: "logo.png",
+      handler: function (response) {
+        alert("Payment successful! ID: " + response.razorpay_payment_id);
+        cart = [];
+        localStorage.removeItem("oorjaCart");
+        updateCart();
+        closeModal('cartModal');
+      },
+      notes: {
+        cart: JSON.stringify(cart)
+      },
+      theme: { color: "#ff3c38" },
+      prefill: { name: "", email: "", contact: "" }
+    };
+    const rzp = new Razorpay(options);
+    rzp.open();
+  }
+
+  function buyNow(product, qty) {
+    const pricePerUnit = getPricePerUnit(qty);
+    const totalAmount = pricePerUnit * qty * 100;
+    const options = {
+      key: "rzp_live_8Pt6ht4xpnsY1Y",
+      amount: totalAmount,
+      currency: "INR",
+      name: "Oorja Threads",
+      description: `${product.name} x${qty}`,
+      image: "logo.png",
+      handler: function (response) {
+        alert("Payment successful! ID: " + response.razorpay_payment_id);
+      },
+      notes: {
+        product: product.name,
+        quantity: qty
+      },
+      theme: { color: "#ff3c38" },
+      prefill: { name: "", email: "", contact: "" }
+    };
+    const rzp = new Razorpay(options);
+    rzp.open();
+  }
+
+  const productList = document.getElementById("product-list");
+  products.forEach(product => {
+    const id = product.name.replace(/\s+/g, '');
+    const card = document.createElement("div");
+    card.className = "product-card";
+    card.innerHTML = `
+      <img src="${product.image}" alt="${product.name}">
+      <div class="product-details">
+        <h3>${product.name}</h3>
+        <p class="original-price">Original Price: ₹${product.basePrice}</p>
+        <p>Discounted Price per unit: ₹<span id="discounted-price-${id}">${getPricePerUnit(12)}</span></p>
+        <select id="quantity-${id}" onchange="updateDiscountedPrice('${id}')">
+          <option value="12">12</option>
+          <option value="50">50</option>
+          <option value="100">100</option>
+          <option value="200">200</option>
+          <option value="300">300</option>
+          <option value="400">400</option>
+          <option value="500">500</option>
+          <option value="600">600</option>
+          <option value="700">700</option>
+          <option value="800">800</option>
+          <option value="900">900</option>
+          <option value="1000">1000</option>
+        </select>
+        <button class="buy" onclick='buyNow(${JSON.stringify(product)}, parseInt(document.getElementById("quantity-${id}").value))'>Buy Now</button>
+        <button class="cart" onclick='addToCart(${JSON.stringify(product)}, parseInt(document.getElementById("quantity-${id}").value))'>Add to Cart</button>
+      </div>
+    `;
+    productList.appendChild(card);
+  });
+
+  // Load cart from localStorage
+  window.addEventListener("load", updateCart);
+</script>
