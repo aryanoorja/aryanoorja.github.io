@@ -459,10 +459,42 @@
             <option value="900">900</option>
             <option value="1000">1000</option>
           </select>
-          <button class="buy" onclick='initiatePayment()'>Buy Now</button>
+          <button class="buy" onclick='buyNow(${JSON.stringify(product)}, parseInt(document.getElementById("quantity-${product.name.replace(/\s+/g, '')}").value))'>Buy Now</button>
           <button class="cart" onclick='addToCart(${JSON.stringify(product)}, parseInt(document.getElementById("quantity-${product.name.replace(/\s+/g, '')}").value))'>Add to Cart</button>
         </div>
       `;
+function buyNow(product, qty) {
+  const pricePerUnit = getPricePerUnit(qty);
+  const totalAmount = pricePerUnit * qty * 100; // in paise
+
+  const options = {
+    key: "rzp_live_8Pt6ht4xpnsY1Y", // Replace with your Razorpay Key ID
+    amount: totalAmount,
+    currency: "INR",
+    name: "Oorja Threads",
+    description: product.name + " x" + qty,
+    image: "logo.png",
+    handler: function (response) {
+      alert("Payment successful! ID: " + response.razorpay_payment_id);
+    },
+    prefill: {
+      name: "",
+      email: "",
+      contact: ""
+    },
+    notes: {
+      product: product.name,
+      quantity: qty
+    },
+    theme: {
+      color: "#ff3c38"
+    }
+  };
+
+  const rzp = new Razorpay(options);
+  rzp.open();
+}
+
       productList.appendChild(card);
     });
 
