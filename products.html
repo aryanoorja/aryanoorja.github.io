@@ -512,15 +512,18 @@ function checkoutCart() {
   const totalAmount = cart.reduce((sum, item) => {
     const price = getPricePerUnit(item.qty);
     return sum + (price * item.qty);
-  }, 0) * 100; // convert to paise
+  }, 0) * 100; // Convert to paise
+
+  // Create a readable summary for the description
+  const summary = cart.map(item => `${item.name} x${item.qty}`).join(", ");
 
   const options = {
-    key: "rzp_live_8Pt6ht4xpnsY1Y", // Replace with your actual Razorpay key
+    key: "rzp_live_8Pt6ht4xpnsY1Y", // Replace with your key
     amount: totalAmount,
     currency: "INR",
     name: "Oorja Threads",
-    description: "Bracelet Cart Checkout",
-    image: "logo.png",
+    description: summary, // Combined summary here
+    image: cart[0]?.image || "logo.png", // Use first product image or logo
     handler: function (response) {
       alert("Payment successful! ID: " + response.razorpay_payment_id);
       cart.length = 0;
@@ -528,7 +531,7 @@ function checkoutCart() {
       closeModal('cartModal');
     },
     notes: {
-      cart: JSON.stringify(cart)
+      cart: JSON.stringify(cart) // Saves full cart in notes
     },
     theme: {
       color: "#ff3c38"
