@@ -2,132 +2,112 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Contact Us - Oorja Threads</title>
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&display=swap" rel="stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Contact - Oorja Threads</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;700&display=swap" rel="stylesheet">
   <style>
     * {
       margin: 0;
       padding: 0;
-      box-sizing: border-box;
       font-family: 'Montserrat', sans-serif;
+      box-sizing: border-box;
     }
 
     body {
-      background: #0d0d0d;
+      background-color: #0e0e0e;
       color: #fff;
-      overflow-x: hidden;
     }
 
-    .topbar {
-      width: 100%;
-      background: #111;
-      padding: 15px 20px;
+    .navbar {
+      background-color: #1a1a1a;
+      padding: 1rem 1.5rem;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      border-bottom: 1px solid #222;
-      position: fixed;
+      flex-wrap: wrap;
+      position: sticky;
       top: 0;
-      left: 0;
-      z-index: 1100;
+      z-index: 999;
     }
 
-    .topbar .brand {
-      font-size: 1.4rem;
-      font-weight: 700;
-      color: #ff3c38;
-    }
-
-    .menu-toggle {
-      display: none;
-      position: fixed;
-      top: 15px;
-      right: 20px;
-      z-index: 1200;
-      cursor: pointer;
-      flex-direction: column;
-      gap: 4px;
-    }
-
-    .menu-toggle div {
-      width: 25px;
-      height: 3px;
-      background-color: white;
-    }
-
-    .sidebar {
-      position: fixed;
-      top: 60px;
-      left: 0;
-      height: calc(100% - 60px);
-      width: 220px;
-      background: #111;
-      padding: 40px 20px;
+    .navbar-left {
       display: flex;
-      flex-direction: column;
-      gap: 20px;
-      border-right: 1px solid #222;
-      z-index: 1000;
-      transition: transform 0.3s;
+      align-items: center;
+      gap: 0.75rem;
     }
 
-    .sidebar a {
+    .navbar-left img {
+      height: 32px;
+      width: 32px;
+    }
+
+    .navbar-left .brand {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: #fff;
+    }
+
+    .navbar-center {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      justify-content: center;
+      flex: 1;
+    }
+
+    .navbar-center a {
       color: #ddd;
       text-decoration: none;
-      font-weight: 600;
-      transition: 0.3s;
+      font-weight: 500;
+      position: relative;
+      padding: 0.25rem 0.5rem;
     }
 
-    .sidebar a:hover {
-      color: #ff3c38;
+    .navbar-center a:not(:last-child)::after {
+      content: "";
+      position: absolute;
+      right: -0.5rem;
+      top: 50%;
+      transform: translateY(-50%);
+      height: 1rem;
+      width: 1px;
+      background-color: #555;
     }
 
-    main {
-      margin-left: 240px;
-      padding: 100px 40px 40px;
-      max-width: 900px;
+    .navbar-right {
+      position: relative;
     }
 
-    @media (max-width: 768px) {
-      .sidebar {
-        transform: translateX(-100%);
-      }
+    .cart-icon {
+      font-size: 1.6rem;
+      cursor: pointer;
+      color: #fff;
+    }
 
-      .sidebar.active {
-        transform: translateX(0);
-      }
-
-      .menu-toggle {
-        display: flex;
-      }
-
-      main {
-        margin-left: 0;
-        padding: 120px 20px 40px;
-      }
+    .content {
+      max-width: 600px;
+      margin: 100px auto 40px;
+      padding: 0 1rem;
     }
 
     .contact-container {
-      max-width: 600px;
-      margin: 0 auto;
-      background: #181818;
-      padding: 30px;
+      background: #1f1f1f;
+      padding: 2rem;
       border-radius: 16px;
-      box-shadow: 0 0 20px rgba(0,0,0,0.4);
+      box-shadow: 0 0 15px rgba(255, 255, 255, 0.05);
     }
 
     .contact-container h1 {
       font-size: 2rem;
       margin-bottom: 20px;
-      color: #ff3c38;
+      color: #e6006c;
       text-align: center;
     }
 
     .contact-container label {
       display: block;
       margin-bottom: 8px;
-      font-weight: 600;
+      font-weight: 500;
     }
 
     .contact-container input,
@@ -138,12 +118,12 @@
       border: none;
       border-radius: 8px;
       background: #111;
-      color: #fff;
+      color: #0f0;
       font-size: 1rem;
     }
 
     .contact-container button {
-      background: #ff3c38;
+      background: #ff0077;
       color: white;
       border: none;
       padding: 12px 24px;
@@ -152,10 +132,11 @@
       cursor: pointer;
       transition: 0.3s;
       width: 100%;
+      font-weight: bold;
     }
 
     .contact-container button:hover {
-      background: #e6312f;
+      background: #e6006c;
     }
 
     footer {
@@ -163,33 +144,67 @@
       text-align: center;
       color: #777;
       font-size: 0.9rem;
-      padding: 60px 0;
+      padding: 40px 0;
+    }
+
+    @media (max-width: 768px) {
+      .navbar {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .navbar-center {
+        justify-content: center;
+        flex-wrap: wrap;
+        margin-top: 0.5rem;
+      }
+
+      .navbar-right {
+        position: absolute;
+        top: 1rem;
+        right: 1.5rem;
+      }
+
+      .navbar-left {
+        width: 100%;
+        justify-content: center;
+        margin-bottom: 0.5rem;
+      }
+
+      .navbar-left .brand {
+        font-size: 1.3rem;
+      }
+
+      .contact-container {
+        padding: 1.5rem;
+      }
     }
   </style>
-  <link rel="icon" href="/favicon.ico">
-  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
-  <link rel="manifest" href="/site.webmanifest">
 </head>
 <body>
-  <div class="topbar">
-    <div class="brand">Oorja Threads</div>
-    <div class="menu-toggle" onclick="document.getElementById('sidebar').classList.toggle('active')">
-      <div></div>
-      <div></div>
-      <div></div>
-    </div>
-  </div>
 
-  <nav class="sidebar" id="sidebar">
-    <a href="index.html">Home</a>
-    <a href="products.html">Bracelets</a>
-    <a href="about.html">About Us</a>
-    <a href="terms.html">Terms & Conditions</a>
-    <a href="policy.html">Privacy Policy</a>
-    <a class="active" href="contact.html">Contact</a>
+  <nav class="navbar">
+    <div class="navbar-left">
+      <img src="logo" alt="Logo" />
+      <span class="brand">Oorja Threads</span>
+    </div>
+
+    <div class="navbar-center">
+      <a href="index.html">Home</a>
+      <a href="products.html">Bracelets</a>
+      <a href="beads.html">Beads</a>
+      <a href="about.html">About Us</a>
+      <a href="terms.html">T&C</a>
+      <a href="policy.html">Policy</a>
+      <a href="contact.html">Contact</a>
+    </div>
+
+    <div class="navbar-right">
+      <span class="cart-icon">🛒</span>
+    </div>
   </nav>
 
-  <main>
+  <main class="content">
     <div class="contact-container">
       <h1>Contact Us</h1>
       <form action="https://formspree.io/f/mldnbrad" method="POST">
@@ -210,17 +225,5 @@
     </footer>
   </main>
 
-  <script>
-    document.querySelector(".menu-toggle").addEventListener("click", () => {
-      document.getElementById("sidebar").classList.toggle("active");
-    });
-  </script>
-  <script>
-  document.addEventListener("DOMContentLoaded", function () {
-    document.querySelector(".menu-toggle").addEventListener("click", function () {
-      document.getElementById("sidebar").classList.toggle("active");
-    });
-  });
-</script>
 </body>
 </html>
