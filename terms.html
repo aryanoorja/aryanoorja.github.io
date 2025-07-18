@@ -3,102 +3,100 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Oorja Threads - T&C</title>
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&display=swap" rel="stylesheet">
+  <title>Oorja Threads - Terms & Conditions</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;700&display=swap" rel="stylesheet">
   <style>
     * {
       margin: 0;
       padding: 0;
-      box-sizing: border-box;
       font-family: 'Montserrat', sans-serif;
+      box-sizing: border-box;
     }
 
     body {
-      background-color: #0d0d0d;
-      color: white;
-      overflow-x: hidden;
+      background-color: #0e0e0e;
+      color: #fff;
     }
 
-    .topbar {
-      width: 100%;
-      background: #111;
-      padding: 15px 20px;
+    .navbar {
+      background-color: #1a1a1a;
+      padding: 1rem 1.5rem;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      border-bottom: 1px solid #222;
-      position: fixed;
+      flex-wrap: wrap;
+      position: sticky;
       top: 0;
-      left: 0;
-      z-index: 1100;
+      z-index: 999;
     }
 
-    .topbar .brand {
-      font-size: 1.4rem;
-      font-weight: 700;
-      color: #ff3c38;
-    }
-
-    .menu-toggle {
-      display: none;
-      position: fixed;
-      top: 15px;
-      right: 20px;
-      z-index: 1200;
-      cursor: pointer;
-      flex-direction: column;
-      gap: 4px;
-    }
-
-    .menu-toggle div {
-      width: 25px;
-      height: 3px;
-      background-color: white;
-    }
-
-    .sidebar {
-      position: fixed;
-      top: 60px;
-      left: 0;
-      height: calc(100% - 60px);
-      width: 220px;
-      background: #111;
-      padding: 40px 20px;
+    .navbar-left {
       display: flex;
-      flex-direction: column;
-      gap: 20px;
-      border-right: 1px solid #222;
-      z-index: 1000;
-      transition: transform 0.3s;
+      align-items: center;
+      gap: 0.75rem;
     }
 
-    .sidebar a {
+    .navbar-left img {
+      height: 32px;
+      width: 32px;
+    }
+
+    .navbar-left .brand {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: #fff;
+    }
+
+    .navbar-center {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      justify-content: center;
+      flex: 1;
+    }
+
+    .navbar-center a {
       color: #ddd;
       text-decoration: none;
-      font-weight: 600;
-      transition: 0.3s;
+      font-weight: 500;
+      position: relative;
+      padding: 0.25rem 0.5rem;
     }
 
-    .sidebar a:hover {
-      color: #ff3c38;
+    .navbar-center a:not(:last-child)::after {
+      content: "";
+      position: absolute;
+      right: -0.5rem;
+      top: 50%;
+      transform: translateY(-50%);
+      height: 1rem;
+      width: 1px;
+      background-color: #555;
+    }
+
+    .navbar-right {
+      font-size: 1.6rem;
+      color: #fff;
+      cursor: pointer;
     }
 
     main {
-      margin-left: 240px;
-      padding: 100px 40px 40px;
       max-width: 900px;
+      margin: 60px auto;
+      padding: 2rem;
     }
 
     h1 {
-      font-size: 2.5rem;
-      font-weight: 800;
+      font-size: 2.2rem;
+      font-weight: 700;
       margin-bottom: 30px;
       text-align: center;
+      color: #e6006c;
     }
 
     h2 {
-      font-size: 1.5rem;
-      color: #ff3c38;
+      font-size: 1.4rem;
+      color: #0f0;
       margin-top: 30px;
       margin-bottom: 10px;
     }
@@ -110,79 +108,90 @@
       margin-bottom: 20px;
     }
 
+    a {
+      color: #0ff;
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
     @media (max-width: 768px) {
-      .sidebar {
-        transform: translateX(-100%);
+      .navbar {
+        flex-direction: column;
+        align-items: flex-start;
       }
 
-      .sidebar.active {
-        transform: translateX(0);
+      .navbar-center {
+        justify-content: center;
+        margin-top: 0.5rem;
       }
 
-      .menu-toggle {
-        display: flex;
+      .navbar-left {
+        width: 100%;
+        justify-content: center;
+        margin-bottom: 0.5rem;
       }
 
-      main {
-        margin-left: 0;
-        padding: 120px 20px 40px;
+      .navbar-left .brand {
+        font-size: 1.3rem;
       }
     }
   </style>
 </head>
 <body>
-  <div class="topbar">
-    <div class="brand">Oorja Threads</div>
-    <div class="menu-toggle" onclick="document.getElementById('sidebar').classList.toggle('active')">
-      <div></div>
-      <div></div>
-      <div></div>
-    </div>
-  </div>
 
-  <nav class="sidebar" id="sidebar">
-    <a href="index.html">Home</a>
-    <a href="products.html">Braceletss</a>
-    <a href="about.html">About Us</a>
-    <a class="active" href="terms.html">Terms & Conditions</a>
-    <a href="policy.html">Privacy Policy</a>
-    <a href="contact.html">Contact Us</a>
+  <!-- Navbar -->
+  <nav class="navbar">
+    <div class="navbar-left">
+      <img src="logo.png" alt="Logo" />
+      <span class="brand">Oorja Threads</span>
+    </div>
+    <div class="navbar-center">
+      <a href="index.html">Home</a>
+      <a href="products.html">Bracelets</a>
+      <a href="beads.html">Beads</a>
+      <a href="about.html">About Us</a>
+      <a href="terms.html">T&C</a>
+      <a href="contact.html">Contact</a>
+    </div>
+    <div class="navbar-right">
+      🛒
+    </div>
   </nav>
 
+  <!-- Main Terms Content -->
   <main>
     <h1>Terms & Conditions</h1>
 
     <h2>1. Handmade Nature</h2>
-    <p>All our bracelets are handmade, so slight variations in color, size, and design may occur. This uniqueness is what makes every piece special.</p>
+    <p>All products are 100% handmade. Small variations in color, size, or pattern may occur. These are natural and part of their charm.</p>
 
-    <h2>2. Orders & Shipping</h2>
-    <p>Once an order is placed, it cannot be cancelled or changed. Please double-check your order details before confirming. Orders are usually shipped within 2–14 working days.</p>
+    <h2>2. Order Processing</h2>
+    <p>Orders are processed within 2–14 business days. We don’t accept cancellations once the order is placed, as items are made-to-order.</p>
 
-    <h2>3. Payment</h2>
-    <p>We accept digital payments only through supported methods listed on our site. All payments are 100% secure and encrypted.</p>
+    <h2>3. Pricing & Offers</h2>
+    <p>All prices are in INR. Discounts, offers, or tier pricing (based on quantity) are subject to change without prior notice.</p>
 
-    <h2>4. Returns & Exchanges</h2>
-    <p>Since our items are handmade and made-to-order, we do not accept returns or exchanges unless there is a manufacturing defect or shipping damage.</p>
+    <h2>4. Payments</h2>
+    <p>All transactions are made through secure third-party payment gateways. We do not store your card or UPI data.</p>
 
-    <h2>5. Contact</h2>
-    <p>For any issues, reach out to us at <a href="mailto:oorja.threads@gmail.com">oorja.threads@gmail.com</a> or DM us on Instagram <a href="https://instagram.com/oorjathreads.store" target="_blank">@oorjathreads.store</a>.</p>
+    <h2>5. Returns & Refunds</h2>
+    <p>We do not offer returns or cancellation.</p>
 
-    <h2>6. Updates</h2>
-    <p>We reserve the right to update these terms at any time without prior notice. Please review this page regularly for any changes.</p>
+    <h2>6. Shipping Delays</h2>
+    <p>Shipping orders can take 3-30 days depending on the quantity. Shipping timelines may vary due to availability, courier delays, or festivals. We are not responsible for delays caused by third-party couriers.</p>
+
+    <h2>7. Intellectual Property</h2>
+    <p>All content, images, logos, and designs on our website belong to Oorja Threads. Reuse without permission is prohibited.</p>
+
+    <h2>8. Contact Info</h2>
+    <p>For questions, email us at <a href="mailto:oorja.threads@gmail.com">oorja.threads@gmail.com</a> or DM on Instagram <a href="https://instagram.com/oorjathreads.store" target="_blank">@oorjathreads.store</a>.</p>
+
+    <h2>9. Policy Updates</h2>
+    <p>These terms may be updated any time. Keep checking this page to stay up-to-date. Continued use of the site means you agree to the latest terms.</p>
   </main>
 
-  <script>
-    // Sidebar toggle
-    document.querySelector(".menu-toggle").addEventListener("click", () => {
-      document.getElementById("sidebar").classList.toggle("active");
-    });
-  </script>
-<script>
-  document.addEventListener("DOMContentLoaded", function () {
-    document.querySelector(".menu-toggle").addEventListener("click", function () {
-      document.getElementById("sidebar").classList.toggle("active");
-    });
-  });
-</script>
 </body>
 </html>
