@@ -4,504 +4,257 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Oorja Threads - Bracelets</title>
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;700&display=swap" rel="stylesheet">
   <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
   <style>
     * {
-      box-sizing: border-box;
       margin: 0;
       padding: 0;
       font-family: 'Montserrat', sans-serif;
+      box-sizing: border-box;
     }
 
     body {
-      background: #0d0d0d;
+      background-color: #0e0e0e;
       color: #fff;
-      overflow-x: hidden;
     }
 
-    .topbar {
-      width: 100%;
-      background: #111;
-      padding: 15px 20px;
+    .navbar {
+      background-color: #1a1a1a;
+      padding: 1rem 1.5rem;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      border-bottom: 1px solid #222;
-      position: fixed;
+      flex-wrap: wrap;
+      position: sticky;
       top: 0;
-      left: 0;
-      z-index: 1100;
+      z-index: 999;
     }
 
-    .brand {
-      font-size: 1.4rem;
+    .navbar-left {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .navbar-left img {
+      height: 32px;
+      width: 32px;
+    }
+
+    .navbar-left .brand {
+      font-size: 1.5rem;
       font-weight: 700;
-      color: #ff3c38;
+      color: #fff;
+    }
+
+    .navbar-center {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      justify-content: center;
+      flex: 1;
+    }
+
+    .navbar-center a {
+      color: #ddd;
+      text-decoration: none;
+      font-weight: 500;
+      position: relative;
+      padding: 0.25rem 0.5rem;
+    }
+
+    .navbar-center a:not(:last-child)::after {
+      content: "";
+      position: absolute;
+      right: -0.5rem;
+      top: 50%;
+      transform: translateY(-50%);
+      height: 1rem;
+      width: 1px;
+      background-color: #555;
+    }
+
+    .navbar-right {
+      position: relative;
     }
 
     .cart-icon {
+      font-size: 1.6rem;
       cursor: pointer;
-      position: relative;
-      font-size: 2.3rem;
-      margin-right: 25px;
+      color: #fff;
     }
 
-    .cart-count {
-      position: absolute;
-      top: -8px;
-      right: -10px;
-      background: red;
-      color: white;
-      font-size: 0.8rem;
-      padding: 2px 6px;
-      border-radius: 50%;
-    }
-
-    .menu-toggle {
-      display: none;
-      cursor: pointer;
-      flex-direction: column;
-      gap: 4px;
-      z-index: 1200;
-    }
-
-    .menu-toggle div {
-      width: 25px;
-      height: 3px;
-      background-color: white;
-    }
-
-    .sidebar {
-      position: fixed;
-      top: 60px;
-      left: 0;
-      height: calc(100% - 60px);
-      width: 220px;
-      background: #111;
-      padding: 40px 20px;
+    .products {
       display: flex;
-      flex-direction: column;
-      gap: 20px;
-      border-right: 1px solid #222;
-      z-index: 1000;
-      transition: transform 0.3s;
-    }
-
-    .sidebar a {
-      color: #ddd;
-      text-decoration: none;
-      font-weight: 600;
-      transition: 0.3s;
-    }
-
-    .sidebar a:hover {
-      color: #ff3c38;
-    }
-
-    main {
-      margin-left: 240px;
-      padding: 100px 20px 40px;
-    }
-
-    .product-list {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 20px;
-      max-width: 1200px;
-      margin: 0 auto;
+      flex-wrap: wrap;
+      justify-content: center;
+      padding: 2rem 1rem;
+      gap: 1.5rem;
     }
 
     .product-card {
-      background: #181818;
-      border-radius: 10px;
-      overflow: hidden;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
+      background-color: #1f1f1f;
+      border-radius: 12px;
+      width: 250px;
+      padding: 1rem;
+      box-shadow: 0 0 10px rgba(255, 255, 255, 0.05);
+      text-align: center;
     }
 
     .product-card img {
       width: 100%;
-      height: 240px;
-      object-fit: cover;
-    }
-
-    .product-details {
-      padding: 15px;
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-    }
-
-    .product-details h3 {
-      font-size: 1.4rem;
-    }
-
-    .product-details p {
-      color: #ff3c38;
-      font-weight: 600;
-    }
-
-    .product-details .original-price {
-      text-decoration: line-through;
-      color: #aaa;
-    }
-
-    .product-details button {
-      padding: 12px;
-      border: none;
-      border-radius: 8px;
-      font-weight: 600;
-      font-size: 1rem;
-      cursor: pointer;
-    }
-
-    .buy {
-      background: #ff3c38;
-      color: white;
-    }
-
-    .cart {
-      background: #fff;
-      color: #111;
-    }
-
-    .cart-modal {
-      display: none;
-      position: fixed;
-      top: 0;
-      left: 0;
-      height: 100%;
-      width: 100%;
-      background: rgba(0, 0, 0, 0.8);
-      justify-content: center;
-      align-items: center;
-      z-index: 9999;
-    }
-
-    .cart-modal-content {
-      background: #111;
-      padding: 30px;
-      border-radius: 12px;
-      width: 90%;
-      max-width: 400px;
-      position: relative;
-      text-align: center;
-    }
-
-    .close-btn {
-      position: absolute;
-      top: 10px;
-      right: 15px;
-      font-size: 1.5rem;
-      background: none;
-      color: white;
-      border: none;
-      cursor: pointer;
-    }
-
-    .cart-item {
-      display: flex;
-      justify-content: space-between;
-      margin: 10px 0;
-    }
-
-    .cart-controls button {
-      background: #333;
-      color: white;
-      border: none;
-      padding: 4px 10px;
-      border-radius: 6px;
-      cursor: pointer;
-    }
-
-    .big-button {
-      background: #ff3c38;
-      color: white;
-      padding: 14px;
-      font-size: 1.1rem;
-      border: none;
       border-radius: 10px;
-      cursor: pointer;
-      margin-top: 15px;
-      width: 100%;
+      height: 180px;
+      object-fit: cover;
+      margin-bottom: 1rem;
     }
 
-    #cart-popup {
-      display: none;
-      position: fixed;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      background: #111;
-      padding: 20px 30px;
-      border-radius: 12px;
-      color: white;
-      font-weight: 600;
-      box-shadow: 0 0 20px rgba(255,60,56,0.3);
-      z-index: 10000;
+    .product-card h3 {
+      font-size: 1.2rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .price {
+      margin: 0.5rem 0;
+    }
+
+    .price .original {
+      text-decoration: line-through;
+      color: #888;
+      margin-right: 0.5rem;
+    }
+
+    .price .discount {
+      color: #0f0;
+      font-weight: bold;
+    }
+
+    .product-card input {
+      width: 100%;
+      padding: 0.4rem;
+      margin: 0.5rem 0;
+      border: none;
+      border-radius: 6px;
+    }
+
+    .product-card button {
+      background-color: #ff0077;
+      border: none;
+      padding: 0.6rem;
+      color: #fff;
+      font-weight: bold;
+      width: 100%;
+      border-radius: 8px;
+      cursor: pointer;
+      margin-top: 0.5rem;
+      transition: background 0.3s;
+    }
+
+    .product-card button:hover {
+      background-color: #e6006c;
     }
 
     @media (max-width: 768px) {
-      .sidebar {
-        transform: translateX(-100%);
+      .navbar {
+        flex-direction: column;
+        align-items: flex-start;
       }
 
-      .sidebar.active {
-        transform: translateX(0);
+      .navbar-center {
+        justify-content: center;
+        flex-wrap: wrap;
+        margin-top: 0.5rem;
       }
 
-      .menu-toggle {
-        display: flex;
+      .navbar-right {
         position: absolute;
-        top: 18px;
-        right: 20px;
+        top: 1rem;
+        right: 1.5rem;
       }
 
-      .topbar {
-        justify-content: space-between;
+      .navbar-left {
+        width: 100%;
+        justify-content: center;
+        margin-bottom: 0.5rem;
       }
 
-      .cart-icon {
-        font-size: 2rem;
-        margin-right: 60px;
+      .navbar-left .brand {
+        font-size: 1.3rem;
       }
 
-      main {
-        margin-left: 0;
-        padding: 120px 20px 40px;
+      .product-card {
+        width: 90%;
       }
-
-      .product-list {
-        grid-template-columns: 1fr;
-      }
-
-      .product-card img {
-        height: 220px;
-      }
-    }
-
-    .left-topbar {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-
-    .logo {
-      width: 32px;
-      height: 28px;
     }
   </style>
 </head>
 <body>
-  <div class="topbar">
-    <div class="left-topbar">
-      <img src="logo.png" alt="Logo" class="logo">
-      <div class="brand">Oorja Threads</div>
-      <div class="menu-toggle" onclick="document.getElementById('sidebar').classList.toggle('active')">
-        <div></div>
-        <div></div>
-        <div></div>
-      </div>
-    </div>
-    <div class="cart-icon" onclick="openCart()">🛒 <span class="cart-count" id="cart-count">0</span></div>
-  </div>
 
-  <nav class="sidebar" id="sidebar">
-    <a href="index.html">Home</a>
-    <a href="products.html" class="active">Bracelets</a>
-    <a href="about.html">About Us</a>
-    <a href="terms.html">Terms & Conditions</a>
-    <a href="policy.html">Privacy Policy</a>
-    <a href="contact.html">Contact Us</a>
+  <nav class="navbar">
+    <div class="navbar-left">
+      <img src="logo.png" alt="Logo" />
+      <span class="brand">Oorja Threads</span>
+    </div>
+
+    <div class="navbar-center">
+      <a href="index.html">Home</a>
+      <a href="products.html">Bracelets</a>
+      <a href="beads.html">Beads</a>
+      <a href="about.html">About Us</a>
+      <a href="terms.html">T&C</a>
+      <a href="policy.html">Policy</a>
+      <a href="contact.html">Contact</a>
+    </div>
+
+    <div class="navbar-right">
+      <span class="cart-icon">🛒</span>
+    </div>
   </nav>
 
-  <main>
-    <h1 style="text-align:center; font-size:2.5rem; margin-bottom:40px;">Our Bracelets</h1>
-    <div class="product-list" id="product-list"></div>
-  </main>
-
-  <div class="cart-modal" id="cartModal">
-    <div class="cart-modal-content">
-      <button class="close-btn" onclick="closeModal('cartModal')">×</button>
-      <h2>Your Cart</h2>
-      <div id="cart-items"></div>
-      <p id="cart-total"></p>
-      <button class="big-button" onclick="checkoutCart()">Checkout</button>
+  <div class="products">
+    <!-- Example Product Card -->
+    <div class="product-card">
+      <img src="moon.png" alt="Bracelet" />
+      <h3>Moon Pearl Bracelet</h3>
+      <div class="price">
+        <span class="original">₹20</span>
+        <span class="discount">₹16</span>
+      </div>
+      <input type="number" min="12" placeholder="Quantity" oninput="updatePrice(this)">
+      <button onclick="buyNow()">Buy Now</button>
+      <button onclick="addToCart()">Add to Cart</button>
     </div>
   </div>
 
-  <div id="cart-popup"></div>
+  <script>
+    function updatePrice(input) {
+      const card = input.closest('.product-card');
+      const discountSpan = card.querySelector('.discount');
+      const quantity = parseInt(input.value);
 
-<script>
-  const products = [
-    { name: "Moon Pearl Bracelet", basePrice: 39, image: "moon.png" },
-    { name: "Crimson Pearl Bracelet", basePrice: 25, image: "crimson.png" },
-    { name: "Moss Pearl Bracelet", basePrice: 25, image: "moss.png" },
-    { name: "Rose Pearl Bracelet", basePrice: 25, image: "rose.png" },
-    { name: "Blaze Pearl Bracelet", basePrice: 25, image: "blaze.png" },
-    { name: "Aqua Pearl Bracelet", basePrice: 25, image: "aqua.png" },
-    { name: "Frost Pearl Bracelet", basePrice: 25, image: "frost.png" },
-    { name: "Cotton Pearl Bracelet", basePrice: 25, image: "cotton.png" },
-    { name: "Lavender Pearl Bracelet", basePrice: 25, image: "lavender.png" }
-  ];
+      let price = 20;
 
-  let cart = JSON.parse(localStorage.getItem("oorjaCart")) || [];
+      if (quantity >= 500) price = 13;
+      else if (quantity >= 200) price = 14;
+      else if (quantity >= 50) price = 15;
+      else if (quantity >= 12) price = 16;
 
-  function getPricePerUnit(qty) {
-    if (qty >= 12 && qty <= 49) return 19;
-    if (qty >= 50 && qty <= 199) return 18;
-    if (qty >= 200 && qty <= 499) return 17;
-    if (qty >= 500 && qty <= 799) return 16;
-    if (qty >= 800 && qty <= 1000) return 15;
-    return 0;
-  }
-
-  function updateCart() {
-    const cartItems = document.getElementById("cart-items");
-    const cartTotal = document.getElementById("cart-total");
-    cartItems.innerHTML = '';
-    let total = 0;
-    cart.forEach((item) => {
-      const pricePerUnit = getPricePerUnit(item.qty);
-      const itemTotal = pricePerUnit * item.qty;
-      total += itemTotal;
-      cartItems.innerHTML += `
-        <div class="cart-item">
-          <span>${item.name} - ₹${pricePerUnit} x ${item.qty} = ₹${itemTotal}</span>
-        </div>
-      `;
-    });
-    cartTotal.innerText = total ? `Total: ₹${total}` : '';
-    document.getElementById("cart-count").innerText = cart.reduce((a, b) => a + b.qty, 0);
-    localStorage.setItem("oorjaCart", JSON.stringify(cart));
-  }
-
-  function addToCart(product, qty) {
-    const index = cart.findIndex(p => p.name === product.name);
-    if (index > -1) {
-      cart[index].qty += qty;
-    } else {
-      cart.push({ ...product, qty });
+      if (quantity >= 12) {
+        discountSpan.textContent = `₹${price}`;
+      } else {
+        discountSpan.textContent = `₹--`;
+      }
     }
-    updateCart();
-    const popup = document.getElementById("cart-popup");
-    popup.innerText = `${product.name} added to cart!`;
-    popup.style.display = "block";
-    popup.style.opacity = "1";
-    setTimeout(() => {
-      popup.style.opacity = "0";
-      setTimeout(() => popup.style.display = "none", 300);
-    }, 2000);
-  }
 
-  function openCart() {
-    updateCart();
-    document.getElementById("cartModal").style.display = "flex";
-  }
-
-  function closeModal(id) {
-    document.getElementById(id).style.display = "none";
-  }
-
-  function updateDiscountedPrice(productId) {
-    const quantity = parseInt(document.getElementById(`quantity-${productId}`).value);
-    const discountedPrice = getPricePerUnit(quantity);
-    document.getElementById(`discounted-price-${productId}`).innerText = discountedPrice;
-  }
-
-  function checkoutCart() {
-    if (cart.length === 0) {
-      alert("Your cart is empty.");
-      return;
+    function buyNow() {
+      // Razorpay integration here
+      alert("Razorpay payment window will open (mock)");
     }
-    const totalAmount = cart.reduce((sum, item) => {
-      const price = getPricePerUnit(item.qty);
-      return sum + (price * item.qty);
-    }, 0) * 100;
 
-    const summary = cart.map(item => `${item.name} x${item.qty}`).join(", ");
-    const options = {
-      key: "rzp_live_8Pt6ht4xpnsY1Y",
-      amount: totalAmount,
-      currency: "INR",
-      name: "Oorja Threads",
-      description: summary,
-      image: "logo.png",
-      handler: function (response) {
-        alert("Payment successful! ID: " + response.razorpay_payment_id);
-        cart = [];
-        localStorage.removeItem("oorjaCart");
-        updateCart();
-        closeModal('cartModal');
-      },
-      notes: {
-        cart: JSON.stringify(cart)
-      },
-      theme: { color: "#ff3c38" },
-      prefill: { name: "", email: "", contact: "" }
-    };
-    const rzp = new Razorpay(options);
-    rzp.open();
-  }
-
-  function buyNow(product, qty) {
-    const pricePerUnit = getPricePerUnit(qty);
-    const totalAmount = pricePerUnit * qty * 100;
-    const options = {
-      key: "rzp_live_8Pt6ht4xpnsY1Y",
-      amount: totalAmount,
-      currency: "INR",
-      name: "Oorja Threads",
-      description: `${product.name} x${qty}`,
-      image: "logo.png",
-      handler: function (response) {
-        alert("Payment successful! ID: " + response.razorpay_payment_id);
-      },
-      notes: {
-        product: product.name,
-        quantity: qty
-      },
-      theme: { color: "#ff3c38" },
-      prefill: { name: "", email: "", contact: "" }
-    };
-    const rzp = new Razorpay(options);
-    rzp.open();
-  }
-
-  const productList = document.getElementById("product-list");
-  products.forEach(product => {
-    const id = product.name.replace(/\s+/g, '');
-    const card = document.createElement("div");
-    card.className = "product-card";
-    card.innerHTML = `
-      <img src="${product.image}" alt="${product.name}">
-      <div class="product-details">
-        <h3>${product.name}</h3>
-        <p class="original-price">Original Price: ₹${product.basePrice}</p>
-        <p>Discounted Price per unit: ₹<span id="discounted-price-${id}">${getPricePerUnit(12)}</span></p>
-        <select id="quantity-${id}" onchange="updateDiscountedPrice('${id}')">
-          <option value="12">12</option>
-          <option value="50">50</option>
-          <option value="100">100</option>
-          <option value="200">200</option>
-          <option value="300">300</option>
-          <option value="400">400</option>
-          <option value="500">500</option>
-          <option value="600">600</option>
-          <option value="700">700</option>
-          <option value="800">800</option>
-          <option value="900">900</option>
-          <option value="1000">1000</option>
-        </select>
-        <button class="buy" onclick='buyNow(${JSON.stringify(product)}, parseInt(document.getElementById("quantity-${id}").value))'>Buy Now</button>
-        <button class="cart" onclick='addToCart(${JSON.stringify(product)}, parseInt(document.getElementById("quantity-${id}").value))'>Add to Cart</button>
-      </div>
-    `;
-    productList.appendChild(card);
-  });
-
-  // Load cart from localStorage
-  window.addEventListener("load", updateCart);
-</script>
+    function addToCart() {
+      alert("Added to cart (mock)");
+    }
+  </script>
+</body>
+</html>
