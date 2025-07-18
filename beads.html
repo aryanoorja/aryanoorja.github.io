@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Oorja Threads - Beads</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;700&display=swap" rel="stylesheet">
+  <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      font-family: 'Montserrat', sans-serif;
+      box-sizing: border-box;
+    }
+
+    body {
+      background-color: #0e0e0e;
+      color: #fff;
+    }
+
+    .navbar {
+      background-color: #1a1a1a;
+      padding: 1rem 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      position: sticky;
+      top: 0;
+      z-index: 999;
+    }
+
+    .navbar-left {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .navbar-left img {
+      height: 32px;
+      width: 32px;
+    }
+
+    .navbar-left .brand {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: #fff;
+    }
+
+    .navbar-center {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      justify-content: center;
+      flex: 1;
+    }
+
+    .navbar-center a {
+      color: #ddd;
+      text-decoration: none;
+      font-weight: 500;
+      position: relative;
+      padding: 0.25rem 0.5rem;
+    }
+
+    .navbar-center a:not(:last-child)::after {
+      content: "";
+      position: absolute;
+      right: -0.5rem;
+      top: 50%;
+      transform: translateY(-50%);
+      height: 1rem;
+      width: 1px;
+      background-color: #555;
+    }
+
+    .navbar-right {
+      position: relative;
+    }
+
+    .cart-icon {
+      font-size: 1.6rem;
+      cursor: pointer;
+      color: #fff;
+    }
+
+    .products {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      padding: 2rem 1rem;
+      gap: 1.5rem;
+    }
+
+    .product-card {
+      background-color: #1f1f1f;
+      border-radius: 12px;
+      width: 250px;
+      padding: 1rem;
+      box-shadow: 0 0 10px rgba(255, 255, 255, 0.05);
+      text-align: center;
+    }
+
+    .product-card img {
+      width: 100%;
+      border-radius: 10px;
+      height: 180px;
+      object-fit: cover;
+      margin-bottom: 1rem;
+    }
+
+    .product-card h3 {
+      font-size: 1.2rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .price {
+      margin: 0.5rem 0;
+    }
+
+    .price .original {
+      text-decoration: line-through;
+      color: #888;
+      margin-right: 0.5rem;
+    }
+
+    .price .discount {
+      color: #0f0;
+      font-weight: bold;
+    }
+
+    .product-card select {
+      width: 100%;
+      padding: 0.4rem;
+      margin: 0.5rem 0;
+      border: none;
+      border-radius: 6px;
+      background-color: #111;
+      color: #fff;
+    }
+
+    .product-card button {
+      background-color: #ff0077;
+      border: none;
+      padding: 0.6rem;
+      color: #fff;
+      font-weight: bold;
+      width: 100%;
+      border-radius: 8px;
+      cursor: pointer;
+      margin-top: 0.5rem;
+      transition: background 0.3s;
+    }
+
+    .product-card button:hover {
+      background-color: #e6006c;
+    }
+
+    @media (max-width: 768px) {
+      .navbar {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .navbar-center {
+        justify-content: center;
+        flex-wrap: wrap;
+        margin-top: 0.5rem;
+      }
+
+      .navbar-right {
+        position: absolute;
+        top: 1rem;
+        right: 1.5rem;
+      }
+
+      .navbar-left {
+        width: 100%;
+        justify-content: center;
+        margin-bottom: 0.5rem;
+      }
+
+      .navbar-left .brand {
+        font-size: 1.3rem;
+      }
+
+      .product-card {
+        width: 90%;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="navbar">
+    <div class="navbar-left">
+      <img src="logo.png" alt="Logo" />
+      <span class="brand">Oorja Threads</span>
+    </div>
+
+    <div class="navbar-center">
+      <a href="index.html">Home</a>
+      <a href="products.html">Bracelets</a>
+      <a href="beads.html">Beads</a>
+      <a href="about.html">About Us</a>
+      <a href="terms.html">T&C</a>
+      <a href="policy.html">Policy</a>
+      <a href="contact.html">Contact</a>
+    </div>
+
+    <div class="navbar-right">
+      <span class="cart-icon">🛒</span>
+    </div>
+  </nav>
+
+  <div class="products">
+    <!-- Example Product Card -->
+    <div class="product-card">
+      <img src="bead1.jpg" alt="Bead Product" />
+      <h3>Colored Glass Beads</h3>
+      <div class="price">
+        <span class="original">₹1</span>
+        <span class="discount">₹0.</span>
+      </div>
+      <select onchange="updateBeadPrice(this)">
+  <option value="">Select Quantity</option>
+  <option value="100">100 pcs</option>
+  <option value="200">200 pcs</option>
+  <option value="300">300 pcs</option>
+  <option value="400">400 pcs</option>
+  <option value="500">500 pcs</option>
+  <option value="600">600 pcs</option>
+  <option value="700">700 pcs</option>
+  <option value="800">800 pcs</option>
+  <option value="900">900 pcs</option>
+  <option value="1000">1000 pcs</option>
+  <option value="2000">2000 pcs</option>
+  <option value="3000">3000 pcs</option>
+  <option value="4000">4000 pcs</option>
+  <option value="5000">5000 pcs</option>
+</select>
+      <button onclick="buyNow()">Buy Now</button>
+      <button onclick="addToCart()">Add to Cart</button>
+    </div>
+  </div>
+
+  <script>
+    function updateBeadPrice(select) {
+  const card = select.closest('.product-card');
+  const originalSpan = card.querySelector('.original');
+  const discountSpan = card.querySelector('.discount');
+  const quantity = parseInt(select.value);
+
+  let unitPrice = 0;
+  let originalPrice = 1.00; // Assume ₹1 as MRP for each bead
+
+  if (quantity >= 100 && quantity <= 500) {
+    unitPrice = 0.80;
+  } else if (quantity > 500 && quantity <= 2000) {
+    unitPrice = 0.60;
+  } else if (quantity > 2000 && quantity <= 5000) {
+    unitPrice = 0.40;
+  }
+
+  if (!isNaN(quantity) && unitPrice > 0) {
+    const totalOriginal = (quantity * originalPrice).toFixed(2);
+    const totalDiscount = (quantity * unitPrice).toFixed(2);
+    originalSpan.textContent = `₹${totalOriginal}`;
+    discountSpan.textContent = `₹${totalDiscount}`;
+  } else {
+    originalSpan.textContent = `₹--`;
+    discountSpan.textContent = `₹--`;
+  }
+}
+  </script>
+
+</body>
+</html>
