@@ -261,9 +261,45 @@
         width: 90%;
       }
     }
+    .address-popup {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: white;
+  padding: 30px;
+  border-radius: 8px;
+  box-shadow: 0 0 15px rgba(0,0,0,0.2);
+  z-index: 9999;
+  display: none;
+  width: 90%;
+  max-width: 400px;
+}
+.address-popup input {
+  display: block;
+  width: 100%;
+  margin: 10px 0;
+  padding: 10px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}
+
+.address-popup .close-btn {
+  position: absolute;
+  top: 8px;
+  right: 12px;
+  font-size: 24px;
+  cursor: pointer;
+  color: #555;
+}
+
   </style>
 </head>
 <body>
+  <form id="orderSubmitForm" action="https://formspree.io/f/xqaleaej" method="POST" style="display: none;">
+  <input type="hidden" name="Order Details" id="hiddenOrderDetails">
+</form>
+
   <div class="popup" id="popup">Item added to cart</div>
   <div class="cart" id="cart">
     <h4>Your Cart</h4>
@@ -272,7 +308,7 @@
   </div>
   <nav class="navbar">
     <div class="navbar-left">
-      <img src="logo.png" alt="Logo" />
+      <img src="logo" alt="Logo" />
       <span class="brand">Oorja Threads</span>
     </div>
     <div class="navbar-center">
@@ -300,98 +336,237 @@
       <button onclick="addToCart(this)">Add to Cart</button>
     </div>
   </div>
-  <script>
-    const cartItems = [];
+ <script>
+  let cartItems = JSON.parse(localStorage.getItem("oorjaCart")) || [];
 
-    function updatePrice(input) {
-      const card = input.closest('.product-card');
-      const discountSpan = card.querySelector('.discount');
-      const quantity = parseInt(input.value);
-      let price = 20;
-      if (quantity >= 500) price = 13;
-      else if (quantity >= 200) price = 14;
-      else if (quantity >= 50) price = 15;
-      else if (quantity >= 12) price = 16;
-      discountSpan.textContent = quantity >= 12 ? `₹${price} per unit` : '₹--';
+  function updatePrice(input) {
+    const card = input.closest('.product-card');
+    const discountSpan = card.querySelector('.discount');
+    const quantity = parseInt(input.value);
+    let price = 20;
+    if (quantity >= 500) price = 13;
+    else if (quantity >= 200) price = 14;
+    else if (quantity >= 50) price = 15;
+    else if (quantity >= 12) price = 16;
+    discountSpan.textContent = quantity >= 12 ? `₹${price} per unit` : '₹--';
+  }
+
+  function showPopup() {
+    const popup = document.getElementById("popup");
+    popup.style.display = "block";
+    setTimeout(() => popup.style.display = "none", 2000);
+  }
+
+  function toggleCart() {
+    const cart = document.getElementById("cart");
+    cart.style.display = cart.style.display === "none" ? "block" : "none";
+  }
+
+  function saveCart() {
+    localStorage.setItem("oorjaCart", JSON.stringify(cartItems));
+  }
+
+  function updateCartUI() {
+  const cartContainer = document.getElementById("cart-items");
+  const icon = document.getElementById("cartIcon");
+
+  cartContainer.innerHTML = "";
+
+  let totalAmount = 0;
+
+  cartItems.forEach((item, index) => {
+    const quantity = item.quantity || 0;
+    const price = item.unitPrice || 0;
+    const itemTotal = quantity * price;
+    totalAmount += itemTotal;
+
+    const itemDiv = document.createElement("div");
+    itemDiv.classList.add("cart-item");
+    itemDiv.innerHTML = `
+      ${item.name} x${quantity} = ₹${itemTotal.toFixed(2)}
+      <span class="remove" onclick="removeCartItem(${index})">&times;</span>
+    `;
+    cartContainer.appendChild(itemDiv);
+  });
+
+  if (cartItems.length > 0) {
+    const totalDiv = document.createElement("div");
+    totalDiv.style.marginTop = "1rem";
+    totalDiv.style.fontWeight = "bold";
+    totalDiv.textContent = `Total: ₹${totalAmount.toFixed(2)}`;
+    cartContainer.appendChild(totalDiv);
+  }
+
+  icon.classList.toggle("has-items", cartItems.length > 0);
+}
+
+  function addToCart(btn) {
+    const card = btn.closest(".product-card");
+    const name = card.querySelector("h3").textContent.trim();
+    const quantity = parseInt(card.querySelector("input").value);
+    const priceText = card.querySelector(".discount").textContent;
+    const unitPrice = parseFloat(priceText.match(/₹([\d.]+)/)[1]);
+
+    const existingIndex = cartItems.findIndex(item => item.name === name);
+    if (existingIndex !== -1) {
+      cartItems[existingIndex].quantity += quantity;
+    } else {
+      cartItems.push({ name, quantity, unitPrice });
     }
 
-    function showPopup() {
-      const popup = document.getElementById("popup");
-      popup.style.display = "block";
-      setTimeout(() => popup.style.display = "none", 2000);
-    }
+    saveCart();
+    updateCartUI();
+    showPopup();
+  }
 
-    function toggleCart() {
-      const cart = document.getElementById("cart");
-      cart.style.display = cart.style.display === "none" ? "block" : "none";
-    }
+  function removeCartItem(index) {
+    cartItems.splice(index, 1);
+    saveCart();
+    updateCartUI();
+  }
 
-    function addToCart(btn) {
-      const card = btn.closest(".product-card");
-      const name = card.querySelector("h3").textContent;
-      const quantity = parseInt(card.querySelector("input").value);
-      const price = parseInt(card.querySelector(".discount").textContent.replace(/[^\d]/g, ''));
-      const cartContainer = document.getElementById("cart-items");
-      const item = { name, quantity, price };
-      cartItems.push(item);
+  let buyNowData = null;
 
-      const itemDiv = document.createElement("div");
-      itemDiv.classList.add("cart-item");
-      itemDiv.innerHTML = `${name} x${quantity} = ₹${quantity * price} <span class="remove" onclick="removeCartItem(this)">&times;</span>`;
-      cartContainer.appendChild(itemDiv);
-
-      document.getElementById("cartIcon").classList.add("has-items");
-      showPopup();
-    }
-
-    function removeCartItem(span) {
-      const itemDiv = span.parentElement;
-      itemDiv.remove();
-      if (document.getElementById("cart-items").children.length === 0) {
-        document.getElementById("cartIcon").classList.remove("has-items");
-      }
-    }
-
-    function buyNow() {
+function buyNow() {
   const card = document.querySelector(".product-card");
-  const name = card.querySelector("h3").textContent;
+  const name = card.querySelector("h3").textContent.trim();
   const quantity = parseInt(card.querySelector("input").value);
-  const price = parseInt(card.querySelector(".discount").textContent.replace(/[^\d]/g, ''));
-  const total = quantity * price;
+  const priceText = card.querySelector(".discount").textContent;
+  const unitPrice = parseFloat(priceText.match(/₹([\d.]+)/)[1]);
+  const total = quantity * unitPrice;
 
-  const options = {
-    key: "rzp_live_8Pt6ht4xpnsY1Y",
-    amount: total * 100,
+  buyNowData = { name, quantity, unitPrice, total };
+  document.getElementById("address-form").style.display = "block";
+}
+let checkoutData = null;
+
+function checkout() {
+  if (cartItems.length === 0) {
+    alert("Cart is empty!");
+    return;
+  }
+
+  const totalAmount = cartItems.reduce((sum, item) => sum + item.unitPrice * item.quantity, 0);
+
+  checkoutData = {
+    items: cartItems.map(item => ({
+      name: item.name,
+      quantity: item.quantity
+    })),
+    totalAmount
+  };
+
+  document.getElementById("address-form").style.display = "block";
+}
+</script>
+<script>
+function submitAddress() {
+  const name = document.getElementById("name").value.trim();
+  const house = document.getElementById("house").value.trim();
+  const street = document.getElementById("street").value.trim();
+  const city = document.getElementById("city").value.trim();
+  const state = document.getElementById("state").value.trim();
+  const pincode = document.getElementById("pincode").value.trim();
+
+  if (!name || !house || !street || !city || !state || !pincode) {
+    alert("Please fill all the address fields.");
+    return;
+  }
+
+  // Prepare address string
+  const address = `Name: ${name}\nHouse: ${house}\nStreet: ${street}\nCity: ${city}\nState: ${state}\nPincode: ${pincode}`;
+  let orderDetails = `Address:\n${address}\n\n`;
+  let totalAmount = 0;
+
+  if (buyNowData) {
+    totalAmount = buyNowData.total;
+    orderDetails += `Order Type: Buy Now\n`;
+    orderDetails += `Item: ${buyNowData.name} x${buyNowData.quantity} = ₹${buyNowData.total}\n`;
+  } else {
+    const cartItems = JSON.parse(localStorage.getItem("oorjaCart")) || [];
+    if (cartItems.length === 0) {
+      alert("Your cart is empty.");
+      return;
+    }
+
+    orderDetails += `Order Type: Cart\nItems:\n`;
+    cartItems.forEach(item => {
+      orderDetails += `- ${item.name} x${item.quantity} = ₹${item.unitPrice * item.quantity}\n`;
+    });
+    totalAmount = cartItems.reduce((sum, item) => sum + item.unitPrice * item.quantity, 0);
+    orderDetails += `\nTotal: ₹${totalAmount}`;
+  }
+
+  // Add order details to hidden input
+  document.getElementById("hiddenOrderDetails").value = orderDetails;
+
+  // Submit to Formspree
+  const form = document.getElementById("address-form");
+  fetch("https://formspree.io/f/xqaleaej", {
+    method: "POST",
+    body: new FormData(form),
+    headers: {
+      Accept: "application/json",
+    },
+  })
+    .then((response) => {
+      if (response.ok) {
+        document.getElementById("address-form").style.display = "none";
+        openRazorpay(totalAmount); // Pass total amount to Razorpay
+      } else {
+        alert("Failed to submit address. Please try again.");
+      }
+    })
+    .catch((error) => {
+      console.error(error);
+      alert("An error occurred. Please try again.");
+    });
+}
+</script>
+
+<script>
+  function closeAddressForm() {
+    document.getElementById("address-form").style.display = "none";
+  }
+</script>
+
+<script>
+  function openRazorpay(amount, orderDetails) {
+  var options = {
+    key: "YOUR_RAZORPAY_KEY", // Replace with your key
+    amount: Math.round(amount * 100),
     currency: "INR",
     name: "Oorja Threads",
-    description: `${name} Purchase`,
-    theme: { color: "#ff0077" },
+    description: "Order Payment",
     handler: function (response) {
-      alert("Payment Successful: " + response.razorpay_payment_id);
+      alert("Payment Successful!");
+
+      // Clear cart or buyNow
+      localStorage.removeItem("oorjaCart");
+      buyNowData = null;
+    },
+    theme: {
+      color: "#ff0077"
     }
   };
+
   const rzp = new Razorpay(options);
   rzp.open();
 }
+</script>
 
-    function checkout() {
-      const total = cartItems.reduce((sum, item) => sum + item.quantity * item.price, 0);
-      if (total === 0) return alert("Cart is empty");
+<form class="address-popup" id="address-form" onsubmit="event.preventDefault(); submitAddress();" method="POST">
+  <span class="close-btn" onclick="closeAddressForm()">&times;</span>
+  <h3 style="color: black; margin-bottom: 10px;">Enter Delivery Address</h3>
+  <input type="text" name="Full Name" id="name" placeholder="Full Name" required />
+  <input type="text" name="House / Flat No." id="house" placeholder="House / Flat No." required />
+  <input type="text" name="Street Address" id="street" placeholder="Street Address" required />
+  <input type="text" name="City" id="city" placeholder="City" required />
+  <input type="text" name="State" id="state" placeholder="State" required />
+  <input type="text" name="Pincode" id="pincode" placeholder="Pincode" required />
+  <input type="hidden" name="Order Details" id="hiddenOrderDetails" />
+  <button type="submit" style="margin-top: 10px; background: #0f0; padding: 10px; width: 100%; font-weight: bold; border: none; border-radius: 6px; cursor: pointer;">Proceed to Pay</button>
+</form>
 
-      const options = {
-        key: "rzp_live_8Pt6ht4xpnsY1Y",
-        amount: total * 100,
-        currency: "INR",
-        name: "Oorja Threads",
-        description: "Bracelet Purchase",
-        theme: { color: "#ff0077" },
-        handler: function (response) {
-          alert("Payment Successful: " + response.razorpay_payment_id);
-        }
-      };
-      const rzp = new Razorpay(options);
-      rzp.open();
-    }
-  </script>
 </body>
 </html>
