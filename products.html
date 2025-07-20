@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -331,7 +332,7 @@
         <span class="original">₹20</span>
         <span class="discount">₹16 per unit</span>
       </div>
-      <input type="number" min="12" max="1000" value="12" oninput="this.value = Math.min(1000, Math.max(12, this.value)); updatePrice(this)">
+      <input type="number" min="0" max="1000" value="0" oninput="this.value = Math.min(1000, Math.max(0, this.value)); updatePrice(this)">
       <button onclick="buyNow()">Buy Now</button>
       <button onclick="addToCart(this)">Add to Cart</button>
     </div>
@@ -345,9 +346,9 @@
     const quantity = parseInt(input.value);
     let price = 20;
     if (quantity >= 500) price = 13;
-    else if (quantity >= 200) price = 14;
-    else if (quantity >= 50) price = 15;
-    else if (quantity >= 12) price = 16;
+    else if (quantity >= 200) price = 15;
+    else if (quantity >= 50) price = 16;
+    else if (quantity >= 12) price = 17;
     discountSpan.textContent = quantity >= 12 ? `₹${price} per unit` : '₹--';
   }
 
@@ -430,7 +431,15 @@
 function buyNow() {
   const card = document.querySelector(".product-card");
   const name = card.querySelector("h3").textContent.trim();
-  const quantity = parseInt(card.querySelector("input").value);
+  const quantityInput = card.querySelector("input");
+  const quantity = parseInt(quantityInput.value);
+
+  if (quantity < 12) {
+    alert("Minimum quantity is 12 units.");
+    quantityInput.focus();
+    return;
+  }
+
   const priceText = card.querySelector(".discount").textContent;
   const unitPrice = parseFloat(priceText.match(/₹([\d.]+)/)[1]);
   const total = quantity * unitPrice;
