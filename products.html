@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Oorja Threads - Bracelets</title>
+  <title>Oorja Threads - Products</title>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;700&display=swap" rel="stylesheet">
   <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
   <style>
@@ -156,6 +156,16 @@
       border-radius: 6px;
     }
 
+    
+    .product-card select {
+      width: 100%;
+      padding: 0.4rem;
+      margin: 0.5rem 0;
+      border: none;
+      border-radius: 6px;
+    }
+
+
     .product-card button {
       background-color: #ff0077;
       border: none;
@@ -297,9 +307,6 @@
   </style>
 </head>
 <body>
-  <form id="orderSubmitForm" action="https://formspree.io/f/xqaleaej" method="POST" style="display: none;">
-  <input type="hidden" name="Order Details" id="hiddenOrderDetails">
-</form>
 
   <div class="popup" id="popup">Item added to cart</div>
   <div class="cart" id="cart">
@@ -314,8 +321,7 @@
     </div>
     <div class="navbar-center">
       <a href="index.html">Home</a>
-      <a href="products.html">Bracelets</a>
-      <a href="beads.html">Beads</a>
+      <a href="products.html">Products</a>
       <a href="about.html">About Us</a>
       <a href="terms.html">T&C</a>
       <a href="contact.html">Contact</a>
@@ -326,30 +332,129 @@
   </nav>
   <div class="products">
     <div class="product-card">
-      <img src="moon.png" alt="Bracelet" />
-      <h3>Moon Pearl Bracelet</h3>
-      <div class="price">
-        <span class="original">₹20</span>
-        <span class="discount">₹16 per unit</span>
-      </div>
-      <input type="number" min="0" max="1000" value="0" oninput="this.value = Math.min(1000, Math.max(0, this.value)); updatePrice(this)">
-      <button onclick="buyNow()">Buy Now</button>
-      <button onclick="addToCart(this)">Add to Cart</button>
-    </div>
+  <img src="moon.png" alt="Bracelet" />
+  <h3>Moon Pearl Bracelet</h3>
+  <div class="price">
+    <span class="original">₹79</span>
+    <span class="discount">₹16 per unit</span>
   </div>
- <script>
-  let cartItems = JSON.parse(localStorage.getItem("oorjaCart")) || [];
+  <select class="qty"></select>
+  <button onclick="addToCart(this)">Add to Cart</button>
+<button onclick="buyNow(this)" style="background-color:#00c3ff; margin-top:8px;">Buy Now</button>
+</div>
+<div class="products">
+  <!-- Bracelet products already here -->
 
-  function updatePrice(input) {
-    const card = input.closest('.product-card');
-    const discountSpan = card.querySelector('.discount');
-    const quantity = parseInt(input.value);
-    let price = 20;
-    if (quantity >= 500) price = 13;
-    else if (quantity >= 200) price = 15;
-    else if (quantity >= 50) price = 16;
-    else if (quantity >= 12) price = 17;
-    discountSpan.textContent = quantity >= 12 ? `₹${price} per unit` : '₹--';
+  <!-- Beads products -->
+<div class="product-card">
+  <img src="matte.png" alt="Matte Black Beads" />
+  <h3>Matte Black Beads (6mm)</h3>
+  <div class="price">
+    <span class="discount">₹0.30 per bead</span>
+  </div>
+  <select class="qty" data-type="beads" data-price="0.30"></select>
+  <button onclick="addToCart(this)">Add to Cart</button>
+  <button onclick="buyNow(this)" style="background-color:#00c3ff; margin-top:8px;">Buy Now</button>
+</div>
+
+<div class="product-card">
+  <img src="acrylic.png" alt="Acrylic Black Beads" />
+  <h3>Acrylic Black Beads (4mm)</h3>
+  <div class="price">
+    <span class="discount">₹0.20 per bead</span>
+  </div>
+  <select class="qty" data-type="beads" data-price="0.20"></select>
+  <button onclick="addToCart(this)">Add to Cart</button>
+  <button onclick="buyNow(this)" style="background-color:#00c3ff; margin-top:8px;">Buy Now</button>
+</div>
+ <script>
+  // ===== Helper Functions =====
+  function getPricePerPiece(qty) {
+    if (qty >= 40 && qty <= 50) return 20;
+    if (qty >= 25 && qty <= 39) return 22;
+    if (qty >= 15 && qty <= 24) return 25;
+    if (qty >= 10 && qty <= 14) return 28;
+    if (qty >= 5 && qty <= 9) return 30;
+    return 30;
+  }
+
+  function getBraceletPrice(name, qty) {
+    if (name === "Moon Pearl Bracelet") {
+      if (qty >= 5 && qty <= 9) return 30;
+      if (qty >= 10 && qty <= 14) return 28;
+      if (qty >= 15 && qty <= 24) return 25;
+      if (qty >= 25 && qty <= 39) return 22;
+      if (qty >= 40 && qty <= 50) return 20;
+    }
+    return 0;
+  }
+
+  function getBeadPrice(name, qty) {
+    if (name.includes("Matte Black Beads")) {
+        if (qty >= 1000 && qty <= 2400) return 0.50;
+        if (qty >= 2500 && qty <= 3900) return 0.40;
+        if (qty >= 4000 && qty <= 6900) return 0.35;
+        if (qty >= 7000 && qty <= 9900) return 0.30;
+        if (qty >= 10000 && qty <= 12000) return 0.27;
+    }
+    if (name.includes("Acrylic Black Beads")) {
+        if (qty >= 1000 && qty <= 2400) return 0.65;
+        if (qty >= 2500 && qty <= 3900) return 0.50;
+        if (qty >= 4000 && qty <= 6900) return 0.45;
+        if (qty >= 7000 && qty <= 9900) return 0.40;
+        if (qty >= 10000 && qty <= 12000) return 0.37;
+    }
+    return 0;
+}
+
+  // ===== Cart System =====
+  let cartItems = JSON.parse(sessionStorage.getItem("oorjaCart")) || [];
+  let buyNowData = null;
+
+  function saveCart() {
+    sessionStorage.setItem("oorjaCart", JSON.stringify(cartItems));
+    updateCartUI();
+  }
+
+  function updateCartUI() {
+    const cartContainer = document.getElementById("cart-items");
+    const icon = document.getElementById("cartIcon");
+
+    cartContainer.innerHTML = "";
+    let totalAmount = 0;
+
+    cartItems.forEach((item, index) => {
+      const itemTotal = item.quantity * item.unitPrice;
+      totalAmount += itemTotal;
+
+      const itemDiv = document.createElement("div");
+      itemDiv.classList.add("cart-item");
+      itemDiv.innerHTML = `
+        ${item.name} x${item.quantity} = ₹${itemTotal.toFixed(2)}
+        <span class="remove" onclick="removeCartItem(${index})">&times;</span>
+      `;
+      cartContainer.appendChild(itemDiv);
+    });
+
+    if (cartItems.length > 0) {
+      const totalDiv = document.createElement("div");
+      totalDiv.style.marginTop = "1rem";
+      totalDiv.style.fontWeight = "bold";
+      totalDiv.textContent = `Total: ₹${totalAmount.toFixed(2)}`;
+      cartContainer.appendChild(totalDiv);
+    }
+
+    icon.classList.toggle("has-items", cartItems.length > 0);
+  }
+
+  function removeCartItem(index) {
+    cartItems.splice(index, 1);
+    saveCart();
+  }
+
+  function toggleCart() {
+    const cart = document.getElementById("cart");
+    cart.style.display = cart.style.display === "none" ? "block" : "none";
   }
 
   function showPopup() {
@@ -358,118 +463,122 @@
     setTimeout(() => popup.style.display = "none", 2000);
   }
 
-  function toggleCart() {
-    const cart = document.getElementById("cart");
-    cart.style.display = cart.style.display === "none" ? "block" : "none";
-  }
+  // ===== Quantity Dropdowns =====
+  document.querySelectorAll("select.qty").forEach(select => {
+    const isBeads = select.dataset.type === "beads";
+    const min = isBeads ? 1000 : 5;
+    const max = isBeads ? 12000 : 50;
+    const step = isBeads ? 100 : 1;
 
-  function saveCart() {
-    localStorage.setItem("oorjaCart", JSON.stringify(cartItems));
-  }
-
-  function updateCartUI() {
-  const cartContainer = document.getElementById("cart-items");
-  const icon = document.getElementById("cartIcon");
-
-  cartContainer.innerHTML = "";
-
-  let totalAmount = 0;
-
-  cartItems.forEach((item, index) => {
-    const quantity = item.quantity || 0;
-    const price = item.unitPrice || 0;
-    const itemTotal = quantity * price;
-    totalAmount += itemTotal;
-
-    const itemDiv = document.createElement("div");
-    itemDiv.classList.add("cart-item");
-    itemDiv.innerHTML = `
-      ${item.name} x${quantity} = ₹${itemTotal.toFixed(2)}
-      <span class="remove" onclick="removeCartItem(${index})">&times;</span>
-    `;
-    cartContainer.appendChild(itemDiv);
-  });
-
-  if (cartItems.length > 0) {
-    const totalDiv = document.createElement("div");
-    totalDiv.style.marginTop = "1rem";
-    totalDiv.style.fontWeight = "bold";
-    totalDiv.textContent = `Total: ₹${totalAmount.toFixed(2)}`;
-    cartContainer.appendChild(totalDiv);
-  }
-
-  icon.classList.toggle("has-items", cartItems.length > 0);
-}
-
-  function addToCart(btn) {
-    const card = btn.closest(".product-card");
-    const name = card.querySelector("h3").textContent.trim();
-    const quantity = parseInt(card.querySelector("input").value);
-    const priceText = card.querySelector(".discount").textContent;
-    const unitPrice = parseFloat(priceText.match(/₹([\d.]+)/)[1]);
-
-    const existingIndex = cartItems.findIndex(item => item.name === name);
-    if (existingIndex !== -1) {
-      cartItems[existingIndex].quantity += quantity;
-    } else {
-      cartItems.push({ name, quantity, unitPrice });
+    for (let i = min; i <= max; i += step) {
+      const option = document.createElement("option");
+      option.value = i;
+      option.textContent = i;
+      select.appendChild(option);
     }
 
-    saveCart();
-    updateCartUI();
-    showPopup();
-  }
+    select.value = min;
+    updatePrice(select);
 
-  function removeCartItem(index) {
-    cartItems.splice(index, 1);
-    saveCart();
-    updateCartUI();
-  }
+    select.addEventListener("change", function() {
+      updatePrice(this);
+    });
+  });
 
-  let buyNowData = null;
-
-function buyNow() {
-  const card = document.querySelector(".product-card");
+  function updatePrice(select) {
+  const card = select.closest(".product-card");
+  const discountSpan = card.querySelector(".discount");
+  const qty = parseInt(select.value, 10);
+  const isBeads = select.dataset.type === "beads";
   const name = card.querySelector("h3").textContent.trim();
-  const quantityInput = card.querySelector("input");
-  const quantity = parseInt(quantityInput.value);
 
-  if (quantity < 12) {
-    alert("Minimum quantity is 12 units.");
-    quantityInput.focus();
+  let unitPrice;
+  if (isBeads) {
+    // use the quantity-based pricing for beads
+    unitPrice = getBeadPrice(name, qty);
+  } else {
+    unitPrice = getBraceletPrice(name, qty);
+  }
+
+  discountSpan.textContent = `₹${unitPrice} per unit`;
+}
+
+  // ===== Add to Cart / Buy Now =====
+function addToCart(btn) {
+  const card = btn.closest(".product-card");
+  const name = card.querySelector("h3").textContent.trim();
+  const select = card.querySelector("select.qty");
+  const addedQty = parseInt(select.value, 10);
+  const isBeads = select.dataset.type === "beads";
+
+  if ((isBeads && addedQty < 1000) || (!isBeads && addedQty < 5)) {
+    alert(`Minimum quantity: ${isBeads ? '1000 beads' : '5 bracelets'}`);
     return;
   }
 
-  const priceText = card.querySelector(".discount").textContent;
-  const unitPrice = parseFloat(priceText.match(/₹([\d.]+)/)[1]);
-  const total = quantity * unitPrice;
+  // Find existing item in cart
+  let existingItem = cartItems.find(item => item.name === name);
+  let currentQty = existingItem ? existingItem.quantity : 0;
+  let totalQty = currentQty + addedQty;
 
-  buyNowData = { name, quantity, unitPrice, total };
+  if (totalQty > (isBeads ? 12000 : 50)) {
+    alert(`Max ${isBeads ? '12,000 beads' : '50 bracelets'} allowed in cart`);
+    return;
+  }
+
+  // Determine unit price based on total quantity
+  const unitPrice = isBeads ? getBeadPrice(name, totalQty) : getBraceletPrice(name, totalQty);
+
+  if (existingItem) {
+    existingItem.quantity = totalQty;
+    existingItem.unitPrice = unitPrice; // update price for all units
+  } else {
+    cartItems.push({ name, quantity: addedQty, type: isBeads ? "beads" : "bracelet", unitPrice });
+  }
+
+  saveCart();
+  showPopup();
+}
+
+function buyNow(btn) {
+  const card = btn.closest(".product-card");
+  const name = card.querySelector("h3").textContent.trim();
+  const select = card.querySelector("select.qty");
+  const quantity = parseInt(select.value, 10);
+  const isBeads = select.dataset.type === "beads";
+
+  if ((isBeads && quantity < 1000) || (!isBeads && quantity < 5)) {
+    alert(`Minimum quantity: ${isBeads ? '1000 beads' : '5 bracelets'}`);
+    return;
+  }
+
+  let unitPrice;
+  if (isBeads) {
+    unitPrice = getBeadPrice(name, quantity);
+  } else {
+    unitPrice = getBraceletPrice(name, quantity);
+  }
+
+  const total = unitPrice * quantity;
+
+  buyNowData = { name, quantity, unitPrice, total, type: isBeads ? "beads" : "bracelet" };
   document.getElementById("address-form").style.display = "block";
 }
-let checkoutData = null;
 
+  // ===== Address Form / Checkout =====
+  function closeAddressForm() {
+    document.getElementById("address-form").style.display = "none";
+  }
 function checkout() {
   if (cartItems.length === 0) {
-    alert("Cart is empty!");
+    alert("Cart is empty");
     return;
   }
 
-  const totalAmount = cartItems.reduce((sum, item) => sum + item.unitPrice * item.quantity, 0);
-
-  checkoutData = {
-    items: cartItems.map(item => ({
-      name: item.name,
-      quantity: item.quantity
-    })),
-    totalAmount
-  };
-
+  buyNowData = null; // indicate this is a cart order
   document.getElementById("address-form").style.display = "block";
 }
-</script>
-<script>
-function submitAddress() {
+  function submitAddress() {
   const name = document.getElementById("name").value.trim();
   const house = document.getElementById("house").value.trim();
   const street = document.getElementById("street").value.trim();
@@ -482,102 +591,74 @@ function submitAddress() {
     return;
   }
 
-  // Prepare address string
-  const address = `Name: ${name}\nHouse: ${house}\nStreet: ${street}\nCity: ${city}\nState: ${state}\nPincode: ${pincode}`;
-  let orderDetails = `Address:\n${address}\n\n`;
+  let orderDetails = `Name: ${name}\nHouse: ${house}\nStreet: ${street}\nCity: ${city}\nState: ${state}\nPincode: ${pincode}\n\n`;
   let totalAmount = 0;
 
   if (buyNowData) {
     totalAmount = buyNowData.total;
-    orderDetails += `Order Type: Buy Now\n`;
-    orderDetails += `Item: ${buyNowData.name} x${buyNowData.quantity} = ₹${buyNowData.total}\n`;
+    orderDetails += `Order Type: Buy Now\nItem: ${buyNowData.name} x${buyNowData.quantity} = ₹${buyNowData.total}\n`;
   } else {
-    const cartItems = JSON.parse(localStorage.getItem("oorjaCart")) || [];
-    if (cartItems.length === 0) {
-      alert("Your cart is empty.");
-      return;
-    }
+    const items = JSON.parse(sessionStorage.getItem("oorjaCart")) || [];
+    if (items.length === 0) { alert("Cart is empty"); return; }
 
     orderDetails += `Order Type: Cart\nItems:\n`;
-    cartItems.forEach(item => {
-      orderDetails += `- ${item.name} x${item.quantity} = ₹${item.unitPrice * item.quantity}\n`;
+    items.forEach(item => {
+      orderDetails += `- ${item.name} x${item.quantity} = ₹${(item.unitPrice * item.quantity).toFixed(2)}\n`;
+      totalAmount += item.unitPrice * item.quantity;
     });
-    totalAmount = cartItems.reduce((sum, item) => sum + item.unitPrice * item.quantity, 0);
-    orderDetails += `\nTotal: ₹${totalAmount}`;
+    orderDetails += `\nTotal: ₹${totalAmount.toFixed(2)}`;
   }
 
-  // Add order details to hidden input
   document.getElementById("hiddenOrderDetails").value = orderDetails;
 
-  // Submit to Formspree
-  const form = document.getElementById("address-form");
   fetch("https://formspree.io/f/xqaleaej", {
     method: "POST",
-    body: new FormData(form),
-    headers: {
-      Accept: "application/json",
-    },
-  })
-    .then((response) => {
-      if (response.ok) {
-        document.getElementById("address-form").style.display = "none";
-        openRazorpay(totalAmount); // Pass total amount to Razorpay
-      } else {
-        alert("Failed to submit address. Please try again.");
-      }
-    })
-    .catch((error) => {
-      console.error(error);
-      alert("An error occurred. Please try again.");
-    });
+    body: new FormData(document.getElementById("address-form-fields")),
+    headers: { Accept: "application/json" },
+  }).then(res => {
+    if (res.ok) {
+      document.getElementById("address-form").style.display = "none";
+      openRazorpay(totalAmount);
+    } else alert("Failed to submit address");
+  }).catch(() => alert("Error submitting form"));
 }
-</script>
-
-<script>
-  function closeAddressForm() {
-    document.getElementById("address-form").style.display = "none";
+  // ===== Razorpay =====
+  function openRazorpay(amount) {
+    var options = {
+      key: "rzp_live_R5wYLuyEyqVxp6",
+      amount: Math.round(amount * 100),
+      currency: "INR",
+      name: "Oorja Threads",
+      description: "Order Payment",
+      handler: function (response) {
+        alert("Payment Successful!");
+        sessionStorage.removeItem("oorjaCart");
+        cartItems = [];
+        buyNowData = null;
+        updateCartUI();
+      },
+      theme: { color: "#ff0077" }
+    };
+    new Razorpay(options).open();
   }
+
+  // Initialize cart UI on page load
+  updateCartUI();
 </script>
-
-<script>
-  function openRazorpay(amount, orderDetails) {
-  var options = {
-    key: "rzp_live_R5wYLuyEyqVxp6", // Replace with your key
-    amount: Math.round(amount * 100),
-    currency: "INR",
-    name: "Oorja Threads",
-    description: "Order Payment",
-    handler: function (response) {
-      alert("Payment Successful!");
-
-      // Clear cart or buyNow
-      localStorage.removeItem("oorjaCart");
-      buyNowData = null;
-    },
-    theme: {
-      color: "#ff0077"
-    }
-  };
-
-  const rzp = new Razorpay(options);
-  rzp.open();
-}
-</script>
-
-<form class="address-popup" id="address-form" onsubmit="event.preventDefault(); submitAddress();" method="POST">
+<div class="address-popup" id="address-form">
   <span class="close-btn" onclick="closeAddressForm()">&times;</span>
-  <h3 style="color: black; margin-bottom: 10px;">Enter Delivery Address</h3>
-  <input type="text" name="Full Name" id="name" placeholder="Full Name" required />
-  <input type="text" name="House / Flat No." id="house" placeholder="House / Flat No." required />
-  <input type="text" name="Street Address" id="street" placeholder="Street Address" required />
-  <input type="text" name="City" id="city" placeholder="City" required />
-  <input type="text" name="State" id="state" placeholder="State" required />
-  <input type="text" name="Pincode" id="pincode" placeholder="Pincode" required />
-  <input type="hidden" name="Order Details" id="hiddenOrderDetails" />
-  <button type="submit" style="margin-top: 10px; background: #0f0; padding: 10px; width: 100%; font-weight: bold; border: none; border-radius: 6px; cursor: pointer;">Proceed to Pay</button>
-</form>
+  <h3>Enter Your Address</h3>
+  <form id="address-form-fields">
+    <input type="text" id="name" placeholder="Full Name" required />
+    <input type="text" id="house" placeholder="House No./Building" required />
+    <input type="text" id="street" placeholder="Street" required />
+    <input type="text" id="city" placeholder="City" required />
+    <input type="text" id="state" placeholder="State" required />
+    <input type="text" id="pincode" placeholder="Pincode" required />
+    <input type="hidden" id="hiddenOrderDetails" name="orderDetails" />
+    <button type="button" onclick="submitAddress()" style="background:#ff0077;color:#fff;padding:10px;width:100%;border:none;border-radius:6px;margin-top:10px;">Pay Now</button>
+  </form>
+</div>
 
 </body>
 </html>
-
-
